@@ -1,7 +1,9 @@
 import { ReactNode } from "react"
-
+import { TypeAnimation } from "react-type-animation"
+import { useState } from "react"
 interface Props {
   headerText: string
+  chineseHeaderText: string
   headerColor: string
   backgroundColor: string
   content: ReactNode
@@ -28,7 +30,22 @@ export default function HeroBanner(props: Props) {
             <h1
               className={`text-3xl ${props.headerColor} font-bold tracking-tight sm:text-6xl`}
             >
-              {props.headerText}
+              <div className="relative h-[50px]">
+                <TypeAnimation
+                  sequence={[
+                    props.headerText,
+                    1000,
+                    props.chineseHeaderText,
+                    3000,
+                    props.headerText,
+                    1000,
+                  ]}
+                  speed={50}
+                  style={{ display: "inline-block" }}
+                  repeat={Infinity}
+                  cursor={false}
+                ></TypeAnimation>
+              </div>
             </h1>
           </div>
           <div className="mt-10">{props.content}</div>
