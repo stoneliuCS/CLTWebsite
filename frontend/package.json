@@ -8,13 +8,14 @@
     "start": "next start"
   },
   "dependencies": {
-    "@headlessui/react": "^2.1.2",
     "@heroicons/react": "^2.1.5",
     "@nextui-org/react": "^2.4.6",
     "framer-motion": "^11.3.19",
     "next": "14.2.5",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "react-multi-carousel": "^2.8.5",
+    "react-scroll": "^1.9.0"
   },
   "devDependencies": {
     "@types/node": "^20",
