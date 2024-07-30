@@ -1,6 +1,6 @@
 "use client"
 import HeroBanner from "@/components/layout/hero/hero"
-import HeroCard from "@/components/layout/hero/hero-card"
+import PictureCard from "@/components/layout/hero/picture-card"
 import Carousel from "react-multi-carousel"
 import { TypeAnimation } from "react-type-animation"
 import "react-multi-carousel/lib/styles.css"
@@ -15,16 +15,16 @@ const responsive = {
   tablet: {
     breakpoint: { max: 1024, min: 464 },
     items: 1,
-    slidesToSlide: 1, 
+    slidesToSlide: 1,
   },
   mobile: {
     breakpoint: { max: 464, min: 0 },
     items: 1,
-    slidesToSlide: 1, 
+    slidesToSlide: 1,
   },
 }
 const cards = [
-  <HeroCard
+  <PictureCard
     key="1"
     title="Beach Day!"
     date={new Date()}
@@ -36,14 +36,14 @@ const cards = [
           fill
           style={{ objectFit: "cover" }}
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-          priority // Add priority if this is an LCP image
+          priority
         />
       </div>
     }
     description="Test Description"
   />,
 
-  <HeroCard
+  <PictureCard
     key="2"
     title="Calligraphy Night!"
     date={new Date()}
@@ -61,7 +61,7 @@ const cards = [
     description="Test Description"
   />,
 
-  <HeroCard
+  <PictureCard
     key="3"
     title="Ice Skating Outing!"
     date={new Date()}
@@ -103,7 +103,7 @@ export default function Home() {
                 <div className="relative h-[120px]">
                   <TypeAnimation
                     sequence={[
-                      "Welcome to Chinese Language Table.",
+                      "Welcome to Chinese Language Table @NEU.",
                       1000,
                       "欢迎,来到中文表.",
                       3000,
@@ -141,7 +141,6 @@ export default function Home() {
         content={
           <Carousel
             responsive={responsive}
-            centerMode={true}
             focusOnSelect={true}
             infinite={true}
             autoPlay={true}
@@ -154,6 +153,13 @@ export default function Home() {
             ))}
           </Carousel>
         }
+      />
+      <HeroBanner
+        headerText="Connect With Our Socials!"
+        chineseHeaderText="Chinese Text here"
+        backgroundColor="bg-indigo-800"
+        headerColor="text-slate-200"
+        content={<div> Insert Socials Here. </div>}
       />
     </div>
   )

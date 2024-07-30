@@ -1,6 +1,5 @@
 import { ReactNode } from "react"
 import { TypeAnimation } from "react-type-animation"
-import { useState } from "react"
 interface Props {
   headerText: string
   chineseHeaderText: string
