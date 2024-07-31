@@ -15,10 +15,11 @@ import {
   CardBody,
   CardFooter,
   Link,
-  Slider,
 } from "@nextui-org/react"
 import { SocialIcon } from "react-social-icons"
 import Logo from "@/components/assets/logo"
+import {Slider} from "@nextui-org/slider";
+
 
 export default function Home() {
   return (
@@ -253,26 +254,6 @@ export default function Home() {
                             <h1 className="text-large font-medium mt-2">
                               Frontend Radio
                             </h1>
-                          </div>
-                        </div>
-
-                        <div className="flex flex-col mt-3 gap-1">
-                          <Slider
-                            aria-label="Music progress"
-                            classNames={{
-                              track: "bg-default-500/30",
-                              thumb:
-                                "w-2 h-2 after:w-2 after:h-2 after:bg-foreground",
-                            }}
-                            color="foreground"
-                            defaultValue={33}
-                            size="sm"
-                          />
-                          <div className="flex justify-between">
-                            <p className="text-small">1:23</p>
-                            <p className="text-small text-foreground/50">
-                              4:32
-                            </p>
                           </div>
                         </div>
                       </div>

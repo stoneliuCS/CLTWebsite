@@ -2,17 +2,14 @@ import {  ReactNode } from "react"
 interface Props {
   content?: ReactNode
   backgroundColor?: string
-  ref? : any
 }
 
 export default function HeroBanner({
   content = <></>,
   backgroundColor = "bg-white",
-  ref
 }: Props) {
   return (
     <div
-      ref={ref}
       className={`${backgroundColor} h-screen flex justify-center items-center overflow-x-hidden hero-banner`}
     >
       <div className="relative isolate px-6 lg:px-8">
