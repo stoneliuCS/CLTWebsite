@@ -25,7 +25,7 @@ export default function HeroBanner({
             className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#3b82f6] to-[#06b6d4] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
           />
         </div>
-        <div className="max-w-5xl">{content}</div>
+        <div className="w-dvw h-full">{content}</div>
       </div>
     </div>
   )
