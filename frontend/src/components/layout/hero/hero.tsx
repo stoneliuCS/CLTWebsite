@@ -1,16 +1,17 @@
 import { ReactNode } from "react"
-import { TypeAnimation } from "react-type-animation"
 interface Props {
-  headerText: string
-  chineseHeaderText: string
-  headerColor: string
-  backgroundColor: string
-  content: ReactNode
+  content?: ReactNode
+  backgroundColor?: string
 }
 
-export default function HeroBanner(props: Props) {
+export default function HeroBanner({
+  content = <></>,
+  backgroundColor = "bg-white",
+}: Props) {
   return (
-    <div className={props.backgroundColor}>
+    <div
+      className={`${backgroundColor} h-screen flex justify-center items-center overflow-x-hidden hero-banner`}
+    >
       <div className="relative isolate px-6 lg:px-8">
         <div
           aria-hidden="true"
@@ -24,31 +25,7 @@ export default function HeroBanner(props: Props) {
             className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#3b82f6] to-[#06b6d4] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
           />
         </div>
-        <div className="mx-auto max-w-5xl h-lvh">
-          <div className="text-center pt-20">
-            <h1
-              className={`text-3xl ${props.headerColor} font-bold tracking-tight sm:text-6xl`}
-            >
-              <div className="relative h-[50px]">
-                <TypeAnimation
-                  sequence={[
-                    props.headerText,
-                    1000,
-                    props.chineseHeaderText,
-                    3000,
-                    props.headerText,
-                    1000,
-                  ]}
-                  speed={50}
-                  style={{ display: "inline-block" }}
-                  repeat={Infinity}
-                  cursor={false}
-                ></TypeAnimation>
-              </div>
-            </h1>
-          </div>
-          <div className="mt-10">{props.content}</div>
-        </div>
+        <div className="max-w-5xl">{content}</div>
       </div>
     </div>
   )

@@ -2,9 +2,7 @@ import {
   Navbar,
   NavbarBrand,
   NavbarContent,
-  NavbarItem,
 } from "@nextui-org/react"
-import Link from "next/link"
 import Logo from "../assets/logo"
 
 export default function NavBar() {

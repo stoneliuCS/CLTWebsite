@@ -1,165 +1,293 @@
 "use client"
 import HeroBanner from "@/components/layout/hero/hero"
-import PictureCard from "@/components/layout/hero/picture-card"
 import Carousel from "react-multi-carousel"
-import { TypeAnimation } from "react-type-animation"
 import "react-multi-carousel/lib/styles.css"
+import { Image } from "@nextui-org/image"
+import { TypeAnimation } from "react-type-animation"
+import { motion } from "framer-motion"
+import responsive from "@/constant/carousel"
+import cards from "@/constant/testing/cards"
 import NextImage from "next/image"
-
-const responsive = {
-  desktop: {
-    breakpoint: { max: 3000, min: 1024 },
-    items: 1,
-    slidesToSlide: 1,
-  },
-  tablet: {
-    breakpoint: { max: 1024, min: 464 },
-    items: 1,
-    slidesToSlide: 1,
-  },
-  mobile: {
-    breakpoint: { max: 464, min: 0 },
-    items: 1,
-    slidesToSlide: 1,
-  },
-}
-const cards = [
-  <PictureCard
-    key="1"
-    title="Beach Day!"
-    date={new Date()}
-    image={
-      <div className="relative w-full h-full">
-        <NextImage
-          src="/beach_day.jpg"
-          alt="Beach Day"
-          fill
-          style={{ objectFit: "cover" }}
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-          priority
-        />
-      </div>
-    }
-    description="Test Description"
-  />,
-
-  <PictureCard
-    key="2"
-    title="Calligraphy Night!"
-    date={new Date()}
-    image={
-      <div className="relative w-full h-full">
-        <NextImage
-          src={"/calligraphy_night.jpg"}
-          alt="Chinese Language Table Logo"
-          fill
-          style={{ objectFit: "cover" }}
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-        />
-      </div>
-    }
-    description="Test Description"
-  />,
-
-  <PictureCard
-    key="3"
-    title="Ice Skating Outing!"
-    date={new Date()}
-    image={
-      <div className="relative w-full h-full">
-        <NextImage
-          src={"/ice_skating.jpg"}
-          alt="Chinese Language Table Logo"
-          fill
-          style={{ objectFit: "cover" }}
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-        />
-      </div>
-    }
-    description="Test Description"
-  />,
-]
+import {
+  Card,
+  CardHeader,
+  Divider,
+  CardBody,
+  CardFooter,
+  Link,
+  Button,
+  Slider,
+} from "@nextui-org/react"
+import { SocialIcon } from "react-social-icons"
+import Logo from "@/components/assets/logo"
 
 export default function Home() {
   return (
     <div className="flex flex-col">
-      <div className="bg-white">
-        <div className="relative isolate px-6 lg:px-8">
-          <div
-            aria-hidden="true"
-            className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
-          >
-            <div
-              style={{
-                clipPath:
-                  "polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)",
-              }}
-              className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#3b82f6] to-[#06b6d4] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
-            />
-          </div>
-          <div className="mx-auto max-w-5xl h-screen flex items-center justify-center">
+      <HeroBanner
+        backgroundColor="bg-sky-100"
+        content={
+          <div className="flex flex-col items-center justify-center -translate-y-10">
+            <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+              <Image
+                src={"/cltpic.svg"}
+                height={400}
+                width={500}
+                alt="clt background"
+              />
+            </motion.div>
             <div className="text-center">
-              <h1 className="text-9xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-                <div className="relative h-[120px]">
-                  <TypeAnimation
-                    sequence={[
-                      "Welcome to Chinese Language Table @NEU.",
-                      1000,
-                      "欢迎,来到中文表.",
-                      3000,
-                    ]}
-                    speed={50}
-                    style={{ display: "inline-block" }}
-                    cursor={false}
-                    repeat={Infinity}
-                  />
-                </div>
+              <h1 className="sm:text-xl md:text-3xl lg:text-4xl h-[50px] font-bold text-gray-900">
+                <TypeAnimation
+                  sequence={[
+                    "Welcome to Chinese Language Table @NEU",
+                    5000,
+                    "欢迎,来到中文表.",
+                    5000,
+                  ]}
+                  speed={50}
+                  style={{ display: "inline-block" }}
+                  cursor={false}
+                  repeat={Infinity}
+                />
               </h1>
-              <div className="mt-10 flex items-center justify-center gap-x-6">
+
+              <div className="flex items-center justify-center gap-x-6 pt-10">
                 <a
                   href="#"
                   className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 >
                   View Upcoming Events
                 </a>
-                <a
-                  href="#"
-                  className="text-sm font-semibold leading-6 text-gray-900"
+                <motion.div
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
                 >
-                  Learn About What We Do <span aria-hidden="true">→</span>
-                </a>
+                  <a
+                    href="#"
+                    className="text-sm font-semibold leading-6 text-gray-900"
+                  >
+                    Learn About What We Do <span aria-hidden="true">→</span>
+                  </a>
+                </motion.div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-      <HeroBanner
-        headerText="See What We Have Been Up To!"
-        chineseHeaderText="看看我们上个学期都做了什么！"
-        backgroundColor="bg-blue-800"
-        headerColor="text-slate-200"
-        content={
-          <Carousel
-            responsive={responsive}
-            focusOnSelect={true}
-            infinite={true}
-            autoPlay={true}
-            autoPlaySpeed={2500}
-            keyBoardControl={true}
-            ssr={true}
-          >
-            {cards.map((card, index) => (
-              <div key={index}>{card}</div>
-            ))}
-          </Carousel>
         }
       />
       <HeroBanner
-        headerText="Connect With Our Socials!"
-        chineseHeaderText="Chinese Text here"
-        backgroundColor="bg-indigo-800"
-        headerColor="text-slate-200"
-        content={<div> Insert Socials Here. </div>}
+        backgroundColor="bg-indigo-200"
+        content={
+          <div className=" relative flex flex-col justify-center">
+            <h1
+              className={`sm:text-xl md:text-3xl lg:text-4xl text-center text-slate-200 font-bold pb-4 text-slate-800	`}
+            >
+              See What We Have Been Up To!
+            </h1>
+            <NextImage
+              className="absolute top-0 left-0 z-10 hidden lg:block"
+              src={"/scribble-svgrepo-com.svg"}
+              alt=""
+              width={200}
+              height={200}
+              style={{
+                transform: "translateX(20px) translateY(-25px)",
+              }}
+            />
+            <NextImage
+              className="absolute top-0 right-0 z-10 hidden lg:block"
+              src={"/scribble-svgrepo-com.svg"}
+              alt=""
+              width={200}
+              height={200}
+              style={{
+                transform:
+                  "scaleX(-1) rotate(0deg) translateX(20px) translateY(-25px)",
+              }}
+            />
+            <Carousel
+              responsive={responsive}
+              focusOnSelect={true}
+              infinite={true}
+              autoPlay={true}
+              autoPlaySpeed={2500}
+              keyBoardControl={true}
+              arrows={false}
+            >
+              {cards.map((card, index) => (
+                <div key={index}>{card}</div>
+              ))}
+            </Carousel>
+          </div>
+        }
+      />
+
+      <HeroBanner
+        backgroundColor="bg-pink-200"
+        content={
+          <div className="flex justify-center items-center flex-col">
+            <div className="flex flex-col relative gap-4 items-center">
+              <Card className="w-[450px]">
+                <CardHeader className="flex gap-3">
+                  <Logo />
+                  <div className="flex flex-col">
+                    <p className="text-md">CLT</p>
+                    <p className="text-small text-default-500">
+                      We invite you to come join us!
+                    </p>
+                  </div>
+                </CardHeader>
+                <Divider />
+                <CardBody className="flex items-center">
+                  <div className="grid grid-cols-3 gap-4">
+                    <div className="flex flex-col justify-center items-center">
+                      {<SocialIcon url="https://instagram.com" />}
+                      {
+                        <Link href="https://www.instagram.com/neu_clt/">
+                          <strong> Our Instagram! </strong>
+                        </Link>
+                      }
+                    </div>
+                    <div className="flex flex-col justify-center items-center">
+                      {<SocialIcon url="https://web.groupme.com/" />}
+                      {
+                        <Link href="https://web.groupme.com/join_group/66713728/cSnDD7zH">
+                          <strong> Our GroupMe! </strong>
+                        </Link>
+                      }
+                    </div>
+                    <div className="flex flex-col justify-center items-center">
+                      {<SocialIcon url="https://linktr.ee/" />}
+                      {
+                        <Link href="https://linktr.ee/neuclt">
+                          <strong> Our LinkTree! </strong>
+                        </Link>
+                      }
+                    </div>
+                  </div>
+                </CardBody>
+                <Divider />
+                <CardFooter>
+                  <Link
+                    isExternal
+                    showAnchorIcon
+                    href="https://github.com/nextui-org/nextui"
+                  >
+                    Visit source code on GitHub.
+                  </Link>
+                </CardFooter>
+              </Card>
+              <Card
+                isBlurred
+                className="border-none bg-background/60 dark:bg-default-100/50 max-w-[610px]"
+                shadow="sm"
+              >
+                <CardBody>
+                  <div className="grid grid-cols-6 md:grid-cols-12 gap-6 md:gap-4 items-center justify-center">
+                    <div className="relative col-span-6 md:col-span-4">
+                      <Image
+                        alt="Album cover"
+                        className="object-cover"
+                        height={200}
+                        shadow="md"
+                        src="https://nextui.org/images/album-cover.png"
+                        width="100%"
+                      />
+                    </div>
+
+                    <div className="flex flex-col col-span-6 md:col-span-8">
+                      <div className="flex justify-between items-start">
+                        <div className="flex flex-col gap-0">
+                          <h3 className="font-semibold text-foreground/90">
+                            Daily Mix
+                          </h3>
+                          <p className="text-small text-foreground/80">
+                            12 Tracks
+                          </p>
+                          <h1 className="text-large font-medium mt-2">
+                            Frontend Radio
+                          </h1>
+                        </div>
+                      </div>
+
+                      <div className="flex flex-col mt-3 gap-1">
+                        <Slider
+                          aria-label="Music progress"
+                          classNames={{
+                            track: "bg-default-500/30",
+                            thumb:
+                              "w-2 h-2 after:w-2 after:h-2 after:bg-foreground",
+                          }}
+                          color="foreground"
+                          defaultValue={33}
+                          size="sm"
+                        />
+                        <div className="flex justify-between">
+                          <p className="text-small">1:23</p>
+                          <p className="text-small text-foreground/50">4:32</p>
+                        </div>
+                      </div>
+
+                      <div className="flex w-full items-center justify-center">
+                        <Button
+                          isIconOnly
+                          className="data-[hover]:bg-foreground/10"
+                          radius="full"
+                          variant="light"
+                        ></Button>
+                        <Button
+                          isIconOnly
+                          className="data-[hover]:bg-foreground/10"
+                          radius="full"
+                          variant="light"
+                        ></Button>
+                        <Button
+                          isIconOnly
+                          className="w-auto h-auto data-[hover]:bg-foreground/10"
+                          radius="full"
+                          variant="light"
+                        ></Button>
+                        <Button
+                          isIconOnly
+                          className="data-[hover]:bg-foreground/10"
+                          radius="full"
+                          variant="light"
+                        ></Button>
+                        <Button
+                          isIconOnly
+                          className="data-[hover]:bg-foreground/10"
+                          radius="full"
+                          variant="light"
+                        ></Button>
+                      </div>
+                    </div>
+                  </div>
+                </CardBody>
+              </Card>
+            </div>
+            <NextImage
+              className="absolute top-0 left-0 -z-10"
+              src={"/phone.svg"}
+              alt="phone"
+              width={500}
+              height={500}
+              style={{
+                transform: "translateX(-400px) rotate(45deg) translateY(-50px)",
+              }}
+            />
+            <NextImage
+              className="absolute top-0 right-0 -z-10"
+              src={"/phone.svg"}
+              alt="phone"
+              width={500}
+              height={500}
+              style={{
+                transform:
+                  "scaleX(-1) translateX(-400px) rotate(45deg) translateY(-50px)",
+              }}
+            />
+          </div>
+        }
       />
     </div>
   )
