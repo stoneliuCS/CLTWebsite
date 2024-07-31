@@ -52,13 +52,18 @@ export default function Home() {
                 />
               </h1>
 
-              <div className="flex items-center justify-center gap-x-6 pt-10">
-                <a
-                  href="#"
-                  className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              <div className="flex flex-col lg:flex-row items-center justify-center gap-x-6 pt-10 gap-y-5">
+                <motion.div
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
                 >
-                  View Upcoming Events
-                </a>
+                  <a
+                    href="#"
+                    className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                  >
+                    View Upcoming Events
+                  </a>
+                </motion.div>
                 <motion.div
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
@@ -80,7 +85,7 @@ export default function Home() {
         content={
           <div className=" relative flex flex-col justify-center">
             <h1
-              className={`sm:text-xl md:text-3xl lg:text-4xl text-center text-slate-200 font-bold pb-4 text-slate-800	`}
+              className={`sm:text-xl md:text-3xl lg:text-4xl text-center text-slate-200 font-bold pb-4 text-slate-800	drop-shadow-lg`}
             >
               See What We Have Been Up To!
             </h1>
@@ -91,18 +96,18 @@ export default function Home() {
               width={200}
               height={200}
               style={{
-                transform: "translateX(20px) translateY(-25px)",
+                transform: " rotate(0deg) translateX(-60px) translateY(-10px)",
               }}
             />
             <NextImage
-              className="absolute top-0 right-0 z-10 hidden lg:block"
+              className="absolute bottom-0 right-0 z-10 hidden lg:block"
               src={"/scribble-svgrepo-com.svg"}
               alt=""
               width={200}
               height={200}
               style={{
                 transform:
-                  "scaleX(-1) rotate(0deg) translateX(20px) translateY(-25px)",
+                  "scaleX(-1) rotate(270deg) translateX(-60px) translateY(-70px)",
               }}
             />
             <Carousel
@@ -125,7 +130,7 @@ export default function Home() {
       <HeroBanner
         backgroundColor="bg-pink-200"
         content={
-          <div className="flex justify-center items-center flex-col">
+          <div className="flex justify-center items-center flex-col overflow-hidden	">
             <div className="flex flex-col relative gap-4 items-center">
               <Card className="w-[450px]">
                 <CardHeader className="flex gap-3">
@@ -266,7 +271,7 @@ export default function Home() {
               </Card>
             </div>
             <NextImage
-              className="absolute top-0 left-0 -z-10"
+              className="absolute top-0 left-0 -z-10 hidden lg:block"
               src={"/phone.svg"}
               alt="phone"
               width={500}
@@ -276,7 +281,7 @@ export default function Home() {
               }}
             />
             <NextImage
-              className="absolute top-0 right-0 -z-10"
+              className="absolute top-0 right-0 -z-10 hidden lg:block"
               src={"/phone.svg"}
               alt="phone"
               width={500}

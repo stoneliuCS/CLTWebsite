@@ -27,7 +27,6 @@ export default function PictureCard(props: Props) {
         <Card
           className="bg-gradient-to-r from-cyan-300 to-blue-200 h-[70vh]"
           shadow="lg"
-          isHoverable={true}
         >
           <div className="relative h-full w-full">{props.image}</div>
         </Card>
