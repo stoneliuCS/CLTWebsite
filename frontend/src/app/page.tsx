@@ -149,8 +149,8 @@ export default function Home() {
               <Divider />
               <CardBody className="flex flex-col items-center gap-5">
                 <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
-                  {socials.map((social) => (
-                    <div className="flex flex-col justify-center items-center">
+                  {socials.map((social, key) => (
+                    <div key={key} className="flex flex-col justify-center items-center">
                       <motion.div
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.9 }}
