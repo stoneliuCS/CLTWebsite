@@ -1,6 +1,7 @@
 import {
   Card,
   CardBody,
+  Divider,
   Modal,
   ModalBody,
   ModalContent,
@@ -22,7 +23,11 @@ export default function PictureCard(props: Props) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
   return (
     <div>
-      <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} onClick={onOpen}>
+      <motion.div
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
+        onClick={onOpen}
+      >
         <Card className="h-[70vh] w-full" isBlurred shadow="lg">
           <div className="relative h-full w-full">{props.image}</div>
         </Card>
@@ -31,7 +36,7 @@ export default function PictureCard(props: Props) {
         <Card className="w-6/12	" shadow="lg">
           <CardBody>
             <p className="text-center truncate">
-              <strong>{props.title}</strong> {props.date.toDateString()}
+              <strong>{props.title}</strong>
             </p>
           </CardBody>
         </Card>
@@ -66,10 +71,14 @@ export default function PictureCard(props: Props) {
             <ModalHeader className="flex flex-col gap-1">
               {props.title}
             </ModalHeader>
-            <ModalBody>
+            <Divider/>
+            <ModalBody className="flex flex-col">
               <p>{props.description}</p>
             </ModalBody>
-            <ModalFooter></ModalFooter>
+            <Divider/>
+            <ModalFooter className="flex justify-start">
+              <p> {props.date.toDateString()} </p>
+            </ModalFooter>
           </>
         </ModalContent>
       </Modal>

@@ -1,15 +1,44 @@
+"use client"
 import {
+  Link,
   Navbar,
   NavbarBrand,
   NavbarContent,
   NavbarItem,
+  NavbarMenu,
+  NavbarMenuItem,
+  NavbarMenuToggle,
 } from "@nextui-org/react"
 import Logo from "../assets/logo"
+import { ReactNode, useState } from "react"
+import { MdEvent } from "react-icons/md"
+import { FaPeopleLine } from "react-icons/fa6"
+import { FaInfoCircle } from "react-icons/fa"
+import { motion } from "framer-motion"
+
+interface ITabItem {
+  tabName: string
+  tabIcon?: ReactNode
+}
+
+const eventTab: ITabItem = { tabName: "Events", tabIcon: <MdEvent /> }
+
+const eboardTab: ITabItem = {
+  tabName: "Meet the Eboard",
+  tabIcon: <FaPeopleLine />,
+}
+const aboutTab: ITabItem = {
+  tabName: "About Chinese Language Table",
+  tabIcon: <FaInfoCircle />,
+}
+
+const menuItems: ITabItem[] = [eventTab, eboardTab, aboutTab]
 
 export default function NavBar() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
   return (
     <Navbar
-      className="bg-gradient-to-r from-cyan-300 to-blue-200 shadow-md overflow-x-scroll"
+      className="bg-gradient-to-r from-cyan-300 to-blue-200 shadow-md"
       shouldHideOnScroll={true}
       maxWidth="full"
     >
@@ -17,11 +46,39 @@ export default function NavBar() {
         <Logo />
         <p className="font-bold text-black truncate">Chinese Language Table</p>
       </NavbarBrand>
-      <NavbarContent className="font-semibold text-slate-800 gap-x-10" justify="end">
-        <NavbarItem> Events </NavbarItem>
-        <NavbarItem> Meet the Eboard </NavbarItem>
-        <NavbarItem> About Chinese Language Table </NavbarItem>
+      <NavbarContent
+        className="font-semibold text-slate-800 gap-x-10 hidden lg:flex"
+        justify="end"
+      >
+        {menuItems.map((item, index) => (
+          <NavbarItem key={`${item}-${index}`}>
+            <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+              <div className="flex items-center">
+                {item.tabIcon}
+                <Link className="ml-2 text-black" href="/">
+                  {item.tabName}
+                </Link>
+              </div>
+            </motion.div>
+          </NavbarItem>
+        ))}
       </NavbarContent>
+      <NavbarMenuToggle
+        aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+        className="sm:hidden"
+      />
+      <NavbarMenu>
+        {menuItems.map((item, index) => (
+          <NavbarMenuItem key={`${item}-${index}`}>
+            <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+              <div className="flex items-center mt-5">
+                {item.tabIcon}
+                <Link className="ml-2 text-black">{item.tabName}</Link>
+              </div>
+            </motion.div>
+          </NavbarMenuItem>
+        ))}
+      </NavbarMenu>
     </Navbar>
   )
 }
