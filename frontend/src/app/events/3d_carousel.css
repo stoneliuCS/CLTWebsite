@@ -1,0 +1,11 @@
+/* Adjust slide width and height */
+.swiper-slide {
+  width: 40%;
+  padding-top: 3rem; /* 48px */
+  padding-bottom: 3rem; /* 48px */
+}
+/* Hide shadows if not needed */
+.swiper-slide-shadow-left,
+.swiper-slide-shadow-right {
+  display: none;
+}

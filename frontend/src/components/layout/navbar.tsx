@@ -19,9 +19,14 @@ import { motion } from "framer-motion"
 interface ITabItem {
   tabName: string
   tabIcon?: ReactNode
+  link?: string
 }
 
-const eventTab: ITabItem = { tabName: "Events", tabIcon: <MdEvent /> }
+const eventTab: ITabItem = {
+  tabName: "Events",
+  tabIcon: <MdEvent />,
+  link: "/events",
+}
 
 const eboardTab: ITabItem = {
   tabName: "Meet the Eboard",
@@ -44,7 +49,11 @@ export default function NavBar() {
     >
       <NavbarBrand className="gap-x-4">
         <Logo />
-        <p className="font-bold text-black truncate">Chinese Language Table</p>
+        <p className="font-bold text-black truncate">
+          <Link href="/" className="text-black">
+            Chinese Language Table
+          </Link>{" "}
+        </p>
       </NavbarBrand>
       <NavbarContent
         className="font-semibold text-slate-800 gap-x-10 hidden lg:flex"
@@ -55,7 +64,7 @@ export default function NavBar() {
             <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
               <div className="flex items-center">
                 {item.tabIcon}
-                <Link className="ml-2 text-black" href="/">
+                <Link className="ml-2 text-black" href={item.link}>
                   {item.tabName}
                 </Link>
               </div>

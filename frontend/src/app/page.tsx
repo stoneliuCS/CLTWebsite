@@ -1,5 +1,5 @@
 "use client"
-import HeroBanner from "@/components/layout/hero/hero"
+import HeroBanner from "@/components/layout/hero/home-hero"
 import Carousel from "react-multi-carousel"
 import "react-multi-carousel/lib/styles.css"
 import { Image } from "@nextui-org/image"
@@ -57,7 +57,7 @@ export default function Home() {
                   whileTap={{ scale: 0.9 }}
                 >
                   <a
-                    href="#"
+                    href="/events"
                     className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                   >
                     View Upcoming Events

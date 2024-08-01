@@ -4,15 +4,15 @@ interface Props {
   backgroundColor?: string
 }
 
-export default function HeroBanner({
+export default function HomeHeroBanner({
   content = <></>,
   backgroundColor = "bg-white",
 }: Props) {
   return (
     <div
-      className={`${backgroundColor} h-screen flex justify-center items-center overflow-x-hidden hero-banner`}
+      className={`${backgroundColor} h-screen flex justify-center items-center overflow-x-hidden`}
     >
-      <div className="relative isolate px-6 lg:px-8">
+      <div className="relative isolate  lg:px-8">
         <div
           aria-hidden="true"
           className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"

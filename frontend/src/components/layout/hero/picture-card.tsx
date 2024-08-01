@@ -1,3 +1,4 @@
+import IEvent from "@/types/IEvent"
 import {
   Card,
   CardBody,
@@ -10,36 +11,32 @@ import {
   useDisclosure,
 } from "@nextui-org/react"
 import { motion } from "framer-motion"
-import { ReactNode } from "react"
 
-interface Props {
-  title: string
-  description: string
-  date: Date
-  image: ReactNode
-}
+type ShadowType = "none" | "sm" | "md" | "lg" | undefined
 
-export default function PictureCard(props: Props) {
+export default function PictureCard(props: IEvent, shadow : ShadowType = "none") {
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
   return (
     <div>
-      <motion.div
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
-        onClick={onOpen}
-      >
-        <Card className="h-[70vh] w-full" isBlurred shadow="lg">
-          <div className="relative h-full w-full">{props.image}</div>
-        </Card>
-      </motion.div>
-      <div className="absolute inset-x-0 bottom-0 flex justify-center mb-4">
-        <Card className="w-6/12	" shadow="lg">
-          <CardBody>
-            <p className="text-center truncate">
-              <strong>{props.title}</strong>
-            </p>
-          </CardBody>
-        </Card>
+      <div className=" relative">
+        <motion.div
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          onClick={onOpen}
+        >
+          <Card className="h-[70vh] w-full" isBlurred shadow={shadow}>
+            <div className=" h-full w-full">{props.eventImage}</div>
+          </Card>
+        </motion.div>
+        <div className="absolute inset-x-0 bottom-0 flex justify-center mb-4">
+          <Card className="w-6/12" shadow="lg">
+            <CardBody>
+              <p className="text-center truncate">
+                <strong>{props.eventName}</strong>
+              </p>
+            </CardBody>
+          </Card>
+        </div>
       </div>
       <Modal
         isOpen={isOpen}
@@ -69,15 +66,15 @@ export default function PictureCard(props: Props) {
         <ModalContent>
           <>
             <ModalHeader className="flex flex-col gap-1">
-              {props.title}
+              {props.eventName}
             </ModalHeader>
-            <Divider/>
+            <Divider />
             <ModalBody className="flex flex-col">
-              <p>{props.description}</p>
+              <p>{props.eventDescription}</p>
             </ModalBody>
-            <Divider/>
+            <Divider />
             <ModalFooter className="flex justify-start">
-              <p> {props.date.toDateString()} </p>
+              <p> {props.eventDate.toDateString()} </p>
             </ModalFooter>
           </>
         </ModalContent>
