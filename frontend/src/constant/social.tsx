@@ -22,12 +22,12 @@ const socials : ISocialLink[] = [
     },
     {
         url : "https://www.facebook.com/",
-        href : "https://gmail.us3.list-manage.com/subscribe?u=ff59e60d727298a57e28a4e6f&id=3bc42e4945",
+        href : "https://www.facebook.com/neuchanguagetable/",
         caption : "Our Facebook! "
     },
     {
         url : "https://gmail.com",
-        href : "https://www.facebook.com/neuchanguagetable/",
+        href : "https://gmail.us3.list-manage.com/subscribe?u=ff59e60d727298a57e28a4e6f&id=3bc42e4945",
         caption : "Join Our Mailing List!"
     },
     {

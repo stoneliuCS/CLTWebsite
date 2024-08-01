@@ -18,7 +18,6 @@ import {
 } from "@nextui-org/react"
 import { SocialIcon } from "react-social-icons"
 import Logo from "@/components/assets/logo"
-import { Slider } from "@nextui-org/slider"
 import socials from "@/constant/social"
 
 export default function Home() {
