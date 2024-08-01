@@ -9,7 +9,7 @@ import Logo from "../assets/logo"
 export default function NavBar() {
   return (
     <Navbar
-      className="bg-gradient-to-r from-cyan-300 to-blue-200 shadow-md  overflow-x-scroll"
+      className="bg-gradient-to-r from-cyan-300 to-blue-200 shadow-md overflow-x-scroll"
       shouldHideOnScroll={true}
       maxWidth="full"
     >
@@ -17,7 +17,7 @@ export default function NavBar() {
         <Logo />
         <p className="font-bold text-black truncate">Chinese Language Table</p>
       </NavbarBrand>
-      <NavbarContent className="font-semibold text-slate-800" justify="end">
+      <NavbarContent className="font-semibold text-slate-800 gap-x-10" justify="end">
         <NavbarItem> Events </NavbarItem>
         <NavbarItem> Meet the Eboard </NavbarItem>
         <NavbarItem> About Chinese Language Table </NavbarItem>

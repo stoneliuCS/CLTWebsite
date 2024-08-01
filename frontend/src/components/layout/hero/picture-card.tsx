@@ -22,20 +22,15 @@ export default function PictureCard(props: Props) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
   return (
     <div>
-      <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+      <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} onClick={onOpen}>
         <Card className="h-[70vh] w-full" isBlurred shadow="lg">
           <div className="relative h-full w-full">{props.image}</div>
         </Card>
       </motion.div>
       <div className="absolute inset-x-0 bottom-0 flex justify-center mb-4">
-        <Card
-          className="w-full max-w-md"
-          shadow="lg"
-          isPressable
-          onPress={onOpen}
-        >
+        <Card className="w-6/12	" shadow="lg">
           <CardBody>
-            <p className="text-center">
+            <p className="text-center truncate">
               <strong>{props.title}</strong> {props.date.toDateString()}
             </p>
           </CardBody>
@@ -43,7 +38,7 @@ export default function PictureCard(props: Props) {
       </div>
       <Modal
         isOpen={isOpen}
-        placement={"auto"}
+        placement={"center"}
         onOpenChange={onOpenChange}
         motionProps={{
           variants: {
@@ -72,9 +67,7 @@ export default function PictureCard(props: Props) {
               {props.title}
             </ModalHeader>
             <ModalBody>
-              <p>
-                {props.description}
-              </p>
+              <p>{props.description}</p>
             </ModalBody>
             <ModalFooter></ModalFooter>
           </>

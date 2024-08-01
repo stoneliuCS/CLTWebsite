@@ -18,8 +18,7 @@ import {
 } from "@nextui-org/react"
 import { SocialIcon } from "react-social-icons"
 import Logo from "@/components/assets/logo"
-import {Slider} from "@nextui-org/slider";
-
+import { Slider } from "@nextui-org/slider"
 
 export default function Home() {
   return (
@@ -131,7 +130,12 @@ export default function Home() {
       <HeroBanner
         backgroundColor="bg-pink-200"
         content={
-          <div className="relative flex flex-col gap-4 items-center justify-center">
+          <div className="relative flex flex-col gap-4 items-center justify-center mx-5">
+            <h1
+              className={`sm:text-xl md:text-3xl lg:text-4xl text-center text-slate-200 font-bold pb-4 text-slate-800	drop-shadow-lg`}
+            >
+              Connect With Our Socials!
+            </h1>
             <Card className="h-[75vh]">
               <CardHeader className="flex gap-3">
                 <Logo />
@@ -144,7 +148,7 @@ export default function Home() {
               </CardHeader>
               <Divider />
               <CardBody className="flex flex-col items-center gap-5">
-                <div className="grid grid-cols-4 gap-4">
+                <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
                   <div className="flex flex-col justify-center items-center">
                     {
                       <SocialIcon
@@ -224,7 +228,7 @@ export default function Home() {
                     }
                   </div>
                 </div>
-                <Card
+                {/* <Card
                   isBlurred
                   className="border-none bg-background/60 dark:bg-default-100/50 w-full h-full flex flex-grow"
                   shadow="sm"
@@ -259,7 +263,7 @@ export default function Home() {
                       </div>
                     </div>
                   </CardBody>
-                </Card>
+                </Card> */}
               </CardBody>
               <Divider />
               <CardFooter>
@@ -279,7 +283,7 @@ export default function Home() {
               width={500}
               height={500}
               style={{
-                transform: "translateX(0px) rotate(45deg) translateY(0px)",
+                transform: "translateX(0px) rotate(45deg) translateY(100px)",
               }}
             />
             <NextImage
@@ -290,7 +294,7 @@ export default function Home() {
               height={500}
               style={{
                 transform:
-                  "scaleX(-1) translateX(0px) rotate(45deg) translateY(0px)",
+                  "scaleX(-1) translateX(0px) rotate(45deg) translateY(100px)",
               }}
             />
           </div>

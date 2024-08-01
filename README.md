@@ -12,3 +12,8 @@
 - cd frontend
 - npm install (Install dependencies)
 - npm run dev (For development)
+
+## TO DO LIST
+- Add Navbar pages for Event
+- Add Icons for navbar
+- Add Song Recommender
