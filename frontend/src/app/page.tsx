@@ -19,6 +19,7 @@ import {
 import { SocialIcon } from "react-social-icons"
 import Logo from "@/components/assets/logo"
 import { Slider } from "@nextui-org/slider"
+import socials from "@/constant/social"
 
 export default function Home() {
   return (
@@ -149,121 +150,20 @@ export default function Home() {
               <Divider />
               <CardBody className="flex flex-col items-center gap-5">
                 <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
-                  <div className="flex flex-col justify-center items-center">
-                    {
-                      <SocialIcon
-                        url="https://instagram.com"
-                        href="https://www.instagram.com/neu_clt/"
-                      />
-                    }
-                    {
-                      <Link href="https://www.instagram.com/neu_clt/">
-                        <strong> Our Instagram! </strong>
+                  {socials.map((social) => (
+                    <div className="flex flex-col justify-center items-center">
+                      <motion.div
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}
+                      >
+                        <SocialIcon url={social.url} href={social.href} />
+                      </motion.div>
+                      <Link href={social.href}>
+                        <strong> {social.caption} </strong>
                       </Link>
-                    }
-                  </div>
-                  <div className="flex flex-col justify-center items-center">
-                    {
-                      <SocialIcon
-                        url="https://web.groupme.com/"
-                        href="https://web.groupme.com/join_group/66713728/cSnDD7zH"
-                      />
-                    }
-                    {
-                      <Link href="https://web.groupme.com/join_group/66713728/cSnDD7zH">
-                        <strong> Our GroupMe! </strong>
-                      </Link>
-                    }
-                  </div>
-                  <div className="flex flex-col justify-center items-center">
-                    {
-                      <SocialIcon
-                        url="https://www.spotify.com/"
-                        href="https://open.spotify.com/playlist/6WrYjhEIMZaI17Nz1bV2PA?si=3a9c03074681423b&utm_medium=share&utm_source=linktree"
-                      />
-                    }
-                    {
-                      <Link href="https://open.spotify.com/playlist/6WrYjhEIMZaI17Nz1bV2PA?si=3a9c03074681423b&utm_medium=share&utm_source=linktree">
-                        <strong> Our Spotify Playlist! </strong>
-                      </Link>
-                    }
-                  </div>
-                  <div className="flex flex-col justify-center items-center">
-                    {
-                      <SocialIcon
-                        url="https://www.facebook.com/"
-                        href="https://www.facebook.com/neuchanguagetable/"
-                      />
-                    }
-                    {
-                      <Link href="https://www.facebook.com/neuchanguagetable/">
-                        <strong> Our Facebook! </strong>
-                      </Link>
-                    }
-                  </div>
-                  <div className="flex flex-col justify-center items-center">
-                    {
-                      <SocialIcon
-                        url="https://gmail.com"
-                        href="https://gmail.us3.list-manage.com/subscribe?u=ff59e60d727298a57e28a4e6f&id=3bc42e4945"
-                      />
-                    }
-                    {
-                      <Link href="https://gmail.us3.list-manage.com/subscribe?u=ff59e60d727298a57e28a4e6f&id=3bc42e4945">
-                        <strong> Join Our Mailing List! </strong>
-                      </Link>
-                    }
-                  </div>
-                  <div className="flex flex-col justify-center items-center">
-                    {
-                      <SocialIcon
-                        url="https://linktr.ee/"
-                        href="https://linktr.ee/neuclt"
-                      />
-                    }
-                    {
-                      <Link href="https://linktr.ee/neuclt">
-                        <strong> Our LinkTree! </strong>
-                      </Link>
-                    }
-                  </div>
-                </div>
-                {/* <Card
-                  isBlurred
-                  className="border-none bg-background/60 dark:bg-default-100/50 w-full h-full flex flex-grow"
-                  shadow="sm"
-                >
-                  <CardBody>
-                    <div className="grid grid-cols-12 gap-6 items-center justify-center">
-                      <div className="relative col-span-4">
-                        <Image
-                          alt="Album cover"
-                          className="object-cover"
-                          height={200}
-                          shadow="md"
-                          src="https://nextui.org/images/album-cover.png"
-                          width="100%"
-                        />
-                      </div>
-
-                      <div className="flex flex-col col-span-6 md:col-span-8">
-                        <div className="flex justify-between items-start">
-                          <div className="flex flex-col gap-0">
-                            <h3 className="font-semibold text-foreground/90">
-                              Daily Mix
-                            </h3>
-                            <p className="text-small text-foreground/80">
-                              12 Tracks
-                            </p>
-                            <h1 className="text-large font-medium mt-2">
-                              Frontend Radio
-                            </h1>
-                          </div>
-                        </div>
-                      </div>
                     </div>
-                  </CardBody>
-                </Card> */}
+                  ))}
+                </div>
               </CardBody>
               <Divider />
               <CardFooter>
