@@ -11,10 +11,16 @@ import {
   useDisclosure,
 } from "@nextui-org/react"
 import { motion } from "framer-motion"
+import NextImage from "next/image"
 
 type ShadowType = "none" | "sm" | "md" | "lg" | undefined
 
-export default function PictureCard(props: IEvent, shadow : ShadowType = "none") {
+interface IPictureCardProps {
+  event: IEvent
+  shadow: ShadowType
+}
+
+export default function PictureCard(props: IPictureCardProps) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
   return (
     <div>
@@ -24,15 +30,26 @@ export default function PictureCard(props: IEvent, shadow : ShadowType = "none")
           whileTap={{ scale: 0.9 }}
           onClick={onOpen}
         >
-          <Card className="h-[70vh] w-full" isBlurred shadow={shadow}>
-            <div className=" h-full w-full">{props.eventImage}</div>
+          <Card className="h-[70vh] w-full" isBlurred shadow={props.shadow}>
+            <div className=" h-full w-full">
+                <div className="relative w-full h-full">
+                  <NextImage
+                    src={props.event.eventImage.src}
+                    alt={props.event.eventImage.alt}
+                    fill
+                    style={{ objectFit: "cover" }}
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    priority={props.event.eventImage.priority}
+                  />
+                </div>
+            </div>
           </Card>
         </motion.div>
         <div className="absolute inset-x-0 bottom-0 flex justify-center mb-4">
           <Card className="w-6/12" shadow="lg">
             <CardBody>
               <p className="text-center truncate">
-                <strong>{props.eventName}</strong>
+                <strong>{props.event.eventName}</strong>
               </p>
             </CardBody>
           </Card>
@@ -66,15 +83,15 @@ export default function PictureCard(props: IEvent, shadow : ShadowType = "none")
         <ModalContent>
           <>
             <ModalHeader className="flex flex-col gap-1">
-              {props.eventName}
+              {props.event.eventName}
             </ModalHeader>
             <Divider />
             <ModalBody className="flex flex-col">
-              <p>{props.eventDescription}</p>
+              <p>{props.event.eventDescription}</p>
             </ModalBody>
             <Divider />
             <ModalFooter className="flex justify-start">
-              <p> {props.eventDate.toDateString()} </p>
+              <p> {props.event.eventDate.toDateString()} </p>
             </ModalFooter>
           </>
         </ModalContent>
