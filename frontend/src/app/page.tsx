@@ -6,7 +6,7 @@ import { Image } from "@nextui-org/image"
 import { TypeAnimation } from "react-type-animation"
 import { motion } from "framer-motion"
 import responsive from "@/constant/carousel"
-import cards from "@/constant/testing/cards"
+import events from "@/constant/events"
 import NextImage from "next/image"
 import {
   Card,
@@ -19,6 +19,7 @@ import {
 import { SocialIcon } from "react-social-icons"
 import Logo from "@/components/assets/logo"
 import socials from "@/constant/social"
+import PictureCard from "@/components/card/picture-card"
 
 export default function Home() {
   return (
@@ -119,8 +120,10 @@ export default function Home() {
               keyBoardControl={true}
               arrows={false}
             >
-              {cards.map((card, index) => (
-                <div key={index}>{card}</div>
+              {events.map((event, index) => (
+                <div key={index}>
+                  <PictureCard event={event} shadow="lg"/>
+                </div>
               ))}
             </Carousel>
           </div>
@@ -150,7 +153,10 @@ export default function Home() {
               <CardBody className="flex flex-col items-center gap-5">
                 <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
                   {socials.map((social, key) => (
-                    <div key={key} className="flex flex-col justify-center items-center">
+                    <div
+                      key={key}
+                      className="flex flex-col justify-center items-center"
+                    >
                       <motion.div
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.9 }}

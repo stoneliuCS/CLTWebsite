@@ -2,25 +2,19 @@
 import { Swiper } from "swiper/react"
 import { SwiperSlide } from "swiper/react"
 import { EffectCoverflow, Navigation, Pagination } from "swiper/modules"
-import cards from "@/constant/testing/cards"
+import events from "@/constant/events"
 import "swiper/css"
 import "swiper/css/effect-coverflow"
 import "swiper/css/pagination"
 import "swiper/css/navigation"
 import "./3d_carousel.css"
-import { Card, CardBody, CardHeader } from "@nextui-org/react"
+import { Card, CardBody } from "@nextui-org/react"
+import FlippableCard from "@/components/card/flippable-picture-card"
 
 export default function EventPage() {
   return (
     <div className="w-screen h-screen flex flex-col items-center justify-center ">
-      <Card className="w-11/12 h-11/12 bg-indigo-300" shadow="lg">
-        <CardHeader className="flex items-center justify-center">
-          <h1
-            className={`sm:text-xl md:text-3xl lg:text-4xl text-center text-slate-200 font-bold text-slate-800 drop-shadow-lg pt-4`}
-          >
-            Viewing Upcoming Events
-          </h1>
-        </CardHeader>
+      <Card className="w-11/12 h-5/6 bg-indigo-300" shadow="lg">
         <CardBody className="flex items-center justify-center">
           <Swiper
             effect="coverflow"
@@ -39,8 +33,13 @@ export default function EventPage() {
             navigation
             className="w-full h-full"
           >
-            {cards.map((card, idx) => (
-              <SwiperSlide key={idx * 2}>{card}</SwiperSlide>
+            {events.map((event, idx) => (
+              <SwiperSlide key={idx * 2}>
+                <FlippableCard
+                  event={event}
+                  shadow={"none"}
+                />
+              </SwiperSlide>
             ))}
           </Swiper>
         </CardBody>

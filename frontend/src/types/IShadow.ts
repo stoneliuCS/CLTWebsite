@@ -1,0 +1,1 @@
+export type ShadowType = "none" | "sm" | "md" | "lg" | undefined
