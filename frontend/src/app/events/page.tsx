@@ -14,7 +14,7 @@ import FlippableCard from "@/components/card/flippable-picture-card"
 export default function EventPage() {
   return (
     <div className="w-screen h-screen flex flex-col items-center justify-center ">
-      <Card className="w-11/12 h-5/6 bg-indigo-300" shadow="lg">
+      <Card className="w-11/12 h-[85%] bg-indigo-300" shadow="lg">
         <CardBody className="flex items-center justify-center">
           <Swiper
             effect="coverflow"

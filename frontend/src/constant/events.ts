@@ -4,7 +4,7 @@ const events: IEvent[] = [
   {
     eventName: "CLT Beach Day At Revere Beach!",
     eventDate: new Date(),
-    eventDescription: "Fun day at Revere Beach",
+    eventDescription: { summary : "Fun day at Revere Beach", location : { street : "Revere Beach" } },
     eventImage: {
       src: "/beach_day.jpg",
       alt: "Beach Day",
@@ -14,7 +14,7 @@ const events: IEvent[] = [
   {
     eventName: "Calligraphy Night!",
     eventDate: new Date(),
-    eventDescription: "Calligraphy Night Description",
+    eventDescription: { summary : "Calligraphy Night Description" },
     eventImage: {
       src: "/calligraphy_night.jpg",
       alt: "Calligraphy Night",
@@ -23,7 +23,7 @@ const events: IEvent[] = [
   {
     eventName: "Ice Skating Outing",
     eventDate: new Date(),
-    eventDescription: "Ice Skating Outing",
+    eventDescription: { summary : "Ice Skating Outing" } ,
     eventImage: {
       src: "/ice_skating.jpg",
       alt: "Chinese Language Table Logo",

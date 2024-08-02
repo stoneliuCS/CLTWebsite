@@ -49,11 +49,11 @@ export default function NavBar() {
     >
       <NavbarBrand className="gap-x-4">
         <Logo />
-        <p className="font-bold text-black truncate">
-          <Link href="/" className="text-black">
+        <Link href="/">
+          <p className="font-bold text-black truncate">
             Chinese Language Table
-          </Link>{" "}
-        </p>
+          </p>
+        </Link>
       </NavbarBrand>
       <NavbarContent
         className="font-semibold text-slate-800 gap-x-10 hidden lg:flex"

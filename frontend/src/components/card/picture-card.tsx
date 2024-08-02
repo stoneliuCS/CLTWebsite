@@ -87,7 +87,7 @@ export default function PictureCard(props: IPictureCardProps) {
             </ModalHeader>
             <Divider />
             <ModalBody className="flex flex-col">
-              <p>{props.event.eventDescription}</p>
+              <p>{props.event.eventDescription.summary}</p>
             </ModalBody>
             <Divider />
             <ModalFooter className="flex justify-start">
