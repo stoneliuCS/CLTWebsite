@@ -111,7 +111,7 @@ export default function Home() {
               }}
             />
             <Carousel
-              className="rounded-3xl w-9/12"
+              className="rounded-3xl w-11/12 lg:w-9/12"
               responsive={responsive}
               focusOnSelect={true}
               infinite={true}
