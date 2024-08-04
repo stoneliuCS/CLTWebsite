@@ -6,7 +6,7 @@ import { Image } from "@nextui-org/image"
 import { TypeAnimation } from "react-type-animation"
 import { motion } from "framer-motion"
 import responsive from "@/constant/carousel"
-import events from "@/constant/events"
+import { events } from "@/constant/events"
 import NextImage from "next/image"
 import {
   Card,
@@ -122,14 +122,13 @@ export default function Home() {
             >
               {events.map((event, index) => (
                 <div key={index}>
-                  <PictureCard event={event} shadow="lg"/>
+                  <PictureCard event={event} shadow="lg" />
                 </div>
               ))}
             </Carousel>
           </div>
         }
       />
-
       <HeroBanner
         backgroundColor="bg-pink-200"
         content={

@@ -1,4 +1,4 @@
-import IEvent from "@/types/IEvent"
+import { IEvent } from "@/types/IEvent"
 import { Card, CardBody, CardHeader } from "@nextui-org/react"
 import { motion } from "framer-motion"
 import { withClick } from "./flip-card"
@@ -54,9 +54,7 @@ function OverridePictureCard({
         <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
           <Card className="h-[70vh] w-full">
             <CardHeader>
-              <h1>
-                {event.eventName}
-              </h1>
+              <h1>{event.eventName}</h1>
             </CardHeader>
             <CardBody className="h-full w-full">
               <p>Back</p>

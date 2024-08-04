@@ -2,26 +2,32 @@
 import { Swiper } from "swiper/react"
 import { SwiperSlide } from "swiper/react"
 import { EffectCoverflow, Navigation, Pagination } from "swiper/modules"
-import events from "@/constant/events"
+import { events, eventTimeLineItems } from "@/constant/events"
 import "swiper/css"
 import "swiper/css/effect-coverflow"
 import "swiper/css/pagination"
 import "swiper/css/navigation"
 import "./3d_carousel.css"
-import { Card, CardBody } from "@nextui-org/react"
+import { Card, CardBody, CardHeader } from "@nextui-org/react"
 import FlippableCard from "@/components/card/flippable-picture-card"
+import { Chrono } from "react-chrono"
 
 export default function EventPage() {
   return (
-    <div className="mt-1">
-      <h1
-        className={`sm:text-xl md:text-3xl lg:text-4xl text-center text-slate-200 font-bold text-slate-800	drop-shadow-lg`}
-      >
-        Catch Up On Our Events!
-      </h1>
-      <div className="flex flex-col lg:flex-row items-center justify-center p-1">
+    <div className="p-1">
+      {/* <Card className="bg-indigo-300 mb-1">
+        <CardHeader className="flex items-center justify-center">
+        <h1
+          className={`sm:text-xl md:text-3xl lg:text-4xl text-center text-slate-200 font-bold text-slate-800 drop-shadow-lg`}
+        >
+          Catch Up On Our Events!
+        </h1>
+
+        </CardHeader>
+      </Card> */}
+      <div className="flex flex-col lg:flex-row items-center justify-center flex mt-5">
         <Card className="w-full lg:w-8/12 h-[85vh] bg-indigo-300 " shadow="lg">
-          <CardBody className="flex items-center justify-center">
+          <CardBody className="flex items-center justify-center ">
             <Swiper
               effect="coverflow"
               grabCursor={true}
@@ -55,10 +61,17 @@ export default function EventPage() {
           </CardBody>
         </Card>
         <Card
-          className="w-full lg:w-4/12 h-[30vh] lg:h-[85vh] mt-2 lg:mt-0 lg:ml-2 bg-indigo-300"
+          className="w-full lg:w-4/12 h-[30vh] lg:h-[85vh] mt-1 lg:mt-0 lg:ml-1 bg-indigo-300"
           shadow="lg"
         >
-          <CardBody></CardBody>
+          <CardBody>
+            <Chrono
+              items={eventTimeLineItems}
+              mode="VERTICAL_ALTERNATING"
+              scrollable={{ scrollbar: true }}
+              disableToolbar
+            />
+          </CardBody>
         </Card>
       </div>
     </div>

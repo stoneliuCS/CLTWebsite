@@ -82,7 +82,7 @@ export default function NavBar() {
             <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
               <div className="flex items-center mt-5">
                 {item.tabIcon}
-                <Link className="ml-2 text-black">{item.tabName}</Link>
+                <Link className="ml-2 text-black" href={item.link}>{item.tabName}</Link>
               </div>
             </motion.div>
           </NavbarMenuItem>

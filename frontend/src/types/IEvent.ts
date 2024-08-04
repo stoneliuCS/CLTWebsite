@@ -1,4 +1,4 @@
-export default interface IEvent {
+export interface IEvent {
   eventName: string
   eventDescription: IEventDescription
   eventImage: IEventImage
