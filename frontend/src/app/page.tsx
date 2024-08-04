@@ -132,75 +132,77 @@ export default function Home() {
       <HeroBanner
         backgroundColor="bg-pink-200"
         content={
-          <div className="relative flex flex-col gap-4 items-center justify-center mx-5">
+          <div className="w-full h-[100vh] relative flex flex-col gap-4 items-center justify-center overflow-x-hidden">
             <h1
               className={`sm:text-xl md:text-3xl lg:text-4xl text-center text-slate-200 font-bold pb-4 text-slate-800	drop-shadow-lg`}
             >
               Connect With Our Socials!
             </h1>
-            <Card className="h-[75vh]">
-              <CardHeader className="flex gap-3">
-                <Logo />
-                <div className="flex flex-col">
-                  <p className="text-md">CLT</p>
-                  <p className="text-small text-default-500">
-                    We invite you to come join us!
-                  </p>
-                </div>
-              </CardHeader>
-              <Divider />
-              <CardBody className="flex flex-col items-center gap-5">
-                <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
-                  {socials.map((social, key) => (
-                    <div
-                      key={key}
-                      className="flex flex-col justify-center items-center"
-                    >
-                      <motion.div
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.9 }}
+            <div className="relative">
+              <Card>
+                <CardHeader className="flex gap-3">
+                  <Logo />
+                  <div className="flex flex-col">
+                    <p className="text-md">CLT</p>
+                    <p className="text-small text-default-500">
+                      We invite you to come join us!
+                    </p>
+                  </div>
+                </CardHeader>
+                <Divider />
+                <CardBody className="flex flex-col items-center gap-5">
+                  <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
+                    {socials.map((social, key) => (
+                      <div
+                        key={key}
+                        className="flex flex-col justify-center items-center"
                       >
-                        <SocialIcon url={social.url} href={social.href} />
-                      </motion.div>
-                      <Link href={social.href}>
-                        <strong> {social.caption} </strong>
-                      </Link>
-                    </div>
-                  ))}
-                </div>
-              </CardBody>
-              <Divider />
-              <CardFooter>
-                <Link
-                  isExternal
-                  showAnchorIcon
-                  href="https://github.com/nextui-org/nextui"
-                >
-                  Visit source code on GitHub.
-                </Link>
-              </CardFooter>
-            </Card>
-            <NextImage
-              className="absolute top-0 left-0 -z-10 hidden lg:block"
-              src={"/phone.svg"}
-              alt="phone"
-              width={500}
-              height={500}
-              style={{
-                transform: "translateX(0px) rotate(45deg) translateY(100px)",
-              }}
-            />
-            <NextImage
-              className="absolute top-0 right-0 -z-10 hidden lg:block"
-              src={"/phone.svg"}
-              alt="phone"
-              width={500}
-              height={500}
-              style={{
-                transform:
-                  "scaleX(-1) translateX(0px) rotate(45deg) translateY(100px)",
-              }}
-            />
+                        <motion.div
+                          whileHover={{ scale: 1.1 }}
+                          whileTap={{ scale: 0.9 }}
+                        >
+                          <SocialIcon url={social.url} href={social.href} />
+                        </motion.div>
+                        <Link href={social.href}>
+                          <strong> {social.caption} </strong>
+                        </Link>
+                      </div>
+                    ))}
+                  </div>
+                </CardBody>
+                <Divider />
+                <CardFooter>
+                  <Link
+                    isExternal
+                    showAnchorIcon
+                    href="https://github.com/nextui-org/nextui"
+                  >
+                    Visit source code on GitHub.
+                  </Link>
+                </CardFooter>
+              </Card>
+              <NextImage
+                className="absolute -top-44 -left-72 -z-10 hidden lg:block"
+                src={"/phone.svg"}
+                alt="phone"
+                width={500}
+                height={500}
+                style={{
+                  transform: "translateX(0px) rotate(45deg) translateY(100px)",
+                }}
+              />
+              <NextImage
+                className="absolute -top-44 -right-72 -z-10 hidden lg:block"
+                src={"/phone.svg"}
+                alt="phone"
+                width={500}
+                height={500}
+                style={{
+                  transform:
+                    "scaleX(-1) translateX(0px) rotate(45deg) translateY(100px)",
+                }}
+              />
+            </div>
           </div>
         }
       />
