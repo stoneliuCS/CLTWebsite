@@ -39,9 +39,6 @@ export const eventTimeLineItems: TimelineItem[] = events.map((event) => {
   return {
     cardTitle: event.eventName,
     date: event.eventDate,
-    media: {
-      source: { url: event.eventImage.src },
-      type: "IMAGE",
-    },
+    cardDetailedText : event.eventDescription.summary
   }
 })

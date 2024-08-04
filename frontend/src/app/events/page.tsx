@@ -8,7 +8,7 @@ import "swiper/css/effect-coverflow"
 import "swiper/css/pagination"
 import "swiper/css/navigation"
 import "./3d_carousel.css"
-import { Card, CardBody, CardHeader } from "@nextui-org/react"
+import { Card, CardBody } from "@nextui-org/react"
 import FlippableCard from "@/components/card/flippable-picture-card"
 import { Chrono } from "react-chrono"
 

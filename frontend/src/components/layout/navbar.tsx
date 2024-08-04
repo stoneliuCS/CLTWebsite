@@ -15,6 +15,7 @@ import { MdEvent } from "react-icons/md"
 import { FaPeopleLine } from "react-icons/fa6"
 import { FaInfoCircle } from "react-icons/fa"
 import { motion } from "framer-motion"
+import { FaSignInAlt } from "react-icons/fa"
 
 interface ITabItem {
   tabName: string
@@ -27,7 +28,6 @@ const eventTab: ITabItem = {
   tabIcon: <MdEvent />,
   link: "/events",
 }
-
 const eboardTab: ITabItem = {
   tabName: "Meet the Eboard",
   tabIcon: <FaPeopleLine />,
@@ -36,8 +36,12 @@ const aboutTab: ITabItem = {
   tabName: "About Chinese Language Table",
   tabIcon: <FaInfoCircle />,
 }
+const eboardSignInTab: ITabItem = {
+  tabName: "Eboard Login",
+  tabIcon: <FaSignInAlt />,
+}
 
-const menuItems: ITabItem[] = [eventTab, eboardTab, aboutTab]
+const menuItems: ITabItem[] = [eventTab, eboardTab, aboutTab, eboardSignInTab]
 
 export default function NavBar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -82,7 +86,9 @@ export default function NavBar() {
             <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
               <div className="flex items-center mt-5">
                 {item.tabIcon}
-                <Link className="ml-2 text-black" href={item.link}>{item.tabName}</Link>
+                <Link className="ml-2 text-black" href={item.link}>
+                  {item.tabName}
+                </Link>
               </div>
             </motion.div>
           </NavbarMenuItem>
