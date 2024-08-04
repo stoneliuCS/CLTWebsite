@@ -1,7 +1,7 @@
 import type { ComponentType } from "react"
 import { motion, useSpring } from "framer-motion"
 import React, { useState, useRef, useEffect } from "react"
-import IEvent from "@/types/IEvent"
+import { IEvent } from "@/types/IEvent"
 import { ShadowType } from "@/types/IShadow"
 
 interface ComponentCardProps {
