@@ -12,7 +12,18 @@
 - npm install (Install dependencies)
 - npm run dev (For development)
 
-## TO DO LIST
-- Add Navbar pages for Event
-- Add Icons for navbar
-- Add Song Recommender
+## Project Layout For Developers
+- Under the /src directory you will see:
+    - /app
+        - /api 
+        - ... (Other Pages)
+    - /components
+        - ... (Reusable Components)
+    - /constant
+        - ... (Constants)
+    - /types
+        - ... (Types)
+    - /utils 
+        - ... (Global Utility Functions)
+    - middleware.ts (Executed every /api call)
+
