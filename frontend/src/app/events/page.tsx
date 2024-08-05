@@ -12,7 +12,6 @@ import "./3d_carousel.css"
 import {
   Card,
   CardBody,
-  CardFooter,
   CardHeader,
   Divider,
 } from "@nextui-org/react"
@@ -25,11 +24,10 @@ const Chrono = dynamic(() => import("react-chrono").then((mod) => mod.Chrono), {
 
 export default function EventPage() {
   const [activeIndex, setActiveIndex] = useState(0)
-
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col p-1">
       <div className="flex flex-col lg:flex-row items-center justify-center w-full h-full">
-        <Card className="w-full lg:w-8/12 h-[100vh] bg-indigo-300" shadow="lg">
+        <Card className="w-full lg:w-8/12 h-[95vh] bg-indigo-300" shadow="lg">
           <CardHeader className="flex justify-center">
             <p className="font-bold"> Current Events Carousel: </p>
           </CardHeader>
@@ -70,7 +68,7 @@ export default function EventPage() {
           </CardBody>
         </Card>
         <Card
-          className="w-full lg:w-4/12 h-[50vh] lg:h-[100vh] mt-1 lg:mt-0 lg:ml-1 bg-indigo-300"
+          className="w-full lg:w-4/12 h-[50vh] lg:h-[95vh] mt-1 lg:mt-0 lg:ml-1 bg-indigo-300"
           shadow="lg"
         >
           <CardHeader className="flex justify-center">
@@ -86,6 +84,15 @@ export default function EventPage() {
               activeItemIndex={activeIndex}
             />
           </CardBody>
+        </Card>
+      </div>
+      <div>
+        <Card className="w-full mt-1">
+          <CardHeader className="flex justify-center items-center">
+            <h1>
+              Current Event Form & Registration
+            </h1>
+          </CardHeader>
         </Card>
       </div>
     </div>
