@@ -1,31 +1,25 @@
 import type { Metadata } from "next"
-import { Inter, Indie_Flower } from "next/font/google"
+import { Inter } from "next/font/google"
 import "./globals.css"
-import { NextUIProvider } from "@nextui-org/react"
-import NavBar from "@/components/layout/navbar"
+import { auth } from "@/utils/auth"
+import ClientLayout from "@/components/layout/client-layout"
 
 const inter = Inter({ subsets: ["latin"] })
-const indie = Indie_Flower({
-  subsets: ["latin"],
-  weight: "400"
-})
 
 export const metadata: Metadata = {
   title: "Chinese Language Table",
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const session = await auth()
   return (
     <html lang="en">
       <body className={inter.className}>
-        <NextUIProvider>
-          <NavBar />
-          {children}
-        </NextUIProvider>
+        <ClientLayout session={session}>{children}</ClientLayout>
       </body>
     </html>
   )

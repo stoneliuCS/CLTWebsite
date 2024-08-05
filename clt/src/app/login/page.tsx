@@ -2,13 +2,9 @@
 import HomeHeroBanner from "@/components/layout/hero/home-hero"
 import { Image, Divider, Button } from "@nextui-org/react"
 import { FaGoogle } from "react-icons/fa"
-import { useRouter } from "next/navigation"
+import { signIn } from "next-auth/react"
 
 export default function Login() {
-  const router = useRouter()
-  async function onLogin() {
-    router.push("/api/auth/login")
-  }
   return (
     <HomeHeroBanner
       backgroundColor="bg-blue-50"
@@ -27,7 +23,9 @@ export default function Login() {
               className="w-full bg-white"
               size="lg"
               startContent={<FaGoogle />}
-              onPress={onLogin}
+              onPress={() => {
+                signIn("google")
+              }}
             >
               Login With Google
             </Button>

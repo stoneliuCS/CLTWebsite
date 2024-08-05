@@ -20,6 +20,7 @@ import { SocialIcon } from "react-social-icons"
 import Logo from "@/components/assets/logo"
 import socials from "@/constant/social"
 import PictureCard from "@/components/card/picture-card"
+import { useSession } from "next-auth/react"
 
 export default function Home() {
   return (
