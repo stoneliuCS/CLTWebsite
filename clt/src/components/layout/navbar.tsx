@@ -1,5 +1,10 @@
 "use client"
 import {
+  Avatar,
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownTrigger,
   Link,
   Navbar,
   NavbarBrand,
@@ -16,14 +21,13 @@ import { FaPeopleLine } from "react-icons/fa6"
 import { FaInfoCircle } from "react-icons/fa"
 import { motion } from "framer-motion"
 import { FaSignInAlt } from "react-icons/fa"
-import { useSession } from "next-auth/react"
+import { signOut, useSession } from "next-auth/react"
 
 interface ITabItem {
   tabName: string
   tabIcon?: ReactNode
   link?: string
 }
-
 const eventTab: ITabItem = {
   tabName: "Events",
   tabIcon: <MdEvent />,
@@ -40,13 +44,14 @@ const aboutTab: ITabItem = {
 const eboardSignInTab: ITabItem = {
   tabName: "Eboard Login",
   tabIcon: <FaSignInAlt />,
-  link : "/login"
+  link: "/login",
 }
 
-const menuItems: ITabItem[] = [eventTab, eboardTab, aboutTab, eboardSignInTab]
+const menuItems: ITabItem[] = [eventTab, eboardTab, aboutTab]
 
 export default function NavBar() {
   const { data: session, status } = useSession()
+  const tabs = session ? menuItems : [...menuItems, eboardSignInTab]
   return (
     <Navbar
       className="bg-gradient-to-r from-cyan-300 to-blue-200 shadow-md"
@@ -65,7 +70,7 @@ export default function NavBar() {
         className="font-semibold text-slate-800 gap-x-10 hidden lg:flex"
         justify="end"
       >
-        {menuItems.map((item, index) => (
+        {tabs.map((item, index) => (
           <NavbarItem key={`${item}-${index}`}>
             <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
               <div className="flex items-center">
@@ -77,12 +82,42 @@ export default function NavBar() {
             </motion.div>
           </NavbarItem>
         ))}
+        {session && (
+          <NavbarItem>
+            <Dropdown placement="bottom-end">
+              <DropdownTrigger>
+                <Avatar
+                  isBordered
+                  as="button"
+                  className="transition-transform"
+                  color="secondary"
+                  name={session.user?.name!}
+                  size="sm"
+                  src={session.user?.image!}
+                />
+              </DropdownTrigger>
+              <DropdownMenu aria-label="Profile Actions" variant="flat">
+                <DropdownItem key="profile" className="h-14 gap-2">
+                  <p className="font-semibold">Signed in as</p>
+                  <p className="font-semibold">{session.user?.email}</p>
+                </DropdownItem>
+                <DropdownItem
+                  key="logout"
+                  color="danger"
+                  onPress={() => {
+                    signOut()
+                  }}
+                >
+                  Log Out
+                </DropdownItem>
+              </DropdownMenu>
+            </Dropdown>
+          </NavbarItem>
+        )}
       </NavbarContent>
-      <NavbarMenuToggle
-        className="sm:hidden"
-      />
+      <NavbarMenuToggle className="sm:hidden" />
       <NavbarMenu>
-        {menuItems.map((item, index) => (
+        {tabs.map((item, index) => (
           <NavbarMenuItem key={`${item}-${index}`}>
             <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
               <div className="flex items-center mt-5">
