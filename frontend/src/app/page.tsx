@@ -83,49 +83,30 @@ export default function Home() {
       <HeroBanner
         backgroundColor="bg-indigo-200"
         content={
-          <div className="relative flex flex-col justify-center items-center">
+          <div className="flex flex-col justify-center items-center">
             <h1
               className={`sm:text-xl md:text-3xl lg:text-4xl text-center text-slate-200 font-bold pb-4 text-slate-800	drop-shadow-lg`}
             >
               See What We Have Been Up To!
             </h1>
-            <NextImage
-              className="absolute top-0 left-0 z-10 hidden lg:block"
-              src={"/scribble-svgrepo-com.svg"}
-              alt=""
-              width={200}
-              height={200}
-              style={{
-                transform: " rotate(0deg) translateX(100px) translateY(-10px)",
-              }}
-            />
-            <NextImage
-              className="absolute bottom-0 right-0 z-10 hidden lg:block"
-              src={"/scribble-svgrepo-com.svg"}
-              alt=""
-              width={200}
-              height={200}
-              style={{
-                transform:
-                  "scaleX(-1) scaleY(-1) rotate(0deg) translateX(100px) translateY(-70px)",
-              }}
-            />
-            <Carousel
-              className="rounded-3xl w-11/12 lg:w-9/12"
-              responsive={responsive}
-              focusOnSelect={true}
-              infinite={true}
-              autoPlay={true}
-              autoPlaySpeed={2500}
-              keyBoardControl={true}
-              arrows={false}
-            >
-              {events.map((event, index) => (
-                <div key={index}>
-                  <PictureCard event={event} shadow="lg" />
-                </div>
-              ))}
-            </Carousel>
+            <div className="h-full w-full flex justify-center">
+              <Carousel
+                className="rounded-3xl w-11/12 lg:w-9/12"
+                responsive={responsive}
+                focusOnSelect={true}
+                infinite={true}
+                autoPlay={true}
+                autoPlaySpeed={2500}
+                keyBoardControl={true}
+                arrows={false}
+              >
+                {events.map((event, index) => (
+                  <div key={index}>
+                    <PictureCard event={event} shadow="lg" />
+                  </div>
+                ))}
+              </Carousel>
+            </div>
           </div>
         }
       />
@@ -138,8 +119,8 @@ export default function Home() {
             >
               Connect With Our Socials!
             </h1>
-            <div className="relative">
-              <Card>
+            <div className="relative flex justify-center items-center">
+              <Card className="h-full">
                 <CardHeader className="flex gap-3">
                   <Logo />
                   <div className="flex flex-col">

@@ -9,7 +9,13 @@ import "swiper/css/effect-coverflow"
 import "swiper/css/pagination"
 import "swiper/css/navigation"
 import "./3d_carousel.css"
-import { Card, CardBody, CardHeader, Divider } from "@nextui-org/react"
+import {
+  Card,
+  CardBody,
+  CardFooter,
+  CardHeader,
+  Divider,
+} from "@nextui-org/react"
 import FlippableCard from "@/components/card/flippable-picture-card"
 import { useState } from "react"
 
@@ -21,9 +27,13 @@ export default function EventPage() {
   const [activeIndex, setActiveIndex] = useState(0)
 
   return (
-    <div className="p-1">
-      <div className="flex flex-col lg:flex-row items-center justify-center flex mt-5">
-        <Card className="w-full lg:w-8/12 h-[85vh] bg-indigo-300 " shadow="lg">
+    <div className="flex flex-col">
+      <div className="flex flex-col lg:flex-row items-center justify-center w-full h-full">
+        <Card className="w-full lg:w-8/12 h-[100vh] bg-indigo-300" shadow="lg">
+          <CardHeader className="flex justify-center">
+            <p className="font-bold"> Current Events Carousel: </p>
+          </CardHeader>
+          <Divider />
           <CardBody className="flex items-center justify-center ">
             <Swiper
               effect="coverflow"
@@ -60,7 +70,7 @@ export default function EventPage() {
           </CardBody>
         </Card>
         <Card
-          className="w-full lg:w-4/12 h-[30vh] lg:h-[85vh] mt-1 lg:mt-0 lg:ml-1 bg-indigo-300"
+          className="w-full lg:w-4/12 h-[50vh] lg:h-[100vh] mt-1 lg:mt-0 lg:ml-1 bg-indigo-300"
           shadow="lg"
         >
           <CardHeader className="flex justify-center">
