@@ -39,6 +39,7 @@ const aboutTab: ITabItem = {
 const eboardSignInTab: ITabItem = {
   tabName: "Eboard Login",
   tabIcon: <FaSignInAlt />,
+  link : "/login"
 }
 
 const menuItems: ITabItem[] = [eventTab, eboardTab, aboutTab, eboardSignInTab]

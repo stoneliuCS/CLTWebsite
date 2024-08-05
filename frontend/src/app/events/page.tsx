@@ -29,7 +29,7 @@ export default function EventPage() {
       <div className="flex flex-col lg:flex-row items-center justify-center w-full h-full">
         <Card className="w-full lg:w-8/12 h-[95vh] bg-indigo-300" shadow="lg">
           <CardHeader className="flex justify-center">
-            <p className="font-bold"> Current Events Carousel: </p>
+            <p className="font-bold"> Showing Current Events: </p>
           </CardHeader>
           <Divider />
           <CardBody className="flex items-center justify-center ">

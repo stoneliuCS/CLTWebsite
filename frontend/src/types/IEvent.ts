@@ -3,6 +3,7 @@ export interface IEvent {
   eventDescription: IEventDescription
   eventImage: IEventImage
   eventDate: Date
+  eventAttachments? : IEventAttachment[]
 }
 
 interface IEventImage {
@@ -19,11 +20,15 @@ interface IEventDescription {
 }
 
 interface IEventLocation {
-  street : string
+  address : string
 }
 
 interface IEventContact {
   contactName : string
   phoneNumber : string
   emailAddress : string
+}
+
+interface IEventAttachment {
+  type : 'registration' | 'engage'
 }
