@@ -1,5 +1,5 @@
 "use client"
-import HomeHeroBanner from "@/components/layout/hero/home-hero"
+import HomeHeroBanner from "@/components/hero/hero-banner"
 import { Image, Divider, Button } from "@nextui-org/react"
 import { FaGoogle } from "react-icons/fa"
 import { signIn } from "next-auth/react"

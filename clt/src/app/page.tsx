@@ -1,5 +1,5 @@
 "use client"
-import HeroBanner from "@/components/layout/hero/home-hero"
+import HeroBanner from "@/components/hero/hero-banner"
 import Carousel from "react-multi-carousel"
 import "react-multi-carousel/lib/styles.css"
 import { Image } from "@nextui-org/image"
@@ -20,7 +20,6 @@ import { SocialIcon } from "react-social-icons"
 import Logo from "@/components/assets/logo"
 import socials from "@/constant/social"
 import PictureCard from "@/components/card/picture-card"
-import { useSession } from "next-auth/react"
 
 export default function Home() {
   return (

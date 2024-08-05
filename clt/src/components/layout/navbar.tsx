@@ -16,6 +16,7 @@ import { FaPeopleLine } from "react-icons/fa6"
 import { FaInfoCircle } from "react-icons/fa"
 import { motion } from "framer-motion"
 import { FaSignInAlt } from "react-icons/fa"
+import { useSession } from "next-auth/react"
 
 interface ITabItem {
   tabName: string
@@ -45,7 +46,7 @@ const eboardSignInTab: ITabItem = {
 const menuItems: ITabItem[] = [eventTab, eboardTab, aboutTab, eboardSignInTab]
 
 export default function NavBar() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const { data: session, status } = useSession()
   return (
     <Navbar
       className="bg-gradient-to-r from-cyan-300 to-blue-200 shadow-md"
@@ -78,7 +79,6 @@ export default function NavBar() {
         ))}
       </NavbarContent>
       <NavbarMenuToggle
-        aria-label={isMenuOpen ? "Close menu" : "Open menu"}
         className="sm:hidden"
       />
       <NavbarMenu>

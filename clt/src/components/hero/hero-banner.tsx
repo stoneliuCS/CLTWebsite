@@ -4,7 +4,7 @@ interface Props {
   backgroundColor?: string
 }
 
-export default function HomeHeroBanner({
+export default function HeroBanner({
   content = <></>,
   backgroundColor = "bg-white",
 }: Props) {
