@@ -1,8 +1,14 @@
+"use client"
 import HomeHeroBanner from "@/components/layout/hero/home-hero"
-import { Input, Image, Divider, Button } from "@nextui-org/react"
+import { Image, Divider, Button } from "@nextui-org/react"
 import { FaGoogle } from "react-icons/fa"
+import { useRouter } from "next/navigation"
 
 export default function Login() {
+  const router = useRouter()
+  async function onLogin() {
+    router.push("/api/auth/login")
+  }
   return (
     <HomeHeroBanner
       backgroundColor="bg-blue-50"
@@ -15,15 +21,13 @@ export default function Login() {
             alt="clt background"
           />
           <h2 className="font-semibold text-md mb-2">Login as a CLT Member</h2>
-          <div className="w-4/12 flex flex-col justify-center items-center">
+          <div className="w-6/12 lg:w-4/12 flex flex-col justify-center items-center">
             <Divider className="mb-2" />
-            <Input className="mb-2" type="email" label="Email" size="sm" />
-            <Button className="w-full mb-2" color="primary"> Login </Button>
-             <p> Or </p>
             <Button
-              className="w-full mt-2 bg-white"
+              className="w-full bg-white"
               size="lg"
               startContent={<FaGoogle />}
+              onPress={onLogin}
             >
               Login With Google
             </Button>
