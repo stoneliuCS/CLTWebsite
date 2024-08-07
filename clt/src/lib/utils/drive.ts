@@ -1,6 +1,6 @@
 import { google } from "googleapis"
 import { auth } from "./auth"
-import getOAuthClient from "./oauth"
+import { getOAuthClient } from "./oauth-client"
 
 async function getGoogleDrive() {
   const session = await auth()

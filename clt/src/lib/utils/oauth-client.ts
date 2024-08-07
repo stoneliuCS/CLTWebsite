@@ -1,7 +1,7 @@
 import { google } from "googleapis"
 import { Session } from "next-auth"
 
-async function getOAuthClient(session: Session) {
+export async function getOAuthClient(session: Session) {
   const oauth2Client = new google.auth.OAuth2(
     process.env.NEXT_PUBLIC_GOOGLE_AUTH_CLIENT_ID!,
     process.env.NEXT_PUBLIC_GOOGLE_AUTH_CLIENT_SECRET!,
@@ -11,4 +11,4 @@ async function getOAuthClient(session: Session) {
   return oauth2Client
 }
 
-export default getOAuthClient
+

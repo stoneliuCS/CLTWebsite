@@ -7,7 +7,7 @@ export const events: IEvent[] = [
     eventDate: new Date(),
     eventDescription: {
       summary: "Fun day at Revere Beach",
-      location: { street: "Revere Beach" },
+      location: { address: "Revere Beach" },
     },
     eventImage: {
       src: "/beach_day.jpg",
