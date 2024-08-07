@@ -1,11 +1,10 @@
 import checkCLTDrivePermission from "@/lib/utils/drive"
-import { NextRequest, NextResponse } from "next/server"
 import { auth } from "@/lib/utils/auth"
 
 /**
  * Check if the current session has access to the Shared CLT Google Drive
  */
-export async function GET(req: NextRequest, res: NextResponse) {
+export async function GET() {
   const session = await auth()
   if (!session)
     return Response.json(
@@ -21,7 +20,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
       { status: 401 }
     )
   return Response.json(
-    { message: "Success! Welcome to the CLT Website" },
+    { message: "Success! Welcome to the CLT Dashboard" },
     { status: 200 }
   )
 }
