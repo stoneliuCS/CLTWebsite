@@ -22,6 +22,7 @@ import { FaInfoCircle } from "react-icons/fa"
 import { motion } from "framer-motion"
 import { FaSignInAlt } from "react-icons/fa"
 import { signOut, useSession } from "next-auth/react"
+import checkCLTDrivePermission from "@/lib/utils/drive"
 
 interface ITabItem {
   tabName: string
@@ -97,7 +98,7 @@ export default function NavBar() {
                 />
               </DropdownTrigger>
               <DropdownMenu aria-label="Profile Actions" variant="flat">
-                <DropdownItem key="profile" className="h-14 gap-2">
+                <DropdownItem key="profile" className="h-14 gap-2" textValue="Profile">
                   <p className="font-semibold">Signed in as</p>
                   <p className="font-semibold">{session.user?.email}</p>
                 </DropdownItem>
@@ -107,6 +108,7 @@ export default function NavBar() {
                   onPress={() => {
                     signOut()
                   }}
+                  textValue="Log Out"
                 >
                   Log Out
                 </DropdownItem>

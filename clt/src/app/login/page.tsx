@@ -2,9 +2,14 @@
 import HomeHeroBanner from "@/components/hero/hero-banner"
 import { Image, Divider, Button } from "@nextui-org/react"
 import { FaGoogle } from "react-icons/fa"
-import { signIn } from "next-auth/react"
+import { signIn, useSession } from "next-auth/react"
 
 export default function Login() {
+  const { data: session, status } = useSession()
+  if (session)
+    return (
+      <p> You cannot access the login page if you are already logged in.</p>
+    )
   return (
     <HomeHeroBanner
       backgroundColor="bg-blue-50"

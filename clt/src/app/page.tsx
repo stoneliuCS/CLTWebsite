@@ -131,8 +131,8 @@ export default function Home() {
                   </div>
                 </CardHeader>
                 <Divider />
-                <CardBody className="flex flex-col items-center gap-5">
-                  <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
+                <CardBody className="flex flex-col items-center gap-5 p-5">
+                  <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
                     {socials.map((social, key) => (
                       <div
                         key={key}
