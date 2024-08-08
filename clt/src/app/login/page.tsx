@@ -24,7 +24,7 @@ export default function Login() {
           <h2 className="font-semibold text-md mb-2">Login as a CLT Member</h2>
           <div className="w-6/12 lg:w-4/12 flex flex-col justify-center items-center">
             <Divider className="mb-2" />
-            <Tooltip content="You will not be allowed to login if you do not have access to the CLT Drive">
+            <Tooltip content="You will not be allowed to login if you do not have edit access to the CLT Shared Drive">
               <Button
                 className="w-full bg-white"
                 size="lg"
