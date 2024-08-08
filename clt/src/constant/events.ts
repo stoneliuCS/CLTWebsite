@@ -10,7 +10,7 @@ export const events: IEvent[] = [
       location: { address: "Revere Beach" },
     },
     eventImage: {
-      src: "/beach_day.jpg",
+      src: "/images/beach_day.jpg",
       alt: "Beach Day",
       priority: true,
     },
@@ -20,7 +20,7 @@ export const events: IEvent[] = [
     eventDate: new Date(),
     eventDescription: { summary: "Calligraphy Night Description" },
     eventImage: {
-      src: "/calligraphy_night.jpg",
+      src: "/images/calligraphy_night.jpg",
       alt: "Calligraphy Night",
     },
   },
@@ -29,7 +29,7 @@ export const events: IEvent[] = [
     eventDate: new Date(),
     eventDescription: { summary: "Ice Skating Outing" },
     eventImage: {
-      src: "/ice_skating.jpg",
+      src: "/images/ice_skating.jpg",
       alt: "Chinese Language Table Logo",
     },
   },
