@@ -1,6 +1,8 @@
 import GoogleProvider from "next-auth/providers/google"
 import { AuthOptions } from "next-auth"
 import { auth } from "@/lib/utils/auth"
+import checkDrivePermission, { getGoogleDrive } from "./drive"
+import { getOAuthClient } from "./oauth-client"
 
 const authOptions: AuthOptions = {
   providers: [
@@ -20,11 +22,22 @@ const authOptions: AuthOptions = {
   ],
   callbacks: {
     async signIn({ user, account, profile, email, credentials }) {
+      //If a user is signed in already, prevent them from signing in again.
       const session = await auth()
       if (session) {
+        //TODO INSTEAD OF ROUTING TO FALSE ROUTE TO AN CUSTOMIZED ERROR PAGE
         return false
       }
-      return true
+      //On Sign In, verify that the user has access to the CLT Google Drive
+      if (account) {
+        const oauth2Client = await getOAuthClient(account.access_token)
+        const drive = await getGoogleDrive(oauth2Client)
+        const permission = await checkDrivePermission(drive)
+        if (!permission) return false
+        return true
+      }
+      //TODO INSTEAD OF ROUTING TO FALSE ROUTE TO AN CUSTOMIZED ERROR PAGE
+      return false
     },
     async redirect({ url, baseUrl }) {
       return baseUrl
@@ -39,7 +52,9 @@ const authOptions: AuthOptions = {
     },
     async jwt({ token, user, account, profile }) {
       if (account) {
-        token = Object.assign({}, token, { access_token: account.access_token })
+        token = Object.assign({}, token, {
+          access_token: account.access_token,
+        })
       }
       return token
     },

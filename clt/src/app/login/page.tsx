@@ -1,6 +1,6 @@
 "use client"
 import HomeHeroBanner from "@/components/hero/hero-banner"
-import { Image, Divider, Button } from "@nextui-org/react"
+import { Image, Divider, Button, Tooltip } from "@nextui-org/react"
 import { FaGoogle } from "react-icons/fa"
 import { signIn, useSession } from "next-auth/react"
 
@@ -24,16 +24,18 @@ export default function Login() {
           <h2 className="font-semibold text-md mb-2">Login as a CLT Member</h2>
           <div className="w-6/12 lg:w-4/12 flex flex-col justify-center items-center">
             <Divider className="mb-2" />
-            <Button
-              className="w-full bg-white"
-              size="lg"
-              startContent={<FaGoogle />}
-              onPress={() => {
-                signIn("google")
-              }}
-            >
-              Login With Google
-            </Button>
+            <Tooltip content="You will not be allowed to login if you do not have access to the CLT Drive">
+              <Button
+                className="w-full bg-white"
+                size="lg"
+                startContent={<FaGoogle />}
+                onPress={() => {
+                  signIn("google")
+                }}
+              >
+                Login With Google
+              </Button>
+            </Tooltip>
             <Divider className="mt-2" />
           </div>
         </div>

@@ -22,7 +22,7 @@ import { FaInfoCircle } from "react-icons/fa"
 import { motion } from "framer-motion"
 import { FaSignInAlt } from "react-icons/fa"
 import { signOut, useSession } from "next-auth/react"
-import checkCLTDrivePermission from "@/lib/utils/drive"
+import { MdAdminPanelSettings } from "react-icons/md"
 
 interface ITabItem {
   tabName: string
@@ -47,12 +47,20 @@ const eboardSignInTab: ITabItem = {
   tabIcon: <FaSignInAlt />,
   link: "/login",
 }
+const eboardDashboard: ITabItem = {
+  tabName: "Eboard Dashboard",
+  tabIcon: <MdAdminPanelSettings />,
+  link: "/dashboard",
+}
 
 const menuItems: ITabItem[] = [eventTab, eboardTab, aboutTab]
 
 export default function NavBar() {
   const { data: session, status } = useSession()
-  const tabs = session ? menuItems : [...menuItems, eboardSignInTab]
+  const tabs =
+    session && status === "authenticated"
+      ? [...menuItems, eboardDashboard]
+      : [...menuItems, eboardSignInTab]
   return (
     <Navbar
       className="bg-gradient-to-r from-cyan-300 to-blue-200 shadow-md"
@@ -98,7 +106,11 @@ export default function NavBar() {
                 />
               </DropdownTrigger>
               <DropdownMenu aria-label="Profile Actions" variant="flat">
-                <DropdownItem key="profile" className="h-14 gap-2" textValue="Profile">
+                <DropdownItem
+                  key="profile"
+                  className="h-14 gap-2"
+                  textValue="Profile"
+                >
                   <p className="font-semibold">Signed in as</p>
                   <p className="font-semibold">{session.user?.email}</p>
                 </DropdownItem>
