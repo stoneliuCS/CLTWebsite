@@ -76,7 +76,7 @@ export default function NavBar() {
         </Link>
       </NavbarBrand>
       <NavbarContent
-        className="font-semibold text-slate-800 gap-x-4 hidden lg:flex"
+        className="font-semibold text-slate-800 gap-x-8 hidden lg:flex"
         justify="end"
       >
         {tabs.map((item, index) => (
