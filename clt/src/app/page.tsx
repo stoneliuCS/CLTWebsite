@@ -113,7 +113,7 @@ export default function Home() {
       <HeroBanner
         backgroundColor="bg-pink-200"
         content={
-          <div className="w-full h-[100vh] relative flex flex-col gap-4 items-center justify-center overflow-x-hidden">
+          <div className="w-full h-[100vh] relative flex flex-col gap-4 items-center justify-center lg:overflow-hidden">
             <h1
               className={`sm:text-xl md:text-3xl lg:text-4xl text-center text-slate-200 font-bold pb-4 text-slate-800	drop-shadow-lg`}
             >

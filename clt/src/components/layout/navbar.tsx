@@ -15,7 +15,7 @@ import {
   NavbarMenuToggle,
 } from "@nextui-org/react"
 import Logo from "../assets/logo"
-import { ReactNode, useState } from "react"
+import { ReactNode } from "react"
 import { MdEvent } from "react-icons/md"
 import { FaPeopleLine } from "react-icons/fa6"
 import { FaInfoCircle } from "react-icons/fa"
@@ -67,7 +67,7 @@ export default function NavBar() {
       shouldHideOnScroll={true}
       maxWidth="full"
     >
-      <NavbarBrand className="gap-x-4">
+      <NavbarBrand className="gap-x-4 overflow-x-hidden">
         <Logo />
         <Link href="/">
           <p className="font-bold text-black truncate">
@@ -76,7 +76,7 @@ export default function NavBar() {
         </Link>
       </NavbarBrand>
       <NavbarContent
-        className="font-semibold text-slate-800 gap-x-10 hidden lg:flex"
+        className="font-semibold text-slate-800 gap-x-4 hidden lg:flex"
         justify="end"
       >
         {tabs.map((item, index) => (
@@ -129,7 +129,7 @@ export default function NavBar() {
           </NavbarItem>
         )}
       </NavbarContent>
-      <NavbarMenuToggle className="sm:hidden" />
+      <NavbarMenuToggle className="lg:hidden" />
       <NavbarMenu>
         {tabs.map((item, index) => (
           <NavbarMenuItem key={`${item}-${index}`}>
