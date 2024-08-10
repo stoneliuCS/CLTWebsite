@@ -9,12 +9,7 @@ import "swiper/css/effect-coverflow"
 import "swiper/css/pagination"
 import "swiper/css/navigation"
 import "./3d-carousel.css"
-import {
-  Card,
-  CardBody,
-  CardHeader,
-  Divider,
-} from "@nextui-org/react"
+import { Card, CardBody, CardHeader, Divider } from "@nextui-org/react"
 import FlippableCard from "@/components/card/flippable-picture-card"
 import { useState } from "react"
 
@@ -84,15 +79,6 @@ export default function EventPage() {
               activeItemIndex={activeIndex}
             />
           </CardBody>
-        </Card>
-      </div>
-      <div>
-        <Card className="w-full mt-1">
-          <CardHeader className="flex justify-center items-center">
-            <h1>
-              Current Event Form & Registration
-            </h1>
-          </CardHeader>
         </Card>
       </div>
     </div>
