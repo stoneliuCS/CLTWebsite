@@ -1,6 +1,14 @@
 "use client"
 import DashboardCard from "@/components/card/dashboard-card"
-import { Card, CardBody, Tab, Tabs } from "@nextui-org/react"
+import {
+  Card,
+  CardBody,
+  DateInput,
+  Input,
+  Tab,
+  Tabs,
+  Textarea,
+} from "@nextui-org/react"
 import { useSession } from "next-auth/react"
 import { MdEventAvailable } from "react-icons/md"
 
@@ -29,11 +37,31 @@ export default function Dashboard() {
                 }
                 className="h-full"
               >
-                <DashboardCard className="h-full" content={
-                  <div className="w-full h-full">
-
-                  </div>
-                } />
+                <DashboardCard
+                  className="h-full"
+                  title="Create a New Event"
+                  content={
+                    <div className="w-full h-full">
+                      <form className="grid grid-cols-1">
+                        <div className="w-6/12 flex flex-col gap-4"> 
+                          <Input
+                            type="eventName"
+                            label="Event Name"
+                            placeholder="Please Enter Your Event Name"
+                            isRequired
+                          />
+                          <DateInput label="Event Date" isRequired />
+                          <Textarea
+                            type="eventDescription"
+                            label="Event Description"
+                            placeholder="Enter your Event Description"
+                            isRequired
+                          />
+                        </div>
+                      </form>
+                    </div>
+                  }
+                />
               </Tab>
             </Tabs>
           </div>
