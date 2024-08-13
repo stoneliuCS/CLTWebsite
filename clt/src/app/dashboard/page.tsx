@@ -33,44 +33,11 @@ export default function Dashboard() {
   const { data: session } = useSession()
   if (!session) return <div> Please Login to view content. </div>
   const { handleSubmit, control, setValue } = useForm()
+  const [currentTab, setCurrentTab] = useState(tabs[0].innerTabs[0])
   const onSubmit: SubmitHandler<any> = (data) => {
     console.log(data)
   }
   const renderFormItem = (tabForm: ITabForm, key: number) => {
-    const [files, setFiles] = useState<FileWithPreview[]>([])
-    const { getRootProps, getInputProps } = useDropzone({
-      maxFiles: 1,
-      accept: {
-        "image/*": [],
-      },
-      onDrop: (acceptedFiles) => {
-        const previewFiles = acceptedFiles.map((file) =>
-          Object.assign(file, {
-            preview: URL.createObjectURL(file),
-          })
-        )
-        setFiles(previewFiles)
-        setValue(tabForm.formType, previewFiles)
-      },
-    })
-    const thumbs = files.map((file) => (
-      <div className="thumb" key={file.name}>
-        <div className="thumbInner">
-          <img
-            src={file.preview}
-            className="img"
-            onLoad={() => {
-              URL.revokeObjectURL(file.preview)
-            }}
-          />
-        </div>
-      </div>
-    ))
-
-    useEffect(() => {
-      return () => files.forEach((file) => URL.revokeObjectURL(file.preview))
-    }, [])
-
     if (tabForm.type === "input")
       return (
         <Controller
@@ -175,33 +142,68 @@ export default function Dashboard() {
           rules={{
             required: tabForm.isRequired ? "This field is required" : false,
           }}
-          render={({ field }) => (
-            <Card
-              className="border-2 border-gray-300 border-dashed w-full"
-              isPressable
-            >
-              <CardBody
-                {...getRootProps({
-                  className: " flex flex-col items-center justify-center",
-                })}
+          render={() => {
+            const [files, setFiles] = useState<FileWithPreview[]>([])
+            const { getRootProps, getInputProps } = useDropzone({
+              maxFiles: 1,
+              autoFocus: true,
+              accept: {
+                "image/*": [],
+              },
+              onDrop: (acceptedFiles) => {
+                const previewFiles = acceptedFiles.map((file) =>
+                  Object.assign(file, {
+                    preview: URL.createObjectURL(file),
+                  })
+                )
+                setFiles(previewFiles)
+                setValue(tabForm.formType, previewFiles)
+              },
+            })
+            const thumbs = files.map((file) => (
+              <div className="thumb" key={file.name}>
+                <div className="thumbInner">
+                  <img
+                    src={file.preview}
+                    className="img"
+                    onLoad={() => {
+                      URL.revokeObjectURL(file.preview)
+                    }}
+                  />
+                </div>
+              </div>
+            ))
+            useEffect(() => {
+              return () =>
+                files.forEach((file) => URL.revokeObjectURL(file.preview))
+            }, [])
+            return (
+              <Card
+                className="border-2 border-slate-400 bg-slate-50	border-dashed w-full"
+                isPressable
               >
-                <em>Drag or drop the event image here:</em>
-                <input
-                  {...getInputProps()}
-                  style={{ display: "none" }}
-                />
-                <aside className="thumbsContainer">
-                  {thumbs.length > 0 ? thumbs : <AiTwotonePicture size={100} />}
-                </aside>
-              </CardBody>
-            </Card>
-          )}
+                <CardBody
+                  {...getRootProps({
+                    className: "flex flex-col items-center justify-center",
+                  })}
+                >
+                  <em>Drag or drop the event image here:</em>
+                  <input {...getInputProps()} style={{ display: "none" }} />
+                  <aside className="thumbsContainer">
+                    {thumbs.length > 0 ? (
+                      thumbs
+                    ) : (
+                      <AiTwotonePicture size={100} />
+                    )}
+                  </aside>
+                </CardBody>
+              </Card>
+            )
+          }}
         />
       )
     throw new Error("No tab form type matched.")
   }
-
-  const [currentTab, setCurrentTab] = useState(tabs[0].innerTabs[0])
   return (
     <div className="w-screen h-screen flex flex-col items-center mt-4">
       <Tabs aria-label="Options" variant="underlined">

@@ -7,7 +7,7 @@ export interface IEvent {
   eventDescription?: string
   eventContact?: IEventContact
   eventImage?: IEventImage
-  eventAttachments?: IEventAttachment[]
+  eventLinks?: IEventLink[]
 }
 
 interface IEventDate {
@@ -28,7 +28,7 @@ interface IEventContact {
   emailAddress: string
 }
 
-interface IEventAttachment {
+interface IEventLink {
   type: "registration" | "engage"
-  label: string
+  url : string
 }
