@@ -116,7 +116,7 @@ export default function Home() {
           <div className="h-screen w-screen">
             <div className="h-full w-full flex flex-col items-center justify-center overflow-hidden">
               <div className="relative flex justify-center items-center">
-                <Card className="h-[90%] lg:h-full">
+                <Card className="h-[90%] lg:h-full w-full">
                   <CardHeader className="flex gap-3">
                     <Logo />
                     <div className="flex flex-col">

@@ -31,7 +31,6 @@ interface FileWithPreview extends File {
 
 export default function Dashboard() {
   const { data: session } = useSession()
-  if (!session) return <div> Please Login to view content. </div>
   const { handleSubmit, control, setValue } = useForm()
   const [currentTab, setCurrentTab] = useState(tabs[0].innerTabs[0])
   const onSubmit: SubmitHandler<any> = (data) => {
@@ -203,6 +202,7 @@ export default function Dashboard() {
       )
     throw new Error("No tab form type matched.")
   }
+  if (!session) return <div> Please Login to view content. </div>
   return (
     <div className="w-screen h-screen flex flex-col items-center mt-4">
       <Tabs aria-label="Options" variant="underlined">
