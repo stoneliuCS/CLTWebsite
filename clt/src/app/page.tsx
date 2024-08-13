@@ -23,7 +23,7 @@ import PictureCard from "@/components/card/picture-card"
 
 export default function Home() {
   return (
-    <div className="flex flex-col">
+    <div className="h-screen w-screen flex flex-col">
       <HeroBanner
         backgroundColor="bg-sky-100"
         content={
@@ -85,7 +85,7 @@ export default function Home() {
         content={
           <div className="flex flex-col justify-center items-center">
             <h1
-              className={`sm:text-xl md:text-3xl lg:text-4xl text-center text-slate-200 font-bold pb-4 text-slate-800	drop-shadow-lg`}
+              className={`sm:text-xl md:text-3xl lg:text-4xl text-center font-bold mb-4 text-slate-800	drop-shadow-lg`}
             >
               See What We Have Been Up To!
             </h1>
@@ -113,14 +113,14 @@ export default function Home() {
       <HeroBanner
         backgroundColor="bg-pink-200"
         content={
-          <div className="w-full h-[100vh] relative flex flex-col gap-4 items-center justify-center lg:overflow-hidden">
+          <div className="w-full h-screen relative flex flex-col gap-4 items-center justify-center lg:overflow-hidden">
             <h1
-              className={`sm:text-xl md:text-3xl lg:text-4xl text-center text-slate-200 font-bold pb-4 text-slate-800	drop-shadow-lg`}
+              className={`sm:text-xl md:text-3xl lg:text-4xl text-center font-bold pb-4 text-slate-800	drop-shadow-lg`}
             >
               Connect With Our Socials!
             </h1>
             <div className="relative flex justify-center items-center">
-              <Card className="h-full">
+              <Card className="h-[85%] lg:h-full">
                 <CardHeader className="flex gap-3">
                   <Logo />
                   <div className="flex flex-col">

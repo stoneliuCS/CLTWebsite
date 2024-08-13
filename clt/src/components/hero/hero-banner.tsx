@@ -10,7 +10,7 @@ export default function HeroBanner({
 }: Props) {
   return (
     <div
-      className={`${backgroundColor} h-screen flex justify-center items-center overflow-x-hidden`}
+      className={`${backgroundColor} min-h-screen flex justify-center items-center overflow-x-hidden`}
     >
       <div className="relative isolate  lg:px-8">
         <div
