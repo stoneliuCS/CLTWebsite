@@ -6,7 +6,7 @@ const tabs: ITabDashboard[] = [
     key: "events",
     innerTabs: [
       {
-        title: "Create Event",
+        title: "Create New Event",
         key: "createEvent",
         form: [
           {
@@ -34,9 +34,34 @@ const tabs: ITabDashboard[] = [
             isRequired : true,
           },
           {
+            formType: "eventLocation",
+            type : "input",
+            label : "Event Location",
+            placeholder : "Be as specific as possible",
+            isRequired : true,
+          },
+          {
             formType: "eventDescription",
             type: "textArea",
             label: "Event Description",
+            isRequired: true,
+          },
+          {
+            formType: "eventContactName",
+            type: "input",
+            label: "Event Contact Name",
+            isRequired: false,
+          },
+          {
+            formType: "eventContactPhoneNumber",
+            type: "input",
+            label: "Event Contact Phone Number",
+            isRequired: false,
+          },
+          {
+            formType: "eventContactEmailAddress",
+            type: "input",
+            label: "Event Contact Email Address",
             isRequired: false,
           },
         ],

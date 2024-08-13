@@ -34,12 +34,12 @@ export default function PictureCard(props: IPictureCardProps) {
             <div className=" h-full w-full">
                 <div className="relative w-full h-full">
                   <NextImage
-                    src={props.event.eventImage.src}
-                    alt={props.event.eventImage.alt}
+                    src={props.event.eventImage!.src}
+                    alt={props.event.eventImage!.alt}
                     fill
                     style={{ objectFit: "cover" }}
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    priority={props.event.eventImage.priority}
+                    priority={props.event.eventImage!.priority}
                   />
                 </div>
             </div>
@@ -87,11 +87,11 @@ export default function PictureCard(props: IPictureCardProps) {
             </ModalHeader>
             <Divider />
             <ModalBody className="flex flex-col">
-              <p>{props.event.eventDescription.summary}</p>
+              <p>{props.event.eventDescription}</p>
             </ModalBody>
             <Divider />
             <ModalFooter className="flex justify-start">
-              <p> {props.event.eventDate.toDateString()} </p>
+              <p> {props.event.eventDate.date.toDateString()} </p>
             </ModalFooter>
           </>
         </ModalContent>

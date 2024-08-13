@@ -1,5 +1,4 @@
 import { ReactNode } from "react"
-import { Time } from "@internationalized/date"
 
 export interface ITabDashboard {
   title: string

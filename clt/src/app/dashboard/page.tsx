@@ -2,6 +2,9 @@
 import tabs from "@/constant/dashboard-tabs"
 import { ITab, ITabForm } from "@/types/ITabDashboard"
 import {
+  Accordion,
+  AccordionItem,
+  Button,
   Card,
   CardBody,
   CardFooter,
@@ -15,61 +18,156 @@ import {
 } from "@nextui-org/react"
 import { useSession } from "next-auth/react"
 import { useState } from "react"
+import { useForm, SubmitHandler, Controller } from "react-hook-form"
+import { Time, CalendarDate } from "@internationalized/date"
 
 export default function Dashboard() {
   const { data: session } = useSession()
   if (!session) return <div> Please Login to view content. </div>
-
+  const { handleSubmit, control } = useForm()
+  const onSubmit: SubmitHandler<any> = (data) => {
+    console.log(data)
+  }
   const renderFormItem = (tabForm: ITabForm, key: number) => {
     if (tabForm.type === "input")
       return (
-        <Input
-          type={tabForm.formType}
-          isRequired={tabForm.isRequired}
-          label={tabForm.label}
-          size="sm"
+        <Controller
           key={key}
+          name={tabForm.formType}
+          control={control}
+          defaultValue=""
+          rules={{
+            required: tabForm.isRequired ? "This field is required" : false,
+          }}
+          render={({ field, fieldState }) => (
+            <Input
+              {...field}
+              type={tabForm.formType}
+              isRequired={tabForm.isRequired}
+              label={tabForm.label}
+              placeholder={tabForm.placeholder}
+              isInvalid={fieldState.invalid}
+              errorMessage={fieldState.error?.message}
+              size="sm"
+            />
+          )}
         />
       )
     if (tabForm.type === "dateInput")
       return (
-        <DateInput
-          label={tabForm.label}
-          isRequired={tabForm.isRequired}
+        <Controller
           key={key}
+          name={tabForm.formType}
+          control={control}
+          defaultValue={() => {
+            const date = new Date()
+            return new CalendarDate(
+              date.getFullYear(),
+              date.getMonth(),
+              date.getDate()
+            )
+          }}
+          rules={{
+            required: tabForm.isRequired ? "This field is required" : false,
+          }}
+          render={({ field, fieldState }) => (
+            <DateInput
+              {...field}
+              label={tabForm.label}
+              isRequired={tabForm.isRequired}
+              isInvalid={fieldState.invalid}
+              errorMessage={fieldState.error?.message}
+            />
+          )}
         />
       )
     if (tabForm.type === "textArea")
       return (
-        <Textarea
-          label={tabForm.label}
-          isRequired={tabForm.isRequired}
+        <Controller
           key={key}
+          name={tabForm.formType}
+          control={control}
+          defaultValue=""
+          rules={{
+            required: tabForm.isRequired ? "This field is required" : false,
+          }}
+          render={({ field, fieldState }) => (
+            <Textarea
+              {...field}
+              label={tabForm.label}
+              isRequired={tabForm.isRequired}
+              isInvalid={fieldState.invalid}
+              errorMessage={fieldState.error?.message}
+            />
+          )}
         />
       )
     if (tabForm.type === "timeInput")
       return (
-        <TimeInput
-          label={tabForm.label}
-          isRequired={tabForm.isRequired}
+        <Controller
           key={key}
+          name={tabForm.formType}
+          control={control}
+          defaultValue={new Time()}
+          rules={{
+            required: tabForm.isRequired ? "This field is required" : false,
+          }}
+          render={({ field, fieldState }) => (
+            <TimeInput
+              {...field}
+              label={tabForm.label}
+              isRequired={tabForm.isRequired}
+              isInvalid={fieldState.invalid}
+              errorMessage={fieldState.error?.message}
+            />
+          )}
         />
       )
-    throw new Error("No tab form types match.")
+    throw new Error("No tab form type matched.")
   }
   const [currentTab, setCurrentTab] = useState(tabs[0].innerTabs[0])
   return (
     <div className="w-screen h-screen flex flex-col items-center justify-center mt-4">
       <Tabs aria-label="Options" variant="underlined">
         {tabs.map((tab) => (
-          <Tab key={tab.key} title={tab.title} className="w-10/12 h-5/6">
+          <Tab key={tab.key} title={tab.title} className="w-10/12 h-[85%]">
             <Card className="bg-blue-200 h-full w-full">
               {currentTab.form ? (
                 <CardBody>
-                  <form className="w-8/12 flex flex-col gap-y-2">
-                    {currentTab.form.map((form: ITabForm, key: number) =>
-                      renderFormItem(form, key)
-                    )}
+                  <form
+                    className="w-full flex flex-col space-y-2 items-center p-4"
+                    onSubmit={handleSubmit(onSubmit)}
+                  >
+                    <div className="w-4/12">
+                      <h1 className="text-center font-semibold">
+                        Required Fields:
+                      </h1>
+                      <Divider />
+                    </div>
+                    {currentTab.form
+                      .filter((form: ITabForm) => form.isRequired)
+                      .map((form: ITabForm, key: number) =>
+                        renderFormItem(form, key)
+                      )}
+                    <Accordion variant="bordered">
+                      <AccordionItem
+                        key="1"
+                        aria-label="Accordion 1"
+                        subtitle="Press to expand"
+                        title="Optional Fields"
+                      >
+                        <div className="space-y-2">
+                          {currentTab.form
+                            .filter((form: ITabForm) => !form.isRequired)
+                            .map((form: ITabForm, key: number) =>
+                              renderFormItem(form, key)
+                            )}
+                        </div>
+                      </AccordionItem>
+                    </Accordion>
+                    <Button size="md" color="primary" type="submit">
+                      Submit
+                    </Button>
                   </form>
                 </CardBody>
               ) : (
@@ -79,6 +177,7 @@ export default function Dashboard() {
               <CardFooter className="flex align-items justify-center">
                 <Tabs
                   aria-label="Inner-Options"
+                  className="overflow-x-scroll"
                   onSelectionChange={(e) => {
                     const selectedTab = tab.innerTabs.find((tab: ITab) => {
                       return tab.key === e.toString()
