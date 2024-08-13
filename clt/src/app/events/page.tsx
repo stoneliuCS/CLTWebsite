@@ -21,13 +21,9 @@ export default function EventPage() {
   const [activeIndex, setActiveIndex] = useState(0)
   return (
     <div className="h-screen w-screen p-1">
-      <div className="flex flex-col lg:flex-row h-full w-full">
+      <div className="flex flex-col lg:flex-row h-full w-full ">
         <Card className="w-full lg:w-8/12 min-h-full bg-indigo-300" shadow="lg">
-          <CardHeader className="flex justify-center">
-            <p className="font-bold"> Showing Current Events: </p>
-          </CardHeader>
-          <Divider />
-          <CardBody className="flex items-center justify-center ">
+          <CardBody>
             <Swiper
               effect="coverflow"
               grabCursor={true}
@@ -55,7 +51,7 @@ export default function EventPage() {
               className="w-full h-full"
             >
               {events.map((event, idx) => (
-                <SwiperSlide key={idx * 2} className="mt-8">
+                <SwiperSlide key={idx * 2} className="pt-10">
                   <FlippableCard event={event} shadow={"none"} />
                 </SwiperSlide>
               ))}
@@ -66,10 +62,6 @@ export default function EventPage() {
           className="w-full lg:w-4/12 min-h-full mt-1 lg:mt-0 lg:ml-1 bg-indigo-300"
           shadow="lg"
         >
-          <CardHeader className="flex justify-center">
-            <p className="font-bold"> Showing Current Events Timeline: </p>
-          </CardHeader>
-          <Divider />
           <CardBody>
             <Chrono
               items={eventTimeLineItems}

@@ -18,7 +18,7 @@ function OverridePictureCard({
   event,
 }: OverridePictureCardProp) {
   return (
-    <div className="h-[75vh]">
+    <div className="h-[80vh]">
       {variant === "Front" && (
         <motion.div
           className="relative h-full w-full"
@@ -33,7 +33,7 @@ function OverridePictureCard({
                   alt={event.eventImage!.alt}
                   fill
                   style={{ objectFit: "cover" }}
-                  sizes="(max-height : 75vh)"
+                  sizes="(max-height : 80vh)"
                   priority={event.eventImage!.priority}
                 />
               </div>
