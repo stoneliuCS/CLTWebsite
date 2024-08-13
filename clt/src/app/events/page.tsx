@@ -55,7 +55,7 @@ export default function EventPage() {
               className="w-full h-full"
             >
               {events.map((event, idx) => (
-                <SwiperSlide key={idx * 2} className="pt-10">
+                <SwiperSlide key={idx * 2} className="mt-8">
                   <FlippableCard event={event} shadow={"none"} />
                 </SwiperSlide>
               ))}
