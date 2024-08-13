@@ -146,7 +146,6 @@ export default function Dashboard() {
             const [files, setFiles] = useState<FileWithPreview[]>([])
             const { getRootProps, getInputProps } = useDropzone({
               maxFiles: 1,
-              autoFocus: true,
               accept: {
                 "image/*": [],
               },
