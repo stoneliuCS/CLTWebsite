@@ -127,34 +127,48 @@ export default function Dashboard() {
   }
   const [currentTab, setCurrentTab] = useState(tabs[0].innerTabs[0])
   return (
-    <div className="w-screen h-screen flex flex-col items-center justify-center mt-4">
+    <div className="w-screen h-screen flex flex-col items-center mt-2">
       <Tabs aria-label="Options" variant="underlined">
         {tabs.map((tab) => (
-          <Tab key={tab.key} title={tab.title} className="w-10/12 h-[85%]">
-            <Card className="bg-blue-200 h-full w-full">
+          <Tab key={tab.key} title={tab.title} className="w-10/12 h-full">
+            <Card className="bg-blue-200 w-full">
               {currentTab.form ? (
                 <CardBody>
                   <form
-                    className="w-full flex flex-col space-y-2 items-center p-4"
+                    className="w-full flex flex-col space-y-2 items-center px-10"
                     onSubmit={handleSubmit(onSubmit)}
                   >
-                    <div className="w-4/12">
-                      <h1 className="text-center font-semibold">
-                        Required Fields:
+                    <div className="w-6/12">
+                      <h1 className="text-center font-semibold truncate p-1">
+                        {tab.title} Dashboard
                       </h1>
                       <Divider />
                     </div>
-                    {currentTab.form
-                      .filter((form: ITabForm) => form.isRequired)
-                      .map((form: ITabForm, key: number) =>
-                        renderFormItem(form, key)
-                      )}
                     <Accordion variant="bordered">
                       <AccordionItem
                         key="1"
                         aria-label="Accordion 1"
                         subtitle="Press to expand"
+                        title="Required Fields*"
+                        className="mb-4"
+                        keepContentMounted
+                      >
+                        <div className="space-y-2">
+                        {currentTab.form
+                      .filter((form: ITabForm) => form.isRequired)
+                      .map((form: ITabForm, key: number) =>
+                        renderFormItem(form, key)
+                      )}
+                        </div>
+                      </AccordionItem>
+                    </Accordion>
+                    <Accordion variant="bordered">
+                      <AccordionItem
+                        key="2"
+                        aria-label="Accordion 2"
+                        subtitle="Press to expand"
                         title="Optional Fields"
+                        className="mb-4"
                       >
                         <div className="space-y-2">
                           {currentTab.form

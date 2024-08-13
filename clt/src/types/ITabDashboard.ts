@@ -13,7 +13,7 @@ export interface ITab {
 }
 
 export interface ITabForm {
-  type: "input" | "textArea" | "dateInput" | "timeInput" | "dropdown"
+  type: "input" | "textArea" | "dateInput" | "timeInput" | "drag&drop"
   formType: string
   label: string
   isRequired: boolean
