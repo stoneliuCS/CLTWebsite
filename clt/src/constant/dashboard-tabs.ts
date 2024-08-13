@@ -37,7 +37,6 @@ const tabs: ITabDashboard[] = [
             formType: "eventLocation",
             type : "input",
             label : "Event Location",
-            placeholder : "Be as specific as possible",
             isRequired : true,
           },
           {
@@ -64,6 +63,12 @@ const tabs: ITabDashboard[] = [
             label: "Event Contact Email Address",
             isRequired: false,
           },
+          {
+            formType: "eventImage",
+            type : "drag&drop",
+            label : "Drag and Drop Your Event Image",
+            isRequired : false
+          }
         ],
       },
       { title: "Update Existing Event", key: "updateEvent" },
