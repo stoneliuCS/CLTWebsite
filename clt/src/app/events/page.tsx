@@ -20,9 +20,9 @@ const Chrono = dynamic(() => import("react-chrono").then((mod) => mod.Chrono), {
 export default function EventPage() {
   const [activeIndex, setActiveIndex] = useState(0)
   return (
-    <div className="flex flex-col p-1">
-      <div className="flex flex-col lg:flex-row items-center justify-center w-full h-full">
-        <Card className="w-full lg:w-8/12 h-[95vh] bg-indigo-300" shadow="lg">
+    <div className="h-screen w-screen p-1">
+      <div className="flex flex-col lg:flex-row h-full w-full">
+        <Card className="w-full lg:w-8/12 min-h-full bg-indigo-300" shadow="lg">
           <CardHeader className="flex justify-center">
             <p className="font-bold"> Showing Current Events: </p>
           </CardHeader>
@@ -55,7 +55,7 @@ export default function EventPage() {
               className="w-full h-full"
             >
               {events.map((event, idx) => (
-                <SwiperSlide key={idx * 2}>
+                <SwiperSlide key={idx * 2} className="pt-10">
                   <FlippableCard event={event} shadow={"none"} />
                 </SwiperSlide>
               ))}
@@ -63,7 +63,7 @@ export default function EventPage() {
           </CardBody>
         </Card>
         <Card
-          className="w-full lg:w-4/12 h-[50vh] lg:h-[95vh] mt-1 lg:mt-0 lg:ml-1 bg-indigo-300"
+          className="w-full lg:w-4/12 min-h-full mt-1 lg:mt-0 lg:ml-1 bg-indigo-300"
           shadow="lg"
         >
           <CardHeader className="flex justify-center">

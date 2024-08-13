@@ -18,14 +18,14 @@ function OverridePictureCard({
   event,
 }: OverridePictureCardProp) {
   return (
-    <div>
+    <div className="h-[75vh]">
       {variant === "Front" && (
         <motion.div
-          className="relative"
+          className="relative h-full w-full"
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
         >
-          <Card className="h-[70vh] w-full" isBlurred shadow={shadow}>
+          <Card className="h-full w-full" isBlurred shadow={shadow}>
             <div className="h-full w-full">
               <div className="relative w-full h-full">
                 <NextImage
@@ -33,7 +33,7 @@ function OverridePictureCard({
                   alt={event.eventImage!.alt}
                   fill
                   style={{ objectFit: "cover" }}
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  sizes="(max-height : 75vh)"
                   priority={event.eventImage!.priority}
                 />
               </div>
@@ -51,8 +51,8 @@ function OverridePictureCard({
         </motion.div>
       )}
       {variant === "Back" && (
-        <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
-          <Card className="h-[70vh] w-full">
+        <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} className="h-full w-full">
+          <Card className="h-full w-full">
             <CardHeader>
               <h1>{event.eventName}</h1>
             </CardHeader>
