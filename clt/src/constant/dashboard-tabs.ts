@@ -1,3 +1,5 @@
+import { ITabDashboard } from "@/types/ITabDashboard"
+
 const tabs: ITabDashboard[] = [
   {
     title: "Events",
@@ -18,6 +20,18 @@ const tabs: ITabDashboard[] = [
             type: "dateInput",
             label: "Event Date",
             isRequired: true,
+          },
+          {
+            formType: "eventStartTime",
+            type : "timeInput",
+            label : "Event Start Time",
+            isRequired : true,
+          },
+          {
+            formType: "eventEndTime",
+            type : "timeInput",
+            label : "Event End Time",
+            isRequired : true,
           },
           {
             formType: "eventDescription",

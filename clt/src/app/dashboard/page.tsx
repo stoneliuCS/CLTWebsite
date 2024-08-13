@@ -1,20 +1,20 @@
 "use client"
 import tabs from "@/constant/dashboard-tabs"
+import { ITab, ITabForm } from "@/types/ITabDashboard"
 import {
   Card,
   CardBody,
   CardFooter,
-  CardHeader,
   DateInput,
   Divider,
   Input,
   Tab,
   Tabs,
   Textarea,
+  TimeInput,
 } from "@nextui-org/react"
 import { useSession } from "next-auth/react"
 import { useState } from "react"
-import { MdEventAvailable } from "react-icons/md"
 
 export default function Dashboard() {
   const { data: session } = useSession()
@@ -47,7 +47,15 @@ export default function Dashboard() {
           key={key}
         />
       )
-    return <div>Uh Oh</div>
+    if (tabForm.type === "timeInput")
+      return (
+        <TimeInput
+          label={tabForm.label}
+          isRequired={tabForm.isRequired}
+          key={key}
+        />
+      )
+    throw new Error("No tab form types match.")
   }
   const [currentTab, setCurrentTab] = useState(tabs[0].innerTabs[0])
   return (
@@ -58,8 +66,8 @@ export default function Dashboard() {
             <Card className="bg-blue-200 h-full w-full">
               {currentTab.form ? (
                 <CardBody>
-                  <form className="w-6/12 flex flex-col gap-y-2">
-                    {currentTab.form.map((form, key) =>
+                  <form className="w-8/12 flex flex-col gap-y-2">
+                    {currentTab.form.map((form: ITabForm, key: number) =>
                       renderFormItem(form, key)
                     )}
                   </form>
@@ -72,13 +80,13 @@ export default function Dashboard() {
                 <Tabs
                   aria-label="Inner-Options"
                   onSelectionChange={(e) => {
-                    const selectedTab = tab.innerTabs.find((tab) => {
+                    const selectedTab = tab.innerTabs.find((tab: ITab) => {
                       return tab.key === e.toString()
                     }) as ITab
                     setCurrentTab(selectedTab)
                   }}
                 >
-                  {tab.innerTabs.map((innerTab) => (
+                  {tab.innerTabs.map((innerTab: ITab) => (
                     <Tab key={innerTab.key} title={innerTab.title} />
                   ))}
                 </Tabs>
