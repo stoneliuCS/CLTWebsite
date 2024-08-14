@@ -23,7 +23,8 @@
     "react-scroll": "^1.9.0",
     "react-social-icons": "^6.17.0",
     "react-type-animation": "^3.2.0",
-    "swiper": "^11.1.9"
+    "swiper": "^11.1.9",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@types/node": "^20",

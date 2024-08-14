@@ -2,7 +2,7 @@ import { ReactNode } from "react"
 
 export interface ITabDashboard {
   title: string
-  key: ITabTypes
+  key: string
   innerTabs: ITab[]
 }
 
@@ -14,11 +14,9 @@ export interface ITab {
 
 export interface ITabForm {
   type: "input" | "textArea" | "dateInput" | "timeInput" | "drag&drop"
-  formType: string
+  key: string
   label: string
   isRequired: boolean
   placeholder?: string
   icon?: ReactNode
 }
-
-export type ITabTypes = "events" | "announcements"
