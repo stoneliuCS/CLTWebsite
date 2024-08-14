@@ -1,6 +1,6 @@
 "use client"
 import tabs from "@/constant/dashboard-tabs"
-import { ITab, ITabForm } from "@/types/ITabDashboard"
+import { ITab, ITabForm } from "@/types/IDashboard"
 import {
   Accordion,
   AccordionItem,
@@ -19,11 +19,17 @@ import {
 } from "@nextui-org/react"
 import { useSession } from "next-auth/react"
 import { useEffect, useState } from "react"
-import { useForm, SubmitHandler, Controller } from "react-hook-form"
+import {
+  useForm,
+  SubmitHandler,
+  Controller,
+  useFieldArray,
+} from "react-hook-form"
 import { Time, CalendarDate } from "@internationalized/date"
 import { useDropzone } from "react-dropzone"
 import "./file-preview.css"
 import { AiTwotonePicture } from "react-icons/ai"
+import { partition } from "@/lib/utils"
 
 interface FileWithPreview extends File {
   preview: string
@@ -211,7 +217,7 @@ export default function Dashboard() {
                       className: "flex flex-col items-center justify-center",
                     })}
                   >
-                    <em>Drag or drop the event image here:</em>
+                    <em>{tabForm.label}</em>
                     <input {...getInputProps()} style={{ display: "none" }} />
                     <aside className="thumbsContainer">
                       {thumbs.length > 0 ? (
@@ -226,9 +232,65 @@ export default function Dashboard() {
             }}
           />
         )
+      case "links":
+        return (
+          <Controller
+            key={key}
+            name={tabForm.key}
+            control={control}
+            defaultValue={[]}
+            rules={{
+              required: tabForm.isRequired ? "This field is required" : false,
+            }}
+            render={() => {
+              const { fields, append, remove } = useFieldArray({
+                control,
+                name: tabForm.key,
+              })
+              return (
+                <Card className="w-full">
+                  <CardBody className="flex justify-center items-center">
+                    <p>{tabForm.label}</p>
+                  </CardBody>
+                </Card>
+              )
+            }}
+          />
+        )
       default:
         throw new Error("No tab form type matched.")
     }
+  }
+  const renderAccordionView = (form : ITabForm[]) => {
+    const [required, nonRequired] = partition(form, (f) => f.isRequired)
+    return (
+      <Accordion variant="bordered" defaultExpandedKeys={"1"}>
+        <AccordionItem
+          key="1"
+          aria-label="Accordion 1"
+          subtitle="Press to expand"
+          title="Required Fields*"
+          className="mb-4"
+          keepContentMounted
+        >
+          <div className="space-y-2">
+            {required.map((form: ITabForm, key: number) => renderFormItem(form, key))}
+          </div>
+        </AccordionItem>
+        <AccordionItem
+          key="2"
+          aria-label="Accordion 2"
+          subtitle="Press to expand"
+          title="Optional Fields"
+          className="mb-4"
+          keepContentMounted
+        >
+          <div className="space-y-2">
+            {nonRequired.map((form: ITabForm, key: number) => renderFormItem(form, key))}
+          </div>
+        </AccordionItem>
+      </Accordion>
+    )
   }
   if (!session) return <div> Please Login to view content. </div>
   return (
@@ -238,7 +300,7 @@ export default function Dashboard() {
           <Tab key={tab.key} title={tab.title} className="w-10/12 h-full">
             <Card className="bg-blue-200 w-full">
               <CardHeader className="flex items-center justify-center">
-                <div className="w-6/12">
+                <div className="w-full">
                   <h1 className="text-center font-semibold truncate p-1">
                     {tab.title} Dashboard
                   </h1>
@@ -251,40 +313,15 @@ export default function Dashboard() {
                     className="w-full flex flex-col space-y-2 items-center px-10"
                     onSubmit={handleSubmit(onSubmit(currentTab.key))}
                   >
-                    <Accordion variant="bordered" defaultExpandedKeys={"1"}>
-                      <AccordionItem
-                        key="1"
-                        aria-label="Accordion 1"
-                        subtitle="Press to expand"
-                        title="Required Fields*"
-                        className="mb-4"
-                        keepContentMounted
-                      >
-                        <div className="space-y-2">
-                          {currentTab.form
-                            .filter((form: ITabForm) => form.isRequired)
-                            .map((form: ITabForm, key: number) =>
-                              renderFormItem(form, key)
-                            )}
-                        </div>
-                      </AccordionItem>
-                      <AccordionItem
-                        key="2"
-                        aria-label="Accordion 2"
-                        subtitle="Press to expand"
-                        title="Optional Fields"
-                        className="mb-4"
-                        keepContentMounted
-                      >
-                        <div className="space-y-2">
-                          {currentTab.form
-                            .filter((form: ITabForm) => !form.isRequired)
-                            .map((form: ITabForm, key: number) =>
-                              renderFormItem(form, key)
-                            )}
-                        </div>
-                      </AccordionItem>
-                    </Accordion>
+                    {currentTab.accordionView ? (
+                      renderAccordionView(currentTab.form)
+                    ) : (
+                      <div className="flex flex-col w-full space-y-2">
+                        {currentTab.form.map((form: ITabForm, key: number) =>
+                          renderFormItem(form, key)
+                        )}
+                      </div>
+                    )}
                     <Button size="md" color="primary" type="submit">
                       Submit
                     </Button>

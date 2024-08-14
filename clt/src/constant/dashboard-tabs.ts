@@ -1,6 +1,6 @@
-import { ITabDashboard } from "@/types/ITabDashboard"
+import { IDashboard } from "@/types/IDashboard"
 
-const tabs: ITabDashboard[] = [
+const tabs: IDashboard[] = [
   {
     title: "Events",
     key: "events",
@@ -8,6 +8,7 @@ const tabs: ITabDashboard[] = [
       {
         title: "Create New Event",
         key: "createEvent",
+        accordionView : true,
         form: [
           {
             key: "eventName",
@@ -68,11 +69,17 @@ const tabs: ITabDashboard[] = [
             type : "drag&drop",
             label : "Drag and Drop Your Event Image",
             isRequired : false
+          },
+          {
+            key : "eventLinks",
+            type : "links",
+            label : "Event Links",
+            isRequired : false
           }
         ],
       },
-      { title: "Update Existing Event", key: "updateEvent" },
-      { title: "Delete Existing Event", key: "deleteEvent" },
+      { title: "Update Existing Event", key: "updateEvent", accordionView : false },
+      { title: "Delete Existing Event", key: "deleteEvent", accordionView : false },
     ],
   },
   {
@@ -82,14 +89,17 @@ const tabs: ITabDashboard[] = [
       {
         title: "Create Announcement",
         key: "createAnnouncement",
+        accordionView : false
       },
       {
         title: "Update Existing Announcement",
         key: "updateAnnouncement",
+        accordionView : false
       },
       {
         title: "Delete Exisiting Announcement ",
         key: "deleteAnnouncement",
+        accordionView : false
       },
     ],
   },
