@@ -1,6 +1,6 @@
 "use client"
 import tabs from "@/constant/dashboard-tabs"
-import { ITab, ITabForm } from "@/types/ITabDashboard"
+import { ITab, ITabForm, ITabTypes } from "@/types/ITabDashboard"
 import {
   Accordion,
   AccordionItem,
@@ -33,9 +33,11 @@ export default function Dashboard() {
   const { data: session } = useSession()
   const { handleSubmit, control, setValue } = useForm()
   const [currentTab, setCurrentTab] = useState(tabs[0].innerTabs[0])
-  const onSubmit: SubmitHandler<any> = (data) => {
-    console.log(data)
-  }
+  const onSubmit = (key: ITabTypes): SubmitHandler<any> => {
+    return (data) => {
+      console.log(key, data)
+    };
+  };
   const renderFormItem = (tabForm: ITabForm, key: number) => {
     if (tabForm.type === "input")
       return (
@@ -221,7 +223,7 @@ export default function Dashboard() {
                 <CardBody>
                   <form
                     className="w-full flex flex-col space-y-2 items-center px-10"
-                    onSubmit={handleSubmit(onSubmit)}
+                    onSubmit={handleSubmit(onSubmit(tab.key))}
                   >
                     <Accordion variant="bordered" defaultExpandedKeys={"1"}>
                       <AccordionItem
