@@ -37,16 +37,17 @@ interface FileWithPreview extends File {
 
 export default function Dashboard() {
   const { data: session } = useSession()
-  const { handleSubmit, control, setValue } = useForm()
+  const { handleSubmit, control, setValue, register } = useForm()
   const [currentTab, setCurrentTab] = useState(tabs[0].innerTabs[0])
   const onSubmit = (key: string): SubmitHandler<any> => {
     return async (data) => {
       switch (key) {
         case "createEvent":
-          await fetch("/api/event", {
-            method: "POST",
-            body: data,
-          })
+          console.log(data)
+          // await fetch("/api/event", {
+          //   method: "POST",
+          //   body: data,
+          // })
           break
         case "deleteEvent":
           console.log(data)
@@ -169,11 +170,10 @@ export default function Dashboard() {
             key={key}
             name={tabForm.key}
             control={control}
-            defaultValue=""
             rules={{
               required: tabForm.isRequired ? "This field is required" : false,
             }}
-            render={() => {
+            render={({ field }) => {
               const [files, setFiles] = useState<FileWithPreview[]>([])
               const { getRootProps, getInputProps } = useDropzone({
                 maxFiles: 1,
@@ -187,7 +187,7 @@ export default function Dashboard() {
                     })
                   )
                   setFiles(previewFiles)
-                  setValue(tabForm.key, previewFiles)
+                  setValue(field.name, previewFiles)
                 },
               })
               const thumbs = files.map((file) => (
@@ -242,16 +242,48 @@ export default function Dashboard() {
             rules={{
               required: tabForm.isRequired ? "This field is required" : false,
             }}
-            render={() => {
+            render={({ field }) => {
               const { fields, append, remove } = useFieldArray({
                 control,
-                name: tabForm.key,
+                name: field.name,
               })
               return (
                 <Card className="w-full">
-                  <CardBody className="flex justify-center items-center">
+                  <CardHeader className="flex justify-center items-center">
                     <p>{tabForm.label}</p>
+                  </CardHeader>
+                  <CardBody className="flex justify-center items-center space-y-2">
+                    {fields.length > 0 ? (
+                      fields.map((f, index) => (
+                        <div
+                          key={f.id}
+                          className="w-full flex flex-row items-center justify-center space-x-2"
+                        >
+                          <Input
+                            {...register(`${field.name}[${index}].value`)}
+                            defaultValue={field.value[index]?.value || ""}
+                            size="sm"
+                          />
+                          <Button size="sm" onPress={() => remove(index)}>
+                            <p className="">Remove</p>
+                          </Button>
+                        </div>
+                      ))
+                    ) : (
+                      <em>No links yet...</em>
+                    )}
                   </CardBody>
+                  <CardFooter className="flex flex-row justify-center space-x-2">
+                    <Button
+                      size="sm"
+                      onPress={() => {
+                        append("")
+                        console.log(fields)
+                      }}
+                    >
+                      <p className="truncate">Add</p>
+                    </Button>
+                  </CardFooter>
                 </Card>
               )
             }}
@@ -261,7 +293,7 @@ export default function Dashboard() {
         throw new Error("No tab form type matched.")
     }
   }
-  const renderAccordionView = (form : ITabForm[]) => {
+  const renderAccordionView = (form: ITabForm[]) => {
     const [required, nonRequired] = partition(form, (f) => f.isRequired)
     return (
       <Accordion variant="bordered" defaultExpandedKeys={"1"}>
@@ -274,7 +306,9 @@ export default function Dashboard() {
           keepContentMounted
         >
           <div className="space-y-2">
-            {required.map((form: ITabForm, key: number) => renderFormItem(form, key))}
+            {required.map((form: ITabForm, key: number) =>
+              renderFormItem(form, key)
+            )}
           </div>
         </AccordionItem>
         <AccordionItem
@@ -286,7 +320,9 @@ export default function Dashboard() {
           keepContentMounted
         >
           <div className="space-y-2">
-            {nonRequired.map((form: ITabForm, key: number) => renderFormItem(form, key))}
+            {nonRequired.map((form: ITabForm, key: number) =>
+              renderFormItem(form, key)
+            )}
           </div>
         </AccordionItem>
       </Accordion>
