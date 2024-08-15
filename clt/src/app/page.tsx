@@ -152,7 +152,7 @@ export default function Home() {
                     <Link
                       isExternal
                       showAnchorIcon
-                      href="https://github.com/nextui-org/nextui"
+                      href="https://github.com/stoneliuCS/CLTWebsite"
                     >
                       Visit source code on GitHub.
                     </Link>
