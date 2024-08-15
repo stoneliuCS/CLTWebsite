@@ -29,6 +29,7 @@ import { Time, CalendarDate } from "@internationalized/date"
 import { useDropzone } from "react-dropzone"
 import "./file-preview.css"
 import { AiTwotonePicture } from "react-icons/ai"
+import { FaRegTrashAlt } from "react-icons/fa"
 import { partition } from "@/lib/utils"
 
 interface FileWithPreview extends File {
@@ -37,7 +38,12 @@ interface FileWithPreview extends File {
 
 export default function Dashboard() {
   const { data: session } = useSession()
-  const { handleSubmit, control, setValue, register } = useForm()
+  const {
+    handleSubmit,
+    control,
+    setValue,
+    register,
+  } = useForm()
   const [currentTab, setCurrentTab] = useState(tabs[0].innerTabs[0])
   const onSubmit = (key: string): SubmitHandler<any> => {
     return async (data) => {
@@ -70,6 +76,7 @@ export default function Dashboard() {
     }
   }
   const renderFormItem = (tabForm: ITabForm, key: number) => {
+    const date = new Date()
     switch (tabForm.type) {
       case "input":
         return (
@@ -101,7 +108,6 @@ export default function Dashboard() {
             name={tabForm.key}
             control={control}
             defaultValue={() => {
-              const date = new Date()
               return new CalendarDate(
                 date.getFullYear(),
                 date.getMonth(),
@@ -252,22 +258,31 @@ export default function Dashboard() {
                   <CardHeader className="flex justify-center items-center">
                     <p>{tabForm.label}</p>
                   </CardHeader>
+                  <Divider />
                   <CardBody className="flex justify-center items-center space-y-2">
                     {fields.length > 0 ? (
                       fields.map((f, index) => (
                         <div
                           key={f.id}
-                          className="w-full flex flex-row items-center justify-center space-x-2"
+                          className="w-full flex flex-row space-x-2 items-center justify-center"
                         >
                           <Input
-                            {...register(`${field.name}[${index}]`)}
-                            defaultValue={field.value[index]?.value || ""}
-                            className="border border-slate-400 rounded-lg"
+                            {...register(`${field.name}[${index}].url`, {
+                              required: "This field is required",
+                            })}
+                            defaultValue={field.value[index]?.url || ""}
+                            variant="bordered"
+                            isRequired
                             label="Link"
                             size="sm"
                           />
-                          <Button size="sm" onPress={() => remove(index)}>
-                            <p className="">Remove</p>
+                          <Button
+                            size="lg"
+                            color="danger"
+                            onPress={() => remove(index)}
+                            isIconOnly
+                          >
+                            <FaRegTrashAlt />
                           </Button>
                         </div>
                       ))
@@ -275,6 +290,7 @@ export default function Dashboard() {
                       <em>No links yet...</em>
                     )}
                   </CardBody>
+                  <Divider />
                   <CardFooter className="flex flex-row justify-center space-x-2">
                     <Button size="sm" onPress={() => append("")}>
                       <p className="truncate">Add</p>

@@ -8,8 +8,24 @@ export interface IEvent {
   eventDescription: string
   eventContact?: IEventContact
   eventImage?: IEventImage
-  eventLinks?: IEventLink[]
+  eventLinks?: string[]
 }
+
+export const EventSchema = z.object({
+  eventName : z.string(),
+  date : z.date(),
+  startTime : z.string().time(),
+  endTime : z.string().time(),
+  eventLocation : z.string(),
+  eventDescription: z.string(),
+  contactName : z.string().optional(),
+  phoneNumber : z.string().optional(),
+  emailAddress : z.string().email(),
+  src : z.string().optional(),
+  alt : z.string().optional(),
+  priority : z.boolean().optional(),
+  //TODO Add EVENTLINK
+})
 
 interface IEventDate {
   date: Date
@@ -28,24 +44,3 @@ interface IEventContact {
   phoneNumber: string
   emailAddress: string
 }
-
-interface IEventLink {
-  type: "registration" | "engage"
-  url : string
-}
-
-export const EventSchema = z.object({
-  eventName : z.string(),
-  date : z.date(),
-  startTime : z.string().time(),
-  endTime : z.string().time(),
-  eventLocation : z.string(),
-  eventDescription: z.string(),
-  contactName : z.string().optional(),
-  phoneNumber : z.string().optional(),
-  emailAddress : z.string().email(),
-  src : z.string().optional(),
-  alt : z.string().optional(),
-  priority : z.boolean().optional(),
-  //TODO Add EVENTLINK
-})
