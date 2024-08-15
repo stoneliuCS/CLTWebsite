@@ -19,7 +19,6 @@ export interface ITabForm {
     | "textArea"
     | "dateInput"
     | "timeInput"
-    | "emailInput"
     | "drag&drop"
     | "links"
     | "autocomplete"

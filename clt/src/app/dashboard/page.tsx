@@ -37,7 +37,7 @@ interface FileWithPreview extends File {
 
 export default function Dashboard() {
   const { data: session } = useSession()
-  const { handleSubmit, control, setValue, register } = useForm()
+  const { handleSubmit, control, setValue, register, formState: { errors } } = useForm()
   const [currentTab, setCurrentTab] = useState(tabs[0].innerTabs[0])
   const onSubmit = (key: string): SubmitHandler<any> => {
     return async (data) => {
@@ -135,32 +135,6 @@ export default function Dashboard() {
             )}
           />
         )
-      case "emailInput":
-        return (
-          <Controller
-            key={key}
-            name={tabForm.name}
-            control={control}
-            defaultValue=""
-            rules={{
-              required: tabForm.isRequired ? "This field is required" : false,
-              pattern: {
-                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}$/i,
-                message: "Invalid email format",
-              },
-            }}
-            render={({ field, fieldState }) => (
-              <Input
-                {...field}
-                type="email"
-                label={tabForm.label}
-                placeholder={tabForm.placeholder}
-                isInvalid={fieldState.invalid}
-                errorMessage={fieldState.error?.message}
-              />
-            )}
-          />
-        )
       case "textArea":
         return (
           <Controller
@@ -178,6 +152,7 @@ export default function Dashboard() {
                 isRequired={tabForm.isRequired}
                 isInvalid={fieldState.invalid}
                 errorMessage={fieldState.error?.message}
+                placeholder={tabForm.placeholder}
               />
             )}
           />
@@ -279,14 +254,14 @@ export default function Dashboard() {
                           className="w-full flex flex-row space-x-2 items-center justify-center"
                         >
                           <Input
-                            {...register(`${field.name}[${index}].url`, {
-                              required: "This field is required",
+                            {...register(`${field.name}[${index}]`, {
+                              required: "This field is required"
                             })}
-                            defaultValue={field.value[index]?.url || ""}
+                            defaultValue={field.value[index] || ""}
                             variant="bordered"
-                            isRequired
                             label="Link"
                             size="sm"
+                            placeholder={tabForm.placeholder}
                           />
                           <Button
                             size="lg"

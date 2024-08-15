@@ -60,7 +60,7 @@ const tabs: IDashboard[] = [
           },
           {
             name: "emailAddress",
-            type: "emailInput",
+            type: "input",
             label: "Event Contact Email Address",
             isRequired: false,
           },

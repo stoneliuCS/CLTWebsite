@@ -29,10 +29,6 @@ interface IEventContact {
   emailAddress: string
 }
 
-const UrlObjectSchema = z.object({
-  url: z.string().url(), 
-});
-
 export const EventSchema = z.object({
   eventName : z.string(),
   date : z.string().date(),
@@ -43,6 +39,6 @@ export const EventSchema = z.object({
   contactName : z.string().optional(),
   phoneNumber : z.string().optional(),
   emailAddress : z.string().optional(),
-  eventLinks : z.array(UrlObjectSchema).optional()
+  eventLinks : z.array(z.string()).optional()
 })
 
