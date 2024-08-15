@@ -38,22 +38,16 @@ interface FileWithPreview extends File {
 
 export default function Dashboard() {
   const { data: session } = useSession()
-  const {
-    handleSubmit,
-    control,
-    setValue,
-    register,
-  } = useForm()
+  const { handleSubmit, control, setValue, register } = useForm()
   const [currentTab, setCurrentTab] = useState(tabs[0].innerTabs[0])
   const onSubmit = (key: string): SubmitHandler<any> => {
     return async (data) => {
       switch (key) {
         case "createEvent":
-          console.log(data)
-          // await fetch("/api/event", {
-          //   method: "POST",
-          //   body: data,
-          // })
+          await fetch("/api/event", {
+            method: "POST",
+            body: JSON.stringify(data),
+          })
           break
         case "deleteEvent":
           console.log(data)
@@ -77,6 +71,12 @@ export default function Dashboard() {
   }
   const renderFormItem = (tabForm: ITabForm, key: number) => {
     const date = new Date()
+    const time = new Time()
+    const calendarDate = new CalendarDate(
+      date.getFullYear(),
+      date.getMonth(),
+      date.getDate()
+    )
     switch (tabForm.type) {
       case "input":
         return (
@@ -107,19 +107,34 @@ export default function Dashboard() {
             key={key}
             name={tabForm.key}
             control={control}
-            defaultValue={() => {
-              return new CalendarDate(
-                date.getFullYear(),
-                date.getMonth(),
-                date.getDate()
-              )
-            }}
+            defaultValue=""
             rules={{
               required: tabForm.isRequired ? "This field is required" : false,
             }}
-            render={({ field, fieldState }) => (
+            render={({ field: { onChange }, fieldState }) => (
               <DateInput
-                {...field}
+                onChange={(d) => onChange(d.toString())}
+                label={tabForm.label}
+                isRequired={tabForm.isRequired}
+                isInvalid={fieldState.invalid}
+                errorMessage={fieldState.error?.message}
+              />
+            )}
+          />
+        )
+      case "timeInput":
+        return (
+          <Controller
+            key={key}
+            name={tabForm.key}
+            control={control}
+            defaultValue=""
+            rules={{
+              required: tabForm.isRequired ? "This field is required" : false,
+            }}
+            render={({ field : { onChange }, fieldState }) => (
+              <TimeInput
+                onChange={(t) => onChange(t.toString())}
                 label={tabForm.label}
                 isRequired={tabForm.isRequired}
                 isInvalid={fieldState.invalid}
@@ -140,27 +155,6 @@ export default function Dashboard() {
             }}
             render={({ field, fieldState }) => (
               <Textarea
-                {...field}
-                label={tabForm.label}
-                isRequired={tabForm.isRequired}
-                isInvalid={fieldState.invalid}
-                errorMessage={fieldState.error?.message}
-              />
-            )}
-          />
-        )
-      case "timeInput":
-        return (
-          <Controller
-            key={key}
-            name={tabForm.key}
-            control={control}
-            defaultValue={new Time()}
-            rules={{
-              required: tabForm.isRequired ? "This field is required" : false,
-            }}
-            render={({ field, fieldState }) => (
-              <TimeInput
                 {...field}
                 label={tabForm.label}
                 isRequired={tabForm.isRequired}

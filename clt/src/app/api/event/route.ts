@@ -1,9 +1,24 @@
-import { auth } from "@/lib/utils/auth";
-import { NextApiRequest, NextApiResponse } from "next";
+import { auth } from "@/lib/utils/auth"
+import { EventSchema } from "@/types/IEvent"
 
-export async function POST(req : NextApiRequest, res : NextApiResponse) {
-    const session = await auth()
-    if (!session) return res.status(401)
-    console.log(req, "HIT")
-    return res.json("Got it")
+export async function POST(req: Request) {
+  const session = await auth()
+
+  if (!session) {
+    return Response.json({ message: "Unauthorized" }, { status: 401 })
+  }
+
+  const body = await req.json()
+  console.log("here bro", body)
+  const event = EventSchema.safeParse(body)
+
+  if (!event.success) {
+    const error = event.error.format()
+    console.log(error)
+    return Response.json({ error: error }, { status: 400 })
+  }
+
+  console.log(event)
+
+  return Response.json({ message: "Success" }, { status: 200 })
 }

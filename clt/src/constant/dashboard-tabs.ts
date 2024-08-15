@@ -17,7 +17,7 @@ const tabs: IDashboard[] = [
             isRequired: true,
           },
           {
-            key: "eventDate",
+            key: "date",
             type: "dateInput",
             label: "Event Date",
             isRequired: true,

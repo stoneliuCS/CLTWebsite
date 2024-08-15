@@ -11,22 +11,6 @@ export interface IEvent {
   eventLinks?: string[]
 }
 
-export const EventSchema = z.object({
-  eventName : z.string(),
-  date : z.date(),
-  startTime : z.string().time(),
-  endTime : z.string().time(),
-  eventLocation : z.string(),
-  eventDescription: z.string(),
-  contactName : z.string().optional(),
-  phoneNumber : z.string().optional(),
-  emailAddress : z.string().email(),
-  src : z.string().optional(),
-  alt : z.string().optional(),
-  priority : z.boolean().optional(),
-  //TODO Add EVENTLINK
-})
-
 interface IEventDate {
   date: Date
   startTime: Time
@@ -44,3 +28,24 @@ interface IEventContact {
   phoneNumber: string
   emailAddress: string
 }
+
+const UrlObjectSchema = z.object({
+  url: z.string().url(), 
+});
+
+export const EventSchema = z.object({
+  eventName : z.string(),
+  date : z.string().date(),
+  startTime : z.string().time(),
+  endTime : z.string().time(),
+  eventLocation : z.string(),
+  eventDescription: z.string(),
+  contactName : z.string().optional(),
+  phoneNumber : z.string().optional(),
+  emailAddress : z.string().optional(),
+  src : z.string().optional(),
+  alt : z.string().optional(),
+  priority : z.boolean().optional(),
+  eventLinks : z.array(UrlObjectSchema).optional()
+})
+
