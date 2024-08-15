@@ -9,12 +9,10 @@ export async function POST(req: Request) {
   }
 
   const body = await req.json()
-  console.log("here bro", body)
   const event = EventSchema.safeParse(body)
 
   if (!event.success) {
     const error = event.error.format()
-    console.log(error)
     return Response.json({ error: error }, { status: 400 })
   }
 

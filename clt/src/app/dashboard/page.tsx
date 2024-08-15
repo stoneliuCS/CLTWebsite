@@ -25,7 +25,6 @@ import {
   Controller,
   useFieldArray,
 } from "react-hook-form"
-import { Time, CalendarDate } from "@internationalized/date"
 import { useDropzone } from "react-dropzone"
 import "./file-preview.css"
 import { AiTwotonePicture } from "react-icons/ai"
@@ -65,24 +64,17 @@ export default function Dashboard() {
           console.log(data)
           break
         default:
-          throw new Error("Key does not match any API Endpoints")
+          throw new Error("Key does not match any API endpoints")
       }
     }
   }
   const renderFormItem = (tabForm: ITabForm, key: number) => {
-    const date = new Date()
-    const time = new Time()
-    const calendarDate = new CalendarDate(
-      date.getFullYear(),
-      date.getMonth(),
-      date.getDate()
-    )
     switch (tabForm.type) {
       case "input":
         return (
           <Controller
             key={key}
-            name={tabForm.key}
+            name={tabForm.name}
             control={control}
             defaultValue=""
             rules={{
@@ -105,7 +97,7 @@ export default function Dashboard() {
         return (
           <Controller
             key={key}
-            name={tabForm.key}
+            name={tabForm.name}
             control={control}
             defaultValue=""
             rules={{
@@ -126,13 +118,13 @@ export default function Dashboard() {
         return (
           <Controller
             key={key}
-            name={tabForm.key}
+            name={tabForm.name}
             control={control}
             defaultValue=""
             rules={{
               required: tabForm.isRequired ? "This field is required" : false,
             }}
-            render={({ field : { onChange }, fieldState }) => (
+            render={({ field: { onChange }, fieldState }) => (
               <TimeInput
                 onChange={(t) => onChange(t.toString())}
                 label={tabForm.label}
@@ -143,11 +135,37 @@ export default function Dashboard() {
             )}
           />
         )
+      case "emailInput":
+        return (
+          <Controller
+            key={key}
+            name={tabForm.name}
+            control={control}
+            defaultValue=""
+            rules={{
+              required: tabForm.isRequired ? "This field is required" : false,
+              pattern: {
+                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}$/i,
+                message: "Invalid email format",
+              },
+            }}
+            render={({ field, fieldState }) => (
+              <Input
+                {...field}
+                type="email"
+                label={tabForm.label}
+                placeholder={tabForm.placeholder}
+                isInvalid={fieldState.invalid}
+                errorMessage={fieldState.error?.message}
+              />
+            )}
+          />
+        )
       case "textArea":
         return (
           <Controller
             key={key}
-            name={tabForm.key}
+            name={tabForm.name}
             control={control}
             defaultValue=""
             rules={{
@@ -168,7 +186,7 @@ export default function Dashboard() {
         return (
           <Controller
             key={key}
-            name={tabForm.key}
+            name={tabForm.name}
             control={control}
             rules={{
               required: tabForm.isRequired ? "This field is required" : false,
@@ -236,7 +254,7 @@ export default function Dashboard() {
         return (
           <Controller
             key={key}
-            name={tabForm.key}
+            name={tabForm.name}
             control={control}
             defaultValue={[]}
             rules={{

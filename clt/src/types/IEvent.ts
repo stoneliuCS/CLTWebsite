@@ -43,9 +43,6 @@ export const EventSchema = z.object({
   contactName : z.string().optional(),
   phoneNumber : z.string().optional(),
   emailAddress : z.string().optional(),
-  src : z.string().optional(),
-  alt : z.string().optional(),
-  priority : z.boolean().optional(),
   eventLinks : z.array(UrlObjectSchema).optional()
 })
 

@@ -9,7 +9,6 @@ export interface IDashboard {
 export interface ITab {
   title: string
   key: string
-  /* If you would like to sort the form inputs by required and non-required */
   accordionView: boolean
   form?: ITabForm[]
 }
@@ -20,10 +19,11 @@ export interface ITabForm {
     | "textArea"
     | "dateInput"
     | "timeInput"
+    | "emailInput"
     | "drag&drop"
     | "links"
     | "autocomplete"
-  key: string
+  name: string
   label: string
   isRequired: boolean
   placeholder?: string
