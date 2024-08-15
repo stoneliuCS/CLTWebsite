@@ -248,7 +248,7 @@ export default function Dashboard() {
                 name: field.name,
               })
               return (
-                <Card className="w-full">
+                <Card className="w-full bg-gray-100">
                   <CardHeader className="flex justify-center items-center">
                     <p>{tabForm.label}</p>
                   </CardHeader>
@@ -260,8 +260,10 @@ export default function Dashboard() {
                           className="w-full flex flex-row items-center justify-center space-x-2"
                         >
                           <Input
-                            {...register(`${field.name}[${index}].value`)}
+                            {...register(`${field.name}[${index}]`)}
                             defaultValue={field.value[index]?.value || ""}
+                            className="border border-slate-400 rounded-lg"
+                            label="Link"
                             size="sm"
                           />
                           <Button size="sm" onPress={() => remove(index)}>
@@ -274,13 +276,7 @@ export default function Dashboard() {
                     )}
                   </CardBody>
                   <CardFooter className="flex flex-row justify-center space-x-2">
-                    <Button
-                      size="sm"
-                      onPress={() => {
-                        append("")
-                        console.log(fields)
-                      }}
-                    >
+                    <Button size="sm" onPress={() => append("")}>
                       <p className="truncate">Add</p>
                     </Button>
                   </CardFooter>
