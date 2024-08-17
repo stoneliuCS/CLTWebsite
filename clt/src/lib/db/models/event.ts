@@ -17,6 +17,6 @@ const EventSchema = new mongoose.Schema({
   eventLinks: [{ type: String }],
 })
 
-const EventModel = mongoose.models.Event || mongoose.model("Event", EventSchema)
+const EventModel = mongoose.models.Event || mongoose.model("Event", EventSchema);
 
 export default EventModel

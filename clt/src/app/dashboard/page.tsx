@@ -105,7 +105,7 @@ export default function Dashboard() {
             }}
             render={({ field: { onChange }, fieldState }) => (
               <DateInput
-                onChange={(d) => onChange(d.toString())}
+                onChange={(d) => onChange(d ? d.toString() : "")}
                 label={tabForm.label}
                 isRequired={tabForm.isRequired}
                 isInvalid={fieldState.invalid}
@@ -126,7 +126,7 @@ export default function Dashboard() {
             }}
             render={({ field: { onChange }, fieldState }) => (
               <TimeInput
-                onChange={(t) => onChange(t.toString())}
+                onChange={(t) => onChange(t ? t.toString() : "")}
                 label={tabForm.label}
                 isRequired={tabForm.isRequired}
                 isInvalid={fieldState.invalid}
