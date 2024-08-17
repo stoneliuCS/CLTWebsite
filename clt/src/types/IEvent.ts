@@ -31,7 +31,7 @@ interface IEventContact {
 
 export const EventSchema = z.object({
   eventName : z.string(),
-  date : z.string().date(),
+  eventDate : z.string().date(),
   startTime : z.string().time(),
   endTime : z.string().time(),
   eventLocation : z.string(),

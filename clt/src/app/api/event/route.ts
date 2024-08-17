@@ -1,3 +1,5 @@
+import { db, close } from "@/lib/db/db"
+import EventModel from "@/lib/db/models/event"
 import { auth } from "@/lib/utils/auth/auth"
 import { EventSchema } from "@/types/IEvent"
 
@@ -16,7 +18,19 @@ export async function POST(req: Request) {
     return Response.json({ error: error }, { status: 400 })
   }
 
-  console.log(event)
-
-  return Response.json({ message: "Success" }, { status: 200 })
+  try {
+    await db()
+    await EventModel.create(event.data)
+    await close()
+    return new Response(
+      JSON.stringify({ message: "Event created successfully" }),
+      { status: 201 }
+    )
+  } catch (e: any) {
+    console.error(e)
+    return new Response(
+      JSON.stringify({ message: "Failed to create event", error: e.message }),
+      { status: 500 }
+    )
+  }
 }
