@@ -1,6 +1,6 @@
 import mongoose from "mongoose"
 
-export async function db() {
+export async function connectDB() {
   try {
     const uri = process.env.MONGODB_URI
     if (!uri) throw new Error("Mongo DB URI is not defined.")
@@ -10,7 +10,7 @@ export async function db() {
   }
 }
 
-export async function close() {
+export async function closeDB() {
   try {
     await mongoose.connection.close();
   } catch (e) {

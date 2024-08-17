@@ -1,4 +1,4 @@
-import { db, close } from "@/lib/db/db"
+import { connectDB, closeDB } from "@/lib/db/db"
 import EventModel from "@/lib/db/models/event"
 import { auth } from "@/lib/utils/auth/auth"
 import { EventSchema } from "@/types/IEvent"
@@ -19,9 +19,9 @@ export async function POST(req: Request) {
   }
 
   try {
-    await db()
+    await connectDB()
     await EventModel.create(event.data)
-    await close()
+    await closeDB()
     return new Response(
       JSON.stringify({ message: "Event created successfully" }),
       { status: 201 }
