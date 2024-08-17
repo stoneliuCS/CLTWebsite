@@ -1,4 +1,4 @@
-import { auth } from "@/lib/utils/auth"
+import { auth } from "@/lib/utils/auth/auth"
 import { EventSchema } from "@/types/IEvent"
 
 export async function POST(req: Request) {

@@ -37,7 +37,7 @@ interface FileWithPreview extends File {
 
 export default function Dashboard() {
   const { data: session } = useSession()
-  const { handleSubmit, control, setValue, register, formState: { errors } } = useForm()
+  const { handleSubmit, control, setValue, register } = useForm()
   const [currentTab, setCurrentTab] = useState(tabs[0].innerTabs[0])
   const onSubmit = (key: string): SubmitHandler<any> => {
     return async (data) => {

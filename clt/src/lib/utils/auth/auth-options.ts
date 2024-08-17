@@ -1,8 +1,8 @@
 import GoogleProvider from "next-auth/providers/google"
 import { AuthOptions } from "next-auth"
-import { auth } from "@/lib/utils/auth"
-import checkDrivePermission, { getGoogleDrive } from "./drive"
-import { getOAuthClient } from "./oauth-client"
+import { auth } from "@/lib/utils/auth/auth"
+import checkDrivePermission, { getGoogleDrive } from "@/lib/utils/auth/drive"
+import { getOAuthClient } from "@/lib/utils/auth/oauth-client"
 
 const authOptions: AuthOptions = {
   providers: [
