@@ -12,10 +12,16 @@ import {
   DateInput,
   Divider,
   Input,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
   Tab,
   Tabs,
   Textarea,
   TimeInput,
+  useDisclosure,
 } from "@nextui-org/react"
 import { useSession } from "next-auth/react"
 import { useEffect, useState } from "react"
@@ -31,6 +37,7 @@ import { AiTwotonePicture } from "react-icons/ai"
 import { FaRegTrashAlt } from "react-icons/fa"
 import { partition } from "@/lib/utils"
 import { base64File } from "@/lib/utils/file"
+import { parseDate, CalendarDate, parseTime } from "@internationalized/date"
 
 interface FileWithPreview extends File {
   preview: string
@@ -38,8 +45,10 @@ interface FileWithPreview extends File {
 
 export default function Dashboard() {
   const { data: session } = useSession()
-  const { handleSubmit, control, setValue, register } = useForm()
+  const { handleSubmit, control, setValue, register, trigger, reset } =
+    useForm()
   const [currentTab, setCurrentTab] = useState(tabs[0].innerTabs[0])
+  const { isOpen, onOpen, onOpenChange } = useDisclosure()
   const onSubmit = (key: string): SubmitHandler<any> => {
     return async (data) => {
       switch (key) {
@@ -48,7 +57,7 @@ export default function Dashboard() {
             method: "POST",
             body: JSON.stringify(data),
           })
-          if (res.status != 201) console.log("Error Processing Request")
+          if (res.status != 201) console.log("error Processing request")
           break
         case "deleteEvent":
           console.log(data)
@@ -68,6 +77,7 @@ export default function Dashboard() {
         default:
           throw new Error("Key does not match any API endpoints")
       }
+      reset()
     }
   }
   const renderFormItem = (tabForm: ITabForm, key: number) => {
@@ -105,9 +115,11 @@ export default function Dashboard() {
             rules={{
               required: tabForm.isRequired ? "This field is required" : false,
             }}
-            render={({ field: { onChange }, fieldState }) => (
+            render={({ field, fieldState }) => (
               <DateInput
-                onChange={(d) => onChange(d ? d.toString() : "")}
+                {...field}
+                value={field.value ? parseDate(field.value) : null}
+                onChange={(d) => field.onChange(d ? d.toString() : "")}
                 label={tabForm.label}
                 isRequired={tabForm.isRequired}
                 isInvalid={fieldState.invalid}
@@ -126,9 +138,11 @@ export default function Dashboard() {
             rules={{
               required: tabForm.isRequired ? "This field is required" : false,
             }}
-            render={({ field: { onChange }, fieldState }) => (
+            render={({ field, fieldState }) => (
               <TimeInput
-                onChange={(t) => onChange(t ? t.toString() : "")}
+                {...field}
+                value={field.value ? parseTime(field.value) : null}
+                onChange={(t) => field.onChange(t ? t.toString() : "")}
                 label={tabForm.label}
                 isRequired={tabForm.isRequired}
                 isInvalid={fieldState.invalid}
@@ -165,6 +179,7 @@ export default function Dashboard() {
             key={key}
             name={tabForm.name}
             control={control}
+            defaultValue=""
             rules={{
               required: tabForm.isRequired ? "This field is required" : false,
             }}
@@ -185,7 +200,11 @@ export default function Dashboard() {
                   //This is okay since we limit it to one file
                   const file = previewFiles[0]
                   const base64 = await base64File(file)
-                  const f = { fileType : file.type, fileName : file.name, base64 : base64 }
+                  const f = {
+                    fileType: file.type,
+                    fileName: file.name,
+                    base64: base64,
+                  }
                   setValue(field.name, f)
                 },
               })
@@ -261,7 +280,7 @@ export default function Dashboard() {
                         >
                           <Input
                             {...register(`${field.name}[${index}]`, {
-                              required: "This field is required"
+                              required: "This field is required",
                             })}
                             defaultValue={field.value[index] || ""}
                             variant="bordered"
@@ -352,7 +371,14 @@ export default function Dashboard() {
                 <CardBody>
                   <form
                     className="w-full flex flex-col space-y-2 items-center px-10"
-                    onSubmit={handleSubmit(onSubmit(currentTab.key))}
+                    // onSubmit={handleSubmit(onSubmit(currentTab.key))}
+                    onSubmit={async (e) => {
+                      e.preventDefault()
+                      const result = await trigger()
+                      if (result) {
+                        onOpen()
+                      }
+                    }}
                   >
                     {currentTab.accordionView ? (
                       renderAccordionView(currentTab.form)
@@ -392,6 +418,37 @@ export default function Dashboard() {
           </Tab>
         ))}
       </Tabs>
+      <Modal
+        isOpen={isOpen}
+        onOpenChange={onOpenChange}
+        isDismissable={false}
+        isKeyboardDismissDisabled={true}
+      >
+        <ModalContent>
+          {(onClose) => (
+            <>
+              <ModalHeader className="flex flex-col gap-1">
+                Preview Event Submission:
+              </ModalHeader>
+              <ModalBody></ModalBody>
+              <ModalFooter>
+                <Button color="danger" variant="light" onPress={onClose}>
+                  Close
+                </Button>
+                <Button
+                  color="primary"
+                  onPress={() => {
+                    handleSubmit(onSubmit(currentTab.key))()
+                    onClose()
+                  }}
+                >
+                  Action
+                </Button>
+              </ModalFooter>
+            </>
+          )}
+        </ModalContent>
+      </Modal>
     </div>
   )
 }
