@@ -6,6 +6,7 @@
 - NextUI is used as the primary component library: https://nextui.org/ 
 - Tailwind CSS is used as the main styling library: https://tailwindcss.com/ 
 - MongoDB is the database, read more here : https://www.mongodb.com/
+- AWS S3 Bucket to store images
 
 ## Getting started with development:
 - Navigate to the frontend project directory, 
@@ -27,4 +28,5 @@
     - /utils 
         - ... (Global Utility Functions)
     - middleware.ts (Executed every /api call)
+
 
