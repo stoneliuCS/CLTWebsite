@@ -16,7 +16,6 @@ import {
   ModalBody,
   ModalContent,
   ModalFooter,
-  ModalHeader,
   Tab,
   Tabs,
   Textarea,
@@ -37,7 +36,7 @@ import { AiTwotonePicture } from "react-icons/ai"
 import { FaRegTrashAlt } from "react-icons/fa"
 import { partition } from "@/lib/utils"
 import { base64File } from "@/lib/utils/file"
-import { parseDate, CalendarDate, parseTime } from "@internationalized/date"
+import { parseDate, parseTime } from "@internationalized/date"
 
 interface FileWithPreview extends File {
   preview: string
@@ -48,6 +47,7 @@ export default function Dashboard() {
   const { handleSubmit, control, setValue, register, trigger, reset } =
     useForm()
   const [currentTab, setCurrentTab] = useState(tabs[0].innerTabs[0])
+  const [files, setFiles] = useState<FileWithPreview[]>([])
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
   const onSubmit = (key: string): SubmitHandler<any> => {
     return async (data) => {
@@ -77,6 +77,7 @@ export default function Dashboard() {
         default:
           throw new Error("Key does not match any API endpoints")
       }
+      setFiles([])
       reset()
     }
   }
@@ -179,12 +180,11 @@ export default function Dashboard() {
             key={key}
             name={tabForm.name}
             control={control}
-            defaultValue=""
+            defaultValue={null}
             rules={{
               required: tabForm.isRequired ? "This field is required" : false,
             }}
             render={({ field }) => {
-              const [files, setFiles] = useState<FileWithPreview[]>([])
               const { getRootProps, getInputProps } = useDropzone({
                 maxFiles: 1,
                 accept: {
@@ -371,7 +371,6 @@ export default function Dashboard() {
                 <CardBody>
                   <form
                     className="w-full flex flex-col space-y-2 items-center px-10"
-                    // onSubmit={handleSubmit(onSubmit(currentTab.key))}
                     onSubmit={async (e) => {
                       e.preventDefault()
                       const result = await trigger()
@@ -427,22 +426,21 @@ export default function Dashboard() {
         <ModalContent>
           {(onClose) => (
             <>
-              <ModalHeader className="flex flex-col gap-1">
-                Preview Event Submission:
-              </ModalHeader>
-              <ModalBody></ModalBody>
+              <ModalBody>Confirm Action</ModalBody>
               <ModalFooter>
                 <Button color="danger" variant="light" onPress={onClose}>
                   Close
                 </Button>
                 <Button
                   color="primary"
-                  onPress={() => {
-                    handleSubmit(onSubmit(currentTab.key))()
+                  onPress={async () => {
+                    //Trigger some loading animation
+                    await handleSubmit(onSubmit(currentTab.key))()
+                    //Finish loading animation
                     onClose()
                   }}
                 >
-                  Action
+                  Submit
                 </Button>
               </ModalFooter>
             </>

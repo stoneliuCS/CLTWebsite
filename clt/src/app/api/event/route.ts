@@ -26,7 +26,7 @@ export async function POST(req: Request) {
     const file = base64ToFile(removePrefix64, f.fileName, f.fileType)
     const link = await uploadS3(file)
     Object.defineProperty(event, "eventImage", {
-      value: link,
+      value: { src: link, alt: f.fileName },
       enumerable: true,
     })
   }

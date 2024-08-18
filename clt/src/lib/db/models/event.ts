@@ -10,10 +10,13 @@ const EventSchema = new mongoose.Schema({
   contactName: String,
   phoneNumber: String,
   emailAddress: String,
-  eventImage: String,
+  eventImage: {
+    src: { type: String },
+    alt: { type: String },
+  },
   eventLinks: [{ type: String }],
 })
 
-const EventModel = mongoose.models.Event || mongoose.model("Event", EventSchema);
+const EventModel = mongoose.models.Event || mongoose.model("Event", EventSchema)
 
 export default EventModel

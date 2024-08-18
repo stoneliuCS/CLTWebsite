@@ -3,30 +3,16 @@ import { z } from "zod"
 
 export interface IEvent {
   eventName: string
-  eventDate: IEventDate
-  eventLocation: string
-  eventDescription: string
-  eventContact?: IEventContact
-  eventImage?: IEventImage
-  eventLinks?: string[]
-}
-
-interface IEventDate {
-  date: Date
+  eventDate: Date
   startTime: Time
   endTime: Time
-}
-
-interface IEventImage {
-  src: string
-  alt: string
-  priority?: boolean
-}
-
-interface IEventContact {
-  contactName: string
-  phoneNumber: string
-  emailAddress: string
+  eventLocation: string
+  eventDescription: string
+  contactName?: string
+  phoneNumber?: string
+  emailAddress?: string
+  eventImage?: { src: string; alt: string }
+  eventLinks?: string[]
 }
 
 export const EventSchema = z.object({
@@ -40,9 +26,14 @@ export const EventSchema = z.object({
   phoneNumber: z.string().optional(),
   emailAddress: z.string().optional(),
   eventLinks: z.array(z.string()).optional(),
-  eventImage: z.object({
-    fileType: z.string(),
-    fileName: z.string(),
-    base64: z.string(),
-  }),
+  eventImage: z.union([
+    z
+      .object({
+        fileType: z.string(),
+        fileName: z.string(),
+        base64: z.string(),
+      })
+      .optional(),
+    z.null().optional()
+  ]),
 })
