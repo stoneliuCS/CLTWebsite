@@ -4,10 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "dev-trace": "NODE_OPTIONS='--trace-deprecation' next dev",
     "build": "next build",
     "start": "next start"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.633.0",
     "@nextui-org/react": "^2.4.6",
     "framer-motion": "^11.3.19",
     "googleapis": "^140.0.1",

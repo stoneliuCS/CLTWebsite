@@ -10,10 +10,7 @@ const EventSchema = new mongoose.Schema({
   contactName: String,
   phoneNumber: String,
   emailAddress: String,
-  eventImage: {
-    src: String,
-    alt: String,
-  },
+  eventImage: String,
   eventLinks: [{ type: String }],
 })
 

@@ -30,6 +30,7 @@ import "./file-preview.css"
 import { AiTwotonePicture } from "react-icons/ai"
 import { FaRegTrashAlt } from "react-icons/fa"
 import { partition } from "@/lib/utils"
+import { base64File } from "@/lib/utils/file"
 
 interface FileWithPreview extends File {
   preview: string
@@ -173,14 +174,18 @@ export default function Dashboard() {
                 accept: {
                   "image/*": [],
                 },
-                onDrop: (acceptedFiles) => {
+                onDrop: async (acceptedFiles) => {
                   const previewFiles = acceptedFiles.map((file) =>
                     Object.assign(file, {
                       preview: URL.createObjectURL(file),
                     })
                   )
                   setFiles(previewFiles)
-                  setValue(field.name, previewFiles)
+                  //This is okay since we limit it to one file
+                  const file = previewFiles[0]
+                  const base64 = await base64File(file)
+                  const f = { fileType : file.type, fileName : file.name, base64 : base64 }
+                  setValue(field.name, f)
                 },
               })
               const thumbs = files.map((file) => (
