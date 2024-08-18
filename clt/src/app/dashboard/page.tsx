@@ -282,8 +282,9 @@ export default function Dashboard() {
                             {...register(`${field.name}[${index}]`, {
                               required: "This field is required",
                             })}
-                            defaultValue={field.value[index] || ""}
+                            defaultValue={""}
                             variant="bordered"
+                            isRequired
                             label="Link"
                             size="sm"
                             placeholder={tabForm.placeholder}
