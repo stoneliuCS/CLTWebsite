@@ -44,10 +44,11 @@ export default function Dashboard() {
     return async (data) => {
       switch (key) {
         case "createEvent":
-          await fetch("/api/event", {
+          const res = await fetch("/api/event", {
             method: "POST",
             body: JSON.stringify(data),
           })
+          if (res.status != 201) console.log("Error Processing Request")
           break
         case "deleteEvent":
           console.log(data)

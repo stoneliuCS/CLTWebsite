@@ -87,7 +87,7 @@ export default function Home() {
             <h1
               className={`sm:text-xl md:text-3xl lg:text-4xl text-center font-bold mb-4 text-slate-800	drop-shadow-lg`}
             >
-              See What We Have Been Up To!
+              Announcements!
             </h1>
             <div className="h-full w-full flex justify-center">
               <Carousel
@@ -154,7 +154,7 @@ export default function Home() {
                       showAnchorIcon
                       href="https://github.com/stoneliuCS/CLTWebsite"
                     >
-                      Visit source code on GitHub.
+                      Check out the project Github!
                     </Link>
                   </CardFooter>
                 </Card>
