@@ -47,7 +47,7 @@ export default function Dashboard() {
   const { handleSubmit, control, setValue, register, trigger, reset } =
     useForm()
   const [currentTab, setCurrentTab] = useState(tabs[0].innerTabs[0])
-  const [files, setFiles] = useState<FileWithPreview[]>([])
+  const [file, setFile] = useState<FileWithPreview>()
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
 
   const onSubmit = (key: string): SubmitHandler<any> => {
@@ -81,7 +81,7 @@ export default function Dashboard() {
         default:
           throw new Error("Key does not match any API endpoints")
       }
-      setFiles([])
+      setFile(undefined)
       reset()
       alert("Form Submission Successful!")
     }
@@ -191,19 +191,17 @@ export default function Dashboard() {
             }}
             render={({ field }) => {
               const { getRootProps, getInputProps } = useDropzone({
-                maxFiles: 1,
                 accept: {
                   "image/*": [],
                 },
                 onDrop: async (acceptedFiles) => {
-                  const previewFiles = acceptedFiles.map((file) =>
-                    Object.assign(file, {
-                      preview: URL.createObjectURL(file),
-                    })
-                  )
-                  setFiles(previewFiles)
-                  //This is okay since we limit it to one file
-                  const file = previewFiles[0]
+                  //Only accept the first file
+                  console.log(acceptedFiles)
+                  const file = acceptedFiles[0]
+                  Object.assign(file, {
+                    preview: URL.createObjectURL(file),
+                  })
+                  setFile(file as unknown as FileWithPreview)
                   const base64 = await base64File(file)
                   const f = {
                     fileType: file.type,
@@ -213,7 +211,7 @@ export default function Dashboard() {
                   setValue(field.name, f)
                 },
               })
-              const thumbs = files.map((file) => (
+              const thumb = file ? (
                 <div className="thumb" key={file.name}>
                   <div className="thumbInner">
                     <img
@@ -225,10 +223,13 @@ export default function Dashboard() {
                     />
                   </div>
                 </div>
-              ))
+              ) : (
+                <AiTwotonePicture size={100} />
+              )
               useEffect(() => {
-                return () =>
-                  files.forEach((file) => URL.revokeObjectURL(file.preview))
+                return () => {
+                  if (file) URL.revokeObjectURL(file.preview)
+                }
               }, [])
               return (
                 <Card
@@ -242,13 +243,7 @@ export default function Dashboard() {
                   >
                     <em>{tabForm.label}</em>
                     <input {...getInputProps()} style={{ display: "none" }} />
-                    <aside className="thumbsContainer">
-                      {thumbs.length > 0 ? (
-                        thumbs
-                      ) : (
-                        <AiTwotonePicture size={100} />
-                      )}
-                    </aside>
+                    <aside className="thumbsContainer">{thumb}</aside>
                   </CardBody>
                 </Card>
               )

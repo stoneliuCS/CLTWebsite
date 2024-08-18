@@ -34,6 +34,7 @@ function OverridePictureCard({
                   fill
                   style={{ objectFit: "cover" }}
                   sizes="(max-height : 80vh)"
+                  priority
                 />
               </div>
             </div>
