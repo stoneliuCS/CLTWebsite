@@ -87,7 +87,7 @@ export default function Home() {
             <h1
               className={`sm:text-xl md:text-3xl lg:text-4xl text-center font-bold mb-4 text-slate-800	drop-shadow-lg`}
             >
-              Announcements!
+              CLT Upcoming Announcements!
             </h1>
             <div className="h-full w-full flex justify-center">
               <Carousel
