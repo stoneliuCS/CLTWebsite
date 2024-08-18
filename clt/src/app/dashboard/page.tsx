@@ -49,15 +49,19 @@ export default function Dashboard() {
   const [currentTab, setCurrentTab] = useState(tabs[0].innerTabs[0])
   const [files, setFiles] = useState<FileWithPreview[]>([])
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
+
   const onSubmit = (key: string): SubmitHandler<any> => {
     return async (data) => {
       switch (key) {
         case "createEvent":
-          const res = await fetch("/api/event", {
+          const res = await fetch("/api/events", {
             method: "POST",
             body: JSON.stringify(data),
           })
-          if (res.status != 201) console.log("error Processing request")
+          if (res.status != 201) {
+            alert("Error Processing Request, Please Try Again Later")
+            return
+          }
           break
         case "deleteEvent":
           console.log(data)
@@ -79,6 +83,7 @@ export default function Dashboard() {
       }
       setFiles([])
       reset()
+      alert("Form Submission Successful!")
     }
   }
   const renderFormItem = (tabForm: ITabForm, key: number) => {
@@ -311,6 +316,18 @@ export default function Dashboard() {
                   </CardFooter>
                 </Card>
               )
+            }}
+          />
+        )
+      case "autocomplete":
+        return (
+          <Controller
+            key={key}
+            name={tabForm.name}
+            control={control}
+            defaultValue=""
+            render={({ field }) => {
+              return <div></div>
             }}
           />
         )

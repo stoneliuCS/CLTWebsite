@@ -5,6 +5,11 @@ import { base64ToFile } from "@/lib/utils/file"
 import { uploadS3 } from "@/lib/utils/s3"
 import { EventSchema } from "@/types/IEvent"
 
+/**
+ * Creates a Single Event
+ * @param req 
+ * @returns 
+ */
 export async function POST(req: Request) {
   const session = await auth()
 
@@ -42,6 +47,27 @@ export async function POST(req: Request) {
     console.error(e)
     return new Response(
       JSON.stringify({ message: "Failed to create event", error: e.message }),
+      { status: 500 }
+    )
+  }
+}
+
+/**
+ * Gets all events
+ * @param req 
+ */
+export async function GET() {
+  try {
+    await connectDB()
+    const events = await EventModel.find()
+    await closeDB()
+    return new Response(
+      JSON.stringify({ message: "Sucessfully got all Events", data : events }),
+      { status: 200 },
+    )
+  } catch (e : any) {
+    return new Response(
+      JSON.stringify({ message: "Failed to get all events", error: e.message }),
       { status: 500 }
     )
   }
