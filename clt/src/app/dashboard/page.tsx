@@ -81,6 +81,7 @@ export default function Dashboard() {
         default:
           throw new Error("Key does not match any API endpoints")
       }
+      //Form submission clearing of state
       setFile(undefined)
       reset()
       alert("Form Submission Successful!")
@@ -196,7 +197,6 @@ export default function Dashboard() {
                 },
                 onDrop: async (acceptedFiles) => {
                   //Only accept the first file
-                  console.log(acceptedFiles)
                   const file = acceptedFiles[0]
                   Object.assign(file, {
                     preview: URL.createObjectURL(file),
