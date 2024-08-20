@@ -324,9 +324,13 @@ export default function Dashboard() {
             name={tabForm.name}
             control={control}
             defaultValue=""
+            rules={{
+              required: tabForm.isRequired ? "This field is required" : false,
+            }}
             render={({ field, fieldState }) => {
               const [events, setEvents] = useState<IEvent[] | null>(null)
               const [isLoading, setLoading] = useState(true)
+              const [error, setError] = useState(false)
               useEffect(() => {
                 const fetchEvents = async () => {
                   try {
@@ -337,7 +341,7 @@ export default function Dashboard() {
                     const events = await res.json()
                     setEvents(events.data)
                   } catch (e) {
-                    console.log(e)
+                    setError(true)
                   } finally {
                     setLoading(false)
                   }
@@ -345,6 +349,7 @@ export default function Dashboard() {
                 fetchEvents()
               }, [])
               if (isLoading) return <div> Loading Autocomplete...</div>
+              if (error) return <div> Error has occurred... </div>
               const items = events
                 ? events.map((event) => {
                     return {
@@ -357,6 +362,9 @@ export default function Dashboard() {
               return (
                 <Autocomplete
                   {...field}
+                  onSelectionChange={(s) => {
+                    setValue(field.name, s)
+                  }}
                   isInvalid={fieldState.invalid}
                   errorMessage={fieldState.error?.message}
                   label={tabForm.label}

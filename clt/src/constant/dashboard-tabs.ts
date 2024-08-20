@@ -161,6 +161,14 @@ const tabs: IDashboard[] = [
         title: "Delete Existing Event",
         key: "deleteEvent",
         accordionView: false,
+        form : [
+          {
+            name: "eventId",
+            type: "autocomplete",
+            label: "Delete an Event",
+            isRequired: true
+          }
+        ]
       },
     ],
   },
