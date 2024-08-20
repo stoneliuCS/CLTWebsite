@@ -11,36 +11,14 @@ import { Controller, useFormContext } from "react-hook-form"
 import DragAndDropInput from "./drag-drop-input"
 import LinksInput from "./links-input"
 import { parseDate, parseTime } from "@internationalized/date"
-import { useEffect, useState } from "react"
-import { IEvent } from "@/types/IEvent"
+import { EventAutocomplete } from "./event-autocomplete"
 
 interface IFormItemProps {
   tabForm: ITabForm
 }
 
 export function FormItem({ tabForm }: IFormItemProps) {
-  const { control, setValue } = useFormContext()
-  const [events, setEvents] = useState<IEvent[] | null>(null)
-  const [isLoading, setLoading] = useState(true)
-  const [error, setError] = useState(false)
-  useEffect(() => {
-    const fetchEvents = async () => {
-      try {
-        const res = await fetch("/api/events", {
-          method: "GET",
-        })
-        if (!res.ok) throw new Error("Error fetching all events")
-        const events = await res.json()
-        setEvents(events.data)
-      } catch (e) {
-        setError(true)
-      } finally {
-        setLoading(false)
-      }
-    }
-    fetchEvents()
-  }, [])
-
+  const { control } = useFormContext()
   switch (tabForm.type) {
     case "input":
       return (
@@ -146,9 +124,7 @@ export function FormItem({ tabForm }: IFormItemProps) {
         />
       )
     case "links":
-      return (
-        <LinksInput tabForm={tabForm} />
-      )
+      return <LinksInput tabForm={tabForm} />
     case "autocomplete":
       return (
         <Controller
@@ -159,36 +135,12 @@ export function FormItem({ tabForm }: IFormItemProps) {
             required: tabForm.isRequired ? "This field is required" : false,
           }}
           render={({ field, fieldState }) => {
-            if (isLoading) return <div> Loading Autocomplete...</div>
-            if (error) return <div> Error has occurred... </div>
-            const items = events
-              ? events.map((event) => {
-                  return {
-                    label: event.eventName,
-                    value: event._id,
-                    description: event.eventDescription,
-                  }
-                })
-              : []
             return (
-              <Autocomplete
-                {...field}
-                onSelectionChange={(s) => {
-                  setValue(field.name, s)
-                }}
-                isInvalid={fieldState.invalid}
-                errorMessage={fieldState.error?.message}
-                label={tabForm.label}
-                placeholder={tabForm.placeholder}
-                defaultItems={items}
-                isRequired={tabForm.isRequired}
-              >
-                {(event) => (
-                  <AutocompleteItem key={event.value!}>
-                    {event.label}
-                  </AutocompleteItem>
-                )}
-              </Autocomplete>
+              <EventAutocomplete
+                tabForm={tabForm}
+                field={field}
+                fieldState={fieldState}
+              />
             )
           }}
         />

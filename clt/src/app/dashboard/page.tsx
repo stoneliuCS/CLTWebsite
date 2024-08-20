@@ -36,14 +36,15 @@ export default function Dashboard() {
     return async (data) => {
       switch (event) {
         case "createEvent":
-          const res = await fetch("/api/events", {
-            method: "POST",
-            body: JSON.stringify(data),
-          })
-          if (!res.ok) {
-            alert("Error Processing Request, Please Try Again Later")
-            return
-          }
+          console.log(data)
+          // const res = await fetch("/api/events", {
+          //   method: "POST",
+          //   body: JSON.stringify(data),
+          // })
+          // if (!res.ok) {
+          //   alert("Error Processing Request, Please Try Again Later")
+          //   return
+          // }
           break
         case "deleteEvent":
           console.log(data)
@@ -156,6 +157,7 @@ export default function Dashboard() {
                     const selectedTab = tab.innerTabs.find((tab: ITab) => {
                       return tab.key === e.toString()
                     }) as ITab
+                    methods.reset()
                     setCurrentTab(selectedTab)
                   }}
                 >

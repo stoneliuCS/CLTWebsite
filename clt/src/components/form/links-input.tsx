@@ -45,7 +45,7 @@ export default function LinksInput({ tabForm }: LinkInputProps) {
                   return (
                     <Input
                       {...field}
-                      isRequired={tabForm.isRequired}
+                      isRequired
                       label={"Add a Link"}
                       placeholder={tabForm.placeholder}
                       isInvalid={fieldState.invalid}
