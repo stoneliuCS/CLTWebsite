@@ -1,3 +1,4 @@
+import { ITabForm } from "@/types/IDashboard"
 import {
   Button,
   Card,
@@ -7,34 +8,23 @@ import {
   Divider,
   Input,
 } from "@nextui-org/react"
-import {
-  ControllerRenderProps,
-  FieldValues,
-  useFieldArray,
-  useFormContext,
-} from "react-hook-form"
+import { Controller, useFieldArray, useFormContext } from "react-hook-form"
 import { FaRegTrashAlt } from "react-icons/fa"
 
 interface LinkInputProps {
-  label?: string
-  placeholder?: string
-  field: ControllerRenderProps<FieldValues, string>
+  tabForm: ITabForm
 }
 
-export default function LinksInput({
-  label,
-  field,
-  placeholder,
-}: LinkInputProps) {
-  const { control, register } = useFormContext()
+export default function LinksInput({ tabForm }: LinkInputProps) {
+  const { control } = useFormContext()
   const { fields, append, remove } = useFieldArray({
     control,
-    name: field.name,
+    name: tabForm.name,
   })
   return (
     <Card className="w-full bg-gray-100">
       <CardHeader className="flex justify-center items-center">
-        <p>{label}</p>
+        <p>{tabForm.label}</p>
       </CardHeader>
       <Divider />
       <CardBody className="flex justify-center items-center space-y-2">
@@ -44,13 +34,26 @@ export default function LinksInput({
               key={item.id}
               className="w-full flex flex-row space-x-2 items-center justify-center"
             >
-              <Input
-                defaultValue={""}
-                variant="bordered"
-                isRequired
-                label="Link"
-                size="sm"
-                placeholder={placeholder}
+              <Controller
+                name={`${tabForm.name}[${index}]`}
+                control={control}
+                defaultValue=""
+                rules={{
+                  required: "This field is required",
+                }}
+                render={({ field, fieldState }) => {
+                  return (
+                    <Input
+                      {...field}
+                      isRequired={tabForm.isRequired}
+                      label={"Add a Link"}
+                      placeholder={tabForm.placeholder}
+                      isInvalid={fieldState.invalid}
+                      errorMessage={fieldState.error?.message}
+                      size="sm"
+                    />
+                  )
+                }}
               />
               <Button
                 size="lg"

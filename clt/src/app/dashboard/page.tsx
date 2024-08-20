@@ -32,9 +32,9 @@ export default function Dashboard() {
   const [currentTab, setCurrentTab] = useState(tabs[0].innerTabs[0])
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
 
-  const onSubmit = (key: string): SubmitHandler<any> => {
+  const onSubmit = (event: string): SubmitHandler<any> => {
     return async (data) => {
-      switch (key) {
+      switch (event) {
         case "createEvent":
           const res = await fetch("/api/events", {
             method: "POST",
@@ -67,42 +67,9 @@ export default function Dashboard() {
       alert("Form Submission Successful!")
     }
   }
-  // const renderAccordionView = (form: ITabForm[]) => {
-  //   const [required, nonRequired] = partition(form, (f) => f.isRequired)
-  //   return (
-  //     <Accordion variant="bordered" defaultExpandedKeys={"1"}>
-  //       <AccordionItem
-  //         key="1"
-  //         aria-label="Accordion 1"
-  //         subtitle="Press to expand"
-  //         title="Required Fields*"
-  //         className="mb-4"
-  //         keepContentMounted
-  //       >
-  //         <div className="space-y-2">
-  //           {required.map((form: ITabForm, key: number) =>
-  //             renderFormItem(form, key)
-  //           )}
-  //         </div>
-  //       </AccordionItem>
-  //       <AccordionItem
-  //         key="2"
-  //         aria-label="Accordion 2"
-  //         subtitle="Press to expand"
-  //         title="Optional Fields"
-  //         className="mb-4"
-  //         keepContentMounted
-  //       >
-  //         <div className="space-y-2">
-  //           {nonRequired.map((form: ITabForm, key: number) =>
-  //             renderFormItem(form, key)
-  //           )}
-  //         </div>
-  //       </AccordionItem>
-  //     </Accordion>
-  //   )
-  // }
+
   if (!session) return <div> Please Login to view content. </div>
+
   return (
     <div className="w-screen h-screen flex flex-col items-center mt-4">
       <Tabs aria-label="Options" variant="underlined">
@@ -132,7 +99,7 @@ export default function Dashboard() {
                     >
                       <div className="flex flex-col w-full space-y-2">
                         {currentTab.form.map((form: ITabForm, key: number) => (
-                          <FormItem tabForm={form} key={key} />
+                          <div key={key}> <FormItem tabForm={form} /> </div>
                         ))}
                       </div>
                       <Button size="md" color="primary" type="submit">

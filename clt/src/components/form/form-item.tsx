@@ -1,5 +1,12 @@
 import { ITabForm } from "@/types/IDashboard"
-import { Autocomplete, AutocompleteItem, DateInput, Input, Textarea, TimeInput } from "@nextui-org/react"
+import {
+  Autocomplete,
+  AutocompleteItem,
+  DateInput,
+  Input,
+  Textarea,
+  TimeInput,
+} from "@nextui-org/react"
 import { Controller, useFormContext } from "react-hook-form"
 import DragAndDropInput from "./drag-drop-input"
 import LinksInput from "./links-input"
@@ -9,10 +16,9 @@ import { IEvent } from "@/types/IEvent"
 
 interface IFormItemProps {
   tabForm: ITabForm
-  key: number
 }
 
-export function FormItem({ tabForm, key }: IFormItemProps) {
+export function FormItem({ tabForm }: IFormItemProps) {
   const { control, setValue } = useFormContext()
   const [events, setEvents] = useState<IEvent[] | null>(null)
   const [isLoading, setLoading] = useState(true)
@@ -39,7 +45,6 @@ export function FormItem({ tabForm, key }: IFormItemProps) {
     case "input":
       return (
         <Controller
-          key={key}
           name={tabForm.name}
           control={control}
           defaultValue=""
@@ -62,7 +67,6 @@ export function FormItem({ tabForm, key }: IFormItemProps) {
     case "dateInput":
       return (
         <Controller
-          key={key}
           name={tabForm.name}
           control={control}
           defaultValue=""
@@ -85,7 +89,6 @@ export function FormItem({ tabForm, key }: IFormItemProps) {
     case "timeInput":
       return (
         <Controller
-          key={key}
           name={tabForm.name}
           control={control}
           defaultValue=""
@@ -108,7 +111,6 @@ export function FormItem({ tabForm, key }: IFormItemProps) {
     case "textArea":
       return (
         <Controller
-          key={key}
           name={tabForm.name}
           control={control}
           defaultValue=""
@@ -130,10 +132,9 @@ export function FormItem({ tabForm, key }: IFormItemProps) {
     case "drag&drop":
       return (
         <Controller
-          key={key}
           name={tabForm.name}
           control={control}
-          defaultValue={null}
+          defaultValue={""}
           rules={{
             required: tabForm.isRequired ? "This field is required" : false,
           }}
@@ -146,29 +147,11 @@ export function FormItem({ tabForm, key }: IFormItemProps) {
       )
     case "links":
       return (
-        <Controller
-          key={key}
-          name={tabForm.name}
-          control={control}
-          defaultValue={[]}
-          rules={{
-            required: tabForm.isRequired ? "This field is required" : false,
-          }}
-          render={({ field }) => {
-            return (
-              <LinksInput
-                label={tabForm.label}
-                placeholder={tabForm.placeholder}
-                field={field}
-              />
-            )
-          }}
-        />
+        <LinksInput tabForm={tabForm} />
       )
     case "autocomplete":
       return (
         <Controller
-          key={key}
           name={tabForm.name}
           control={control}
           defaultValue=""
