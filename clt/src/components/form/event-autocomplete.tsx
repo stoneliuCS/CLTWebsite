@@ -9,7 +9,7 @@ import {
   useFormContext,
 } from "react-hook-form"
 import {useFilter} from "@react-aria/i18n";
-import { Key } from "@react-types/shared"; // Import the Key type
+import { Key } from "@react-types/shared"; 
 
 interface EventAutocompleteProps {
   field: ControllerRenderProps<FieldValues, string>
@@ -87,7 +87,6 @@ export function EventAutocomplete({
 
   const onSelectionChange = (key: React.Key | null) => {
     field.onChange(key)
-    console.log(key)
     setState((prevState) => {
       let selectedItem = prevState.items.find((option) => option.value === key);
       return {
@@ -107,8 +106,7 @@ export function EventAutocomplete({
   };
 
   const onOpenChange = (isOpen: boolean, menuTrigger: MenuTriggerAction) => {
-    console.log(isOpen, menuTrigger)
-    if (menuTrigger === "manual" && isOpen) {
+    if (menuTrigger === "focus" && isOpen) {
       setState((prevState) => ({
         inputValue: prevState.inputValue,
         selectedKey: prevState.selectedKey,
