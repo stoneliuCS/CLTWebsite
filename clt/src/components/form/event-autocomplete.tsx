@@ -115,7 +115,6 @@ export function EventAutocomplete({
     }
   };
 
-
   if (isLoading)
     return (
       <div className="flex justify-center items-center">
