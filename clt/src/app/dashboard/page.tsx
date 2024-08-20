@@ -2,55 +2,34 @@
 import tabs from "@/constant/dashboard-tabs"
 import { ITab, ITabForm } from "@/types/IDashboard"
 import {
-  Accordion,
-  AccordionItem,
-  Autocomplete,
-  AutocompleteItem,
   Button,
   Card,
   CardBody,
   CardFooter,
   CardHeader,
-  DateInput,
   Divider,
-  Input,
   Modal,
   ModalBody,
   ModalContent,
   ModalFooter,
   Tab,
   Tabs,
-  Textarea,
-  TimeInput,
   useDisclosure,
 } from "@nextui-org/react"
 import { useSession } from "next-auth/react"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import {
   useForm,
   SubmitHandler,
-  Controller,
-  useFieldArray,
+  FormProvider,
 } from "react-hook-form"
-import { useDropzone } from "react-dropzone"
 import "./file-preview.css"
-import { AiTwotonePicture } from "react-icons/ai"
-import { FaRegTrashAlt } from "react-icons/fa"
-import { partition } from "@/lib/utils"
-import { base64File } from "@/lib/utils/file"
-import { parseDate, parseTime } from "@internationalized/date"
-import { IEvent } from "@/types/IEvent"
-
-interface FileWithPreview extends File {
-  preview: string
-}
+import { FormItem } from "@/components/form/form-item"
 
 export default function Dashboard() {
   const { data: session } = useSession()
-  const { handleSubmit, control, setValue, register, trigger, reset } =
-    useForm()
+  const methods = useForm()
   const [currentTab, setCurrentTab] = useState(tabs[0].innerTabs[0])
-  const [file, setFile] = useState<FileWithPreview>()
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
 
   const onSubmit = (key: string): SubmitHandler<any> => {
@@ -84,343 +63,45 @@ export default function Dashboard() {
         default:
           throw new Error("Key does not match any API endpoints")
       }
-      //Form submission clearing of state
-      setFile(undefined)
-      reset()
+      methods.reset()
       alert("Form Submission Successful!")
     }
   }
-  const renderFormItem = (tabForm: ITabForm, key: number) => {
-    switch (tabForm.type) {
-      case "input":
-        return (
-          <Controller
-            key={key}
-            name={tabForm.name}
-            control={control}
-            defaultValue=""
-            rules={{
-              required: tabForm.isRequired ? "This field is required" : false,
-            }}
-            render={({ field, fieldState }) => (
-              <Input
-                {...field}
-                isRequired={tabForm.isRequired}
-                label={tabForm.label}
-                placeholder={tabForm.placeholder}
-                isInvalid={fieldState.invalid}
-                errorMessage={fieldState.error?.message}
-                size="sm"
-              />
-            )}
-          />
-        )
-      case "dateInput":
-        return (
-          <Controller
-            key={key}
-            name={tabForm.name}
-            control={control}
-            defaultValue=""
-            rules={{
-              required: tabForm.isRequired ? "This field is required" : false,
-            }}
-            render={({ field, fieldState }) => (
-              <DateInput
-                {...field}
-                value={field.value ? parseDate(field.value) : null}
-                onChange={(d) => field.onChange(d ? d.toString() : "")}
-                label={tabForm.label}
-                isRequired={tabForm.isRequired}
-                isInvalid={fieldState.invalid}
-                errorMessage={fieldState.error?.message}
-              />
-            )}
-          />
-        )
-      case "timeInput":
-        return (
-          <Controller
-            key={key}
-            name={tabForm.name}
-            control={control}
-            defaultValue=""
-            rules={{
-              required: tabForm.isRequired ? "This field is required" : false,
-            }}
-            render={({ field, fieldState }) => (
-              <TimeInput
-                {...field}
-                value={field.value ? parseTime(field.value) : null}
-                onChange={(t) => field.onChange(t ? t.toString() : "")}
-                label={tabForm.label}
-                isRequired={tabForm.isRequired}
-                isInvalid={fieldState.invalid}
-                errorMessage={fieldState.error?.message}
-              />
-            )}
-          />
-        )
-      case "textArea":
-        return (
-          <Controller
-            key={key}
-            name={tabForm.name}
-            control={control}
-            defaultValue=""
-            rules={{
-              required: tabForm.isRequired ? "This field is required" : false,
-            }}
-            render={({ field, fieldState }) => (
-              <Textarea
-                {...field}
-                label={tabForm.label}
-                isRequired={tabForm.isRequired}
-                isInvalid={fieldState.invalid}
-                errorMessage={fieldState.error?.message}
-                placeholder={tabForm.placeholder}
-              />
-            )}
-          />
-        )
-      case "drag&drop":
-        return (
-          <Controller
-            key={key}
-            name={tabForm.name}
-            control={control}
-            defaultValue={null}
-            rules={{
-              required: tabForm.isRequired ? "This field is required" : false,
-            }}
-            render={({ field }) => {
-              const { getRootProps, getInputProps } = useDropzone({
-                accept: {
-                  "image/*": [],
-                },
-                onDrop: async (acceptedFiles) => {
-                  //Only accept the first file
-                  const file = acceptedFiles[0]
-                  Object.assign(file, {
-                    preview: URL.createObjectURL(file),
-                  })
-                  setFile(file as unknown as FileWithPreview)
-                  const base64 = await base64File(file)
-                  const f = {
-                    fileType: file.type,
-                    fileName: file.name,
-                    base64: base64,
-                  }
-                  setValue(field.name, f)
-                },
-              })
-              const thumb = file ? (
-                <div className="thumb" key={file.name}>
-                  <div className="thumbInner">
-                    <img
-                      src={file.preview}
-                      className="img"
-                      onLoad={() => {
-                        URL.revokeObjectURL(file.preview)
-                      }}
-                    />
-                  </div>
-                </div>
-              ) : (
-                <AiTwotonePicture size={100} />
-              )
-              useEffect(() => {
-                return () => {
-                  if (file) URL.revokeObjectURL(file.preview)
-                }
-              }, [])
-              return (
-                <Card
-                  className="border-2 border-slate-400 bg-gray-100 border-dashed w-full"
-                  isPressable
-                >
-                  <CardBody
-                    {...getRootProps({
-                      className: "flex flex-col items-center justify-center",
-                    })}
-                  >
-                    <em>{tabForm.label}</em>
-                    <input {...getInputProps()} style={{ display: "none" }} />
-                    <aside className="thumbsContainer">{thumb}</aside>
-                  </CardBody>
-                </Card>
-              )
-            }}
-          />
-        )
-      case "links":
-        return (
-          <Controller
-            key={key}
-            name={tabForm.name}
-            control={control}
-            defaultValue={[]}
-            rules={{
-              required: tabForm.isRequired ? "This field is required" : false,
-            }}
-            render={({ field }) => {
-              const { fields, append, remove } = useFieldArray({
-                control,
-                name: field.name,
-              })
-              return (
-                <Card className="w-full bg-gray-100">
-                  <CardHeader className="flex justify-center items-center">
-                    <p>{tabForm.label}</p>
-                  </CardHeader>
-                  <Divider />
-                  <CardBody className="flex justify-center items-center space-y-2">
-                    {fields.length > 0 ? (
-                      fields.map((f, index) => (
-                        <div
-                          key={f.id}
-                          className="w-full flex flex-row space-x-2 items-center justify-center"
-                        >
-                          <Input
-                            {...register(`${field.name}[${index}]`, {
-                              required: "This field is required",
-                            })}
-                            defaultValue={""}
-                            variant="bordered"
-                            isRequired
-                            label="Link"
-                            size="sm"
-                            placeholder={tabForm.placeholder}
-                          />
-                          <Button
-                            size="lg"
-                            color="danger"
-                            onPress={() => remove(index)}
-                            isIconOnly
-                          >
-                            <FaRegTrashAlt />
-                          </Button>
-                        </div>
-                      ))
-                    ) : (
-                      <em>No links yet...</em>
-                    )}
-                  </CardBody>
-                  <Divider />
-                  <CardFooter className="flex flex-row justify-center space-x-2">
-                    <Button size="sm" onPress={() => append("")}>
-                      <p className="truncate">Add</p>
-                    </Button>
-                  </CardFooter>
-                </Card>
-              )
-            }}
-          />
-        )
-      case "autocomplete":
-        return (
-          <Controller
-            key={key}
-            name={tabForm.name}
-            control={control}
-            defaultValue=""
-            rules={{
-              required: tabForm.isRequired ? "This field is required" : false,
-            }}
-            render={({ field, fieldState }) => {
-              const [events, setEvents] = useState<IEvent[] | null>(null)
-              const [isLoading, setLoading] = useState(true)
-              const [error, setError] = useState(false)
-              useEffect(() => {
-                const fetchEvents = async () => {
-                  try {
-                    const res = await fetch("/api/events", {
-                      method: "GET",
-                    })
-                    if (!res.ok) throw new Error("Error fetching all events")
-                    const events = await res.json()
-                    setEvents(events.data)
-                  } catch (e) {
-                    setError(true)
-                  } finally {
-                    setLoading(false)
-                  }
-                }
-                fetchEvents()
-              }, [])
-              if (isLoading) return <div> Loading Autocomplete...</div>
-              if (error) return <div> Error has occurred... </div>
-              const items = events
-                ? events.map((event) => {
-                    return {
-                      label: event.eventName,
-                      value: event._id,
-                      description: event.eventDescription,
-                    }
-                  })
-                : []
-              return (
-                <Autocomplete
-                  {...field}
-                  onSelectionChange={(s) => {
-                    setValue(field.name, s)
-                  }}
-                  isInvalid={fieldState.invalid}
-                  errorMessage={fieldState.error?.message}
-                  label={tabForm.label}
-                  placeholder={tabForm.placeholder}
-                  defaultItems={items}
-                  isRequired={tabForm.isRequired}
-                >
-                  {(event) => (
-                    <AutocompleteItem key={event.value!}>
-                      {event.label}
-                    </AutocompleteItem>
-                  )}
-                </Autocomplete>
-              )
-            }}
-          />
-        )
-      default:
-        throw new Error("No tab form type matched.")
-    }
-  }
-  const renderAccordionView = (form: ITabForm[]) => {
-    const [required, nonRequired] = partition(form, (f) => f.isRequired)
-    return (
-      <Accordion variant="bordered" defaultExpandedKeys={"1"}>
-        <AccordionItem
-          key="1"
-          aria-label="Accordion 1"
-          subtitle="Press to expand"
-          title="Required Fields*"
-          className="mb-4"
-          keepContentMounted
-        >
-          <div className="space-y-2">
-            {required.map((form: ITabForm, key: number) =>
-              renderFormItem(form, key)
-            )}
-          </div>
-        </AccordionItem>
-        <AccordionItem
-          key="2"
-          aria-label="Accordion 2"
-          subtitle="Press to expand"
-          title="Optional Fields"
-          className="mb-4"
-          keepContentMounted
-        >
-          <div className="space-y-2">
-            {nonRequired.map((form: ITabForm, key: number) =>
-              renderFormItem(form, key)
-            )}
-          </div>
-        </AccordionItem>
-      </Accordion>
-    )
-  }
+  // const renderAccordionView = (form: ITabForm[]) => {
+  //   const [required, nonRequired] = partition(form, (f) => f.isRequired)
+  //   return (
+  //     <Accordion variant="bordered" defaultExpandedKeys={"1"}>
+  //       <AccordionItem
+  //         key="1"
+  //         aria-label="Accordion 1"
+  //         subtitle="Press to expand"
+  //         title="Required Fields*"
+  //         className="mb-4"
+  //         keepContentMounted
+  //       >
+  //         <div className="space-y-2">
+  //           {required.map((form: ITabForm, key: number) =>
+  //             renderFormItem(form, key)
+  //           )}
+  //         </div>
+  //       </AccordionItem>
+  //       <AccordionItem
+  //         key="2"
+  //         aria-label="Accordion 2"
+  //         subtitle="Press to expand"
+  //         title="Optional Fields"
+  //         className="mb-4"
+  //         keepContentMounted
+  //       >
+  //         <div className="space-y-2">
+  //           {nonRequired.map((form: ITabForm, key: number) =>
+  //             renderFormItem(form, key)
+  //           )}
+  //         </div>
+  //       </AccordionItem>
+  //     </Accordion>
+  //   )
+  // }
   if (!session) return <div> Please Login to view content. </div>
   return (
     <div className="w-screen h-screen flex flex-col items-center mt-4">
@@ -438,29 +119,63 @@ export default function Dashboard() {
               </CardHeader>
               {currentTab.form ? (
                 <CardBody>
-                  <form
-                    className="w-full flex flex-col space-y-2 items-center px-10"
-                    onSubmit={async (e) => {
-                      e.preventDefault()
-                      const result = await trigger()
-                      if (result) {
-                        onOpen()
-                      }
-                    }}
-                  >
-                    {currentTab.accordionView ? (
-                      renderAccordionView(currentTab.form)
-                    ) : (
+                  <FormProvider {...methods}>
+                    <form
+                      className="w-full flex flex-col space-y-2 items-center px-10"
+                      onSubmit={async (e) => {
+                        e.preventDefault()
+                        const result = await methods.trigger()
+                        if (result) {
+                          onOpen()
+                        }
+                      }}
+                    >
                       <div className="flex flex-col w-full space-y-2">
-                        {currentTab.form.map((form: ITabForm, key: number) =>
-                          renderFormItem(form, key)
-                        )}
+                        {currentTab.form.map((form: ITabForm, key: number) => (
+                          <FormItem tabForm={form} key={key} />
+                        ))}
                       </div>
-                    )}
-                    <Button size="md" color="primary" type="submit">
-                      Submit
-                    </Button>
-                  </form>
+                      <Button size="md" color="primary" type="submit">
+                        Submit
+                      </Button>
+                      <Modal
+                        isOpen={isOpen}
+                        onOpenChange={onOpenChange}
+                        isDismissable={false}
+                        isKeyboardDismissDisabled={true}
+                      >
+                        <ModalContent>
+                          {(onClose) => (
+                            <>
+                              <ModalBody>Confirm Action</ModalBody>
+                              <ModalFooter>
+                                <Button
+                                  color="danger"
+                                  variant="light"
+                                  onPress={onClose}
+                                >
+                                  Close
+                                </Button>
+                                <Button
+                                  color="primary"
+                                  onPress={async () => {
+                                    //Trigger some loading animation
+                                    await methods.handleSubmit(
+                                      onSubmit(currentTab.key)
+                                    )()
+                                    //Finish loading animation
+                                    onClose()
+                                  }}
+                                >
+                                  Submit
+                                </Button>
+                              </ModalFooter>
+                            </>
+                          )}
+                        </ModalContent>
+                      </Modal>
+                    </form>
+                  </FormProvider>
                 </CardBody>
               ) : (
                 <CardBody>Nothing to see here...</CardBody>
@@ -486,36 +201,6 @@ export default function Dashboard() {
           </Tab>
         ))}
       </Tabs>
-      <Modal
-        isOpen={isOpen}
-        onOpenChange={onOpenChange}
-        isDismissable={false}
-        isKeyboardDismissDisabled={true}
-      >
-        <ModalContent>
-          {(onClose) => (
-            <>
-              <ModalBody>Confirm Action</ModalBody>
-              <ModalFooter>
-                <Button color="danger" variant="light" onPress={onClose}>
-                  Close
-                </Button>
-                <Button
-                  color="primary"
-                  onPress={async () => {
-                    //Trigger some loading animation
-                    await handleSubmit(onSubmit(currentTab.key))()
-                    //Finish loading animation
-                    onClose()
-                  }}
-                >
-                  Submit
-                </Button>
-              </ModalFooter>
-            </>
-          )}
-        </ModalContent>
-      </Modal>
     </div>
   )
 }
