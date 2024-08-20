@@ -2,6 +2,7 @@ import { base64File } from "@/lib/utils/file"
 import { Card, CardBody } from "@nextui-org/react"
 import { useEffect, useState } from "react"
 import { useDropzone } from "react-dropzone"
+import { useFormContext } from "react-hook-form"
 import { AiTwotonePicture } from "react-icons/ai"
 
 interface FileWithPreview extends File {
@@ -15,6 +16,14 @@ interface DragAndDropProps {
 
 export default function DragAndDropInput({ label, onDrop }: DragAndDropProps) {
   const [file, setFile] = useState<FileWithPreview>()
+  const { formState } = useFormContext()
+  const { isSubmitted, isDirty } = formState;
+
+  useEffect(() => {
+    if (!isSubmitted && !isDirty) {
+      setFile(undefined)
+    }
+  }, [isDirty])
 
   const { getRootProps, getInputProps } = useDropzone({
     accept: {

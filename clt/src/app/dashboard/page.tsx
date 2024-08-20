@@ -18,13 +18,11 @@ import {
 } from "@nextui-org/react"
 import { useSession } from "next-auth/react"
 import { useState } from "react"
-import {
-  useForm,
-  SubmitHandler,
-  FormProvider,
-} from "react-hook-form"
+import { useForm, SubmitHandler, FormProvider } from "react-hook-form"
 import "./file-preview.css"
 import { FormItem } from "@/components/form/form-item"
+import { ToastContainer, toast } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 
 export default function Dashboard() {
   const { data: session } = useSession()
@@ -65,7 +63,7 @@ export default function Dashboard() {
           throw new Error("Key does not match any API endpoints")
       }
       methods.reset()
-      alert("Form Submission Successful!")
+      toast.success("Successfully Submitted!")
     }
   }
 
@@ -73,6 +71,15 @@ export default function Dashboard() {
 
   return (
     <div className="w-screen h-screen flex flex-col items-center mt-4">
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        pauseOnHover
+        theme="light"
+      />
       <Tabs aria-label="Options" variant="underlined">
         {tabs.map((tab) => (
           <Tab key={tab.key} title={tab.title} className="w-10/12 h-full">
@@ -100,7 +107,9 @@ export default function Dashboard() {
                     >
                       <div className="flex flex-col w-full space-y-2">
                         {currentTab.form.map((form: ITabForm, key: number) => (
-                          <div key={key}> <FormItem tabForm={form} /> </div>
+                          <div key={key}>
+                            <FormItem tabForm={form} />
+                          </div>
                         ))}
                       </div>
                       <Button size="md" color="primary" type="submit">
