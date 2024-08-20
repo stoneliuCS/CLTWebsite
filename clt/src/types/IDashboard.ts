@@ -21,7 +21,7 @@ export interface ITabForm {
     | "timeInput"
     | "drag&drop"
     | "links"
-    | "autocomplete"
+    | "eventAutocomplete"
   name: string
   label: string
   isRequired: boolean

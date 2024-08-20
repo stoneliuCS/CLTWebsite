@@ -99,6 +99,8 @@ export default function Dashboard() {
                       className="w-full flex flex-col space-y-2 items-center px-10"
                       onSubmit={async (e) => {
                         e.preventDefault()
+                        //Trigger a preview of the new event/announcement
+                        console.log(methods.getValues())
                         const result = await methods.trigger()
                         if (result) {
                           onOpen()
@@ -124,7 +126,7 @@ export default function Dashboard() {
                         <ModalContent>
                           {(onClose) => (
                             <>
-                              <ModalBody>Confirm Action</ModalBody>
+                              <ModalBody>Are you sure?</ModalBody>
                               <ModalFooter>
                                 <Button
                                   color="danger"

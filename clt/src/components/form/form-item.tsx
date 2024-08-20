@@ -123,7 +123,7 @@ export function FormItem({ tabForm }: IFormItemProps) {
       )
     case "links":
       return <LinksInput tabForm={tabForm} />
-    case "autocomplete":
+    case "eventAutocomplete":
       return (
         <Controller
           name={tabForm.name}
