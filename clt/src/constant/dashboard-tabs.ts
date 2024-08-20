@@ -84,6 +84,12 @@ const tabs: IDashboard[] = [
         accordionView: false,
         form: [
           {
+            name: "eventId",
+            type: "autocomplete",
+            label: "Select an Event",
+            isRequired: true,
+          },
+          {
             name: "eventName",
             type: "input",
             label: "Edit Event Name",

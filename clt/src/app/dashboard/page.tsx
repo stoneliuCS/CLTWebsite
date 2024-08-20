@@ -4,6 +4,8 @@ import { ITab, ITabForm } from "@/types/IDashboard"
 import {
   Accordion,
   AccordionItem,
+  Autocomplete,
+  AutocompleteItem,
   Button,
   Card,
   CardBody,
@@ -37,6 +39,7 @@ import { FaRegTrashAlt } from "react-icons/fa"
 import { partition } from "@/lib/utils"
 import { base64File } from "@/lib/utils/file"
 import { parseDate, parseTime } from "@internationalized/date"
+import { IEvent } from "@/types/IEvent"
 
 interface FileWithPreview extends File {
   preview: string
@@ -58,7 +61,7 @@ export default function Dashboard() {
             method: "POST",
             body: JSON.stringify(data),
           })
-          if (res.status != 201) {
+          if (!res.ok) {
             alert("Error Processing Request, Please Try Again Later")
             return
           }
@@ -321,8 +324,53 @@ export default function Dashboard() {
             name={tabForm.name}
             control={control}
             defaultValue=""
-            render={({ field }) => {
-              return <div></div>
+            render={({ field, fieldState }) => {
+              const [events, setEvents] = useState<IEvent[] | null>(null)
+              const [isLoading, setLoading] = useState(true)
+              useEffect(() => {
+                const fetchEvents = async () => {
+                  try {
+                    const res = await fetch("/api/events", {
+                      method: "GET",
+                    })
+                    if (!res.ok) throw new Error("Error fetching all events")
+                    const events = await res.json()
+                    setEvents(events.data)
+                  } catch (e) {
+                    console.log(e)
+                  } finally {
+                    setLoading(false)
+                  }
+                }
+                fetchEvents()
+              }, [])
+              if (isLoading) return <div> Loading Autocomplete...</div>
+              const items = events
+                ? events.map((event) => {
+                    return {
+                      label: event.eventName,
+                      value: event._id,
+                      description: event.eventDescription,
+                    }
+                  })
+                : []
+              return (
+                <Autocomplete
+                  {...field}
+                  isInvalid={fieldState.invalid}
+                  errorMessage={fieldState.error?.message}
+                  label={tabForm.label}
+                  placeholder={tabForm.placeholder}
+                  defaultItems={items}
+                  isRequired={tabForm.isRequired}
+                >
+                  {(event) => (
+                    <AutocompleteItem key={event.value!}>
+                      {event.label}
+                    </AutocompleteItem>
+                  )}
+                </Autocomplete>
+              )
             }}
           />
         )

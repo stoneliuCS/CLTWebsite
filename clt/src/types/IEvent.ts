@@ -2,6 +2,7 @@ import { Time } from "@internationalized/date"
 import { z } from "zod"
 
 export interface IEvent {
+  _id? : string
   eventName: string
   eventDate: Date
   startTime: Time
