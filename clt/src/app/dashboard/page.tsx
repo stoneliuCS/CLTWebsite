@@ -18,11 +18,7 @@ import {
 } from "@nextui-org/react"
 import { useSession } from "next-auth/react"
 import { useState } from "react"
-import {
-  useForm,
-  SubmitHandler,
-  FormProvider,
-} from "react-hook-form"
+import { useForm, SubmitHandler, FormProvider } from "react-hook-form"
 import "./file-preview.css"
 import { FormItem } from "@/components/form/form-item"
 import { ToastContainer, toast } from "react-toastify"
@@ -35,24 +31,30 @@ export default function Dashboard() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
 
   const onSubmit = (event: string): SubmitHandler<any> => {
+    let res = {} as Response
     return async (data) => {
       switch (event) {
         case "createEvent":
-          console.log(data)
-          // const res = await fetch("/api/events", {
-          //   method: "POST",
-          //   body: JSON.stringify(data),
-          // })
-          // if (!res.ok) {
-          //   alert("Error Processing Request, Please Try Again Later")
-          //   return
-          // }
+          res = await fetch("/api/events", {
+            method: "POST",
+            body: JSON.stringify(data),
+          })
+          if (!res.ok) {
+            toast.error("Error Processing Request, Please Try Again Later")
+            return
+          }
           break
         case "deleteEvent":
-          console.log(data)
           break
         case "updateEvent":
-          console.log(data)
+          res = await fetch(`/api/events/${data.eventId}`, {
+            method: "PATCH",
+            body: JSON.stringify(data),
+          })
+          if (!res.ok) {
+            toast.error("Error Processing Request, Please Try Again Later")
+            return
+          }
           break
         case "createAnnouncement":
           console.log(data)
