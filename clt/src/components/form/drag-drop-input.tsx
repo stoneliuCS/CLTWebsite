@@ -21,6 +21,7 @@ export default function DragAndDropInput({ label, onDrop }: DragAndDropProps) {
 
   useEffect(() => {
     if (!isSubmitted && !isDirty) {
+      if (file) URL.revokeObjectURL(file.preview)
       setFile(undefined)
     }
   }, [isDirty])
@@ -31,16 +32,17 @@ export default function DragAndDropInput({ label, onDrop }: DragAndDropProps) {
     },
     onDrop: async (acceptedFiles) => {
       //Only accept the first file
-      const file = acceptedFiles[0]
+      const file = acceptedFiles[0] as unknown as FileWithPreview
       Object.assign(file, {
         preview: URL.createObjectURL(file),
       })
-      setFile(file as unknown as FileWithPreview)
+      setFile(file)
       const base64 = await base64File(file)
       const f = {
         fileType: file.type,
         fileName: file.name,
         base64: base64,
+        filePreview: file.preview
       }
       onDrop(f)
     },
@@ -53,7 +55,6 @@ export default function DragAndDropInput({ label, onDrop }: DragAndDropProps) {
           src={file.preview}
           className="img"
           onLoad={() => {
-            URL.revokeObjectURL(file.preview)
           }}
         />
       </div>

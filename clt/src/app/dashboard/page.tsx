@@ -18,7 +18,11 @@ import {
 } from "@nextui-org/react"
 import { useSession } from "next-auth/react"
 import { useState } from "react"
-import { useForm, SubmitHandler, FormProvider } from "react-hook-form"
+import {
+  useForm,
+  SubmitHandler,
+  FormProvider,
+} from "react-hook-form"
 import "./file-preview.css"
 import { FormItem } from "@/components/form/form-item"
 import { ToastContainer, toast } from "react-toastify"
@@ -99,8 +103,6 @@ export default function Dashboard() {
                       className="w-full flex flex-col space-y-2 items-center px-10"
                       onSubmit={async (e) => {
                         e.preventDefault()
-                        //Trigger a preview of the new event/announcement
-                        console.log(methods.getValues())
                         const result = await methods.trigger()
                         if (result) {
                           onOpen()
