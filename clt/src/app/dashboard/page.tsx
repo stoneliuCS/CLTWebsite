@@ -32,6 +32,7 @@ export default function Dashboard() {
 
   const onSubmit = (event: string): SubmitHandler<any> => {
     let res = {} as Response
+    let msg
     return async (data) => {
       switch (event) {
         case "createEvent":
@@ -39,20 +40,31 @@ export default function Dashboard() {
             method: "POST",
             body: JSON.stringify(data),
           })
+          msg = await res.json()
           if (!res.ok) {
-            toast.error("Error Processing Request, Please Try Again Later")
+            toast.error(msg.message)
             return
           }
           break
         case "deleteEvent":
+          res = await fetch(`/api/events/${data.eventId}`, {
+            method: "DELETE",
+            body: JSON.stringify(data),
+          })
+          msg = await res.json()
+          if (!res.ok) {
+            toast.error(msg.message)
+            return
+          }
           break
         case "updateEvent":
           res = await fetch(`/api/events/${data.eventId}`, {
             method: "PATCH",
             body: JSON.stringify(data),
           })
+          msg = await res.json()
           if (!res.ok) {
-            toast.error("Error Processing Request, Please Try Again Later")
+            toast.error(msg.message)
             return
           }
           break
@@ -70,6 +82,7 @@ export default function Dashboard() {
       }
       methods.reset()
       toast.success("Successfully Submitted!")
+      location.reload()
     }
   }
 
