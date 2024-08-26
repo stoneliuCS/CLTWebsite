@@ -1,12 +1,11 @@
-import { Time } from "@internationalized/date"
 import { z } from "zod"
 
 export interface IEvent {
-  _id? : string
-  eventName: string
-  eventDate: Date
-  startTime: Time
-  endTime: Time
+  _id : string
+  eventName: string 
+  eventDate: string //As a string representation of a date
+  startTime: string //As a string representation of a time
+  endTime: string //As a string representation of a time
   eventLocation: string
   eventDescription: string
   contactName?: string
@@ -14,6 +13,12 @@ export interface IEvent {
   emailAddress?: string
   eventImage?: { src: string; alt: string }
   eventLinks?: string[]
+}
+
+export interface TimeLineEvent {
+  cardTitle: string,
+  date: Date,
+  cardDetailedText: string
 }
 
 export const EventSchema = z.object({

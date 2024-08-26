@@ -1,5 +1,5 @@
 import { IEvent } from "@/types/IEvent"
-import { Card, CardBody, CardHeader } from "@nextui-org/react"
+import { Card, CardBody, CardHeader, Link } from "@nextui-org/react"
 import { motion } from "framer-motion"
 import { withClick } from "./flip-card"
 import NextImage from "next/image"
@@ -51,13 +51,65 @@ function OverridePictureCard({
         </motion.div>
       )}
       {variant === "Back" && (
-        <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} className="h-full w-full">
+        <motion.div
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          className="h-full w-full"
+        >
           <Card className="h-full w-full">
             <CardHeader>
               <h1>{event.eventName}</h1>
             </CardHeader>
-            <CardBody className="h-full w-full">
-              <p>Back</p>
+            <CardBody className="h-full w-full ">
+              <p>
+                <strong> Event Start Time: </strong>
+                {event.startTime as unknown as string}
+              </p>
+              <p>
+                <strong>Event End Time: </strong> {event.endTime}
+              </p>
+              <p>
+                <strong>Event Date: </strong> {event.eventDate}
+              </p>
+              <p>
+                <strong>Event Location: </strong> {event.eventLocation}
+              </p>
+              <p>
+                <strong>Event Description: </strong> {event.eventDescription}
+              </p>
+              <p>
+                <strong>Event Contact Name: </strong>
+                {event.contactName
+                  ? event.contactName
+                  : "No Contact Name Provided"}
+              </p>
+              <p>
+                <strong>Event Email Address: </strong>
+                {event.emailAddress
+                  ? event.emailAddress
+                  : "No Email Address Provided"}
+              </p>
+              <p>
+                <strong>Event Phone Number: </strong>
+                {event.phoneNumber
+                  ? event.phoneNumber
+                  : "No Event Phone Number Provided"}
+              </p>
+
+              <p>
+                <strong>Event Links: </strong>
+                {event.eventLinks ? (
+                  event.eventLinks.map((eventLink, key) => {
+                    return (
+                      <Link href={eventLink} key={key}>
+                        {eventLink}
+                      </Link>
+                    )
+                  })
+                ) : (
+                  <div> No Event Links </div>
+                )}
+              </p>
             </CardBody>
           </Card>
         </motion.div>
