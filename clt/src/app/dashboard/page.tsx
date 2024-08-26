@@ -12,6 +12,7 @@ import {
   ModalBody,
   ModalContent,
   ModalFooter,
+  Spinner,
   Tab,
   Tabs,
   useDisclosure,
@@ -28,6 +29,7 @@ export default function Dashboard() {
   const { data: session } = useSession()
   const methods = useForm()
   const [currentTab, setCurrentTab] = useState(tabs[0].innerTabs[0])
+  const [loading, setLoading] = useState(false)
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
 
   const onSubmit = (event: string): SubmitHandler<any> => {
@@ -82,7 +84,6 @@ export default function Dashboard() {
       }
       methods.reset()
       toast.success("Successfully Submitted!")
-      location.reload()
     }
   }
 
@@ -143,7 +144,13 @@ export default function Dashboard() {
                         <ModalContent>
                           {(onClose) => (
                             <>
-                              <ModalBody>Are you sure?</ModalBody>
+                              <ModalBody>
+                                {loading ? (
+                                  <Spinner />
+                                ) : (
+                                  <div>Are you sure?</div>
+                                )}
+                              </ModalBody>
                               <ModalFooter>
                                 <Button
                                   color="danger"
@@ -156,9 +163,11 @@ export default function Dashboard() {
                                   color="primary"
                                   onPress={async () => {
                                     //Trigger some loading animation
+                                    setLoading(true)
                                     await methods.handleSubmit(
                                       onSubmit(currentTab.key)
                                     )()
+                                    setLoading(false)
                                     //Finish loading animation
                                     onClose()
                                   }}

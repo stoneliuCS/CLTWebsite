@@ -96,7 +96,7 @@ const tabs: IDashboard[] = [
             isRequired: false,
           },
           {
-            name: "date",
+            name: "eventDate",
             type: "dateInput",
             label: "Edit Event Date",
             isRequired: false,
