@@ -12,65 +12,23 @@ import { Card, CardBody, Spinner } from "@nextui-org/react"
 import FlippableCard from "@/components/card/flippable-picture-card"
 import { useEffect, useState } from "react"
 import { IEvent, TimeLineEvent } from "@/types/IEvent"
+import { useEvents } from "@/components/layout/EventsProvider"
 
 const Chrono = dynamic(() => import("react-chrono").then((mod) => mod.Chrono), {
   ssr: false,
 })
 
 export default function EventPage() {
-  const [activeIndex, setActiveIndex] = useState(0)
-  const [events, setEvents] = useState<IEvent[] | null>(null)
-  const [timelineEvents, setTimelineEvents] = useState<TimeLineEvent[] | null>(
-    null
-  )
-  const [isLoading, setLoading] = useState(true)
-  const [error, setError] = useState(false)
-
-  useEffect(() => {
-    let isMounted = true;
-    const fetchEvents = async (retryCount = 0) => {
-      try {
-        const res = await fetch("/api/events", {
-          method: "GET",
-        });
-        if (res.status === 429) {
-          if (retryCount < 5) {
-            // Retry after a delay with exponential backoff
-            setTimeout(() => fetchEvents(retryCount + 1), Math.pow(2, retryCount) * 1000);
-          } else {
-            throw new Error("Too many requests. Please try again later.");
-          }
-        } else if (!res.ok) {
-          throw new Error("Error fetching all events");
-        } else {
-          const events = await res.json();
-          setEvents(events.data);
-        }
-      } catch (e) {
-        console.log(e);
-        setError(true);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchEvents();
-    return () => {
-      isMounted = false; 
-    };
-  }, [])
-
-  useEffect(() => {
-    if (events && events.length > 0) {
-      const timeline = events.map((event) => {
-        return {
-          cardTitle: event.eventName,
-          date: new Date(event.eventDate),
-          cardDetailedText: event.eventDescription,
-        }
-      })
-      setTimelineEvents(timeline)
+  const eventContext = useEvents()
+  const events = eventContext.events
+  const timeline = events.map((event) => {
+    return {
+      cardTitle: event.eventName,
+      date: new Date(event.eventDate),
+      cardDetailedText: event.eventDescription,
     }
-  }, [events])
+  })
+  const [activeIndex, setActiveIndex] = useState(0)  
   return (
     <div className="h-screen w-screen p-1">
       <div className="flex flex-col lg:flex-row h-full w-full ">
@@ -128,19 +86,13 @@ export default function EventPage() {
           shadow="lg"
         >
           <CardBody className="flex justify-center items-center">
-            {timelineEvents && timelineEvents.length > 0 ? (
               <Chrono
-                items={timelineEvents}
+                items={timeline}
                 mode="VERTICAL_ALTERNATING"
                 scrollable={{ scrollbar: true }}
                 disableToolbar
                 activeItemIndex={activeIndex}
               />
-            ) : (
-              <div>
-                Loading Events Timeline: <Spinner />
-              </div>
-            )}
           </CardBody>
         </Card>
       </div>

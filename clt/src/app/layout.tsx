@@ -16,10 +16,16 @@ export default async function RootLayout({
   children: React.ReactNode
 }>) {
   const session = await auth()
+  const res = await fetch(`${process.env.NEXTAUTH_URL}/api/events`, {
+    method: "GET",
+  })
+  if (!res.ok) throw new Error("Problem with fetching events")
+  const eventsData = await res.json()
+  const events = eventsData.data
   return (
     <html lang="en">
       <body className={inter.className}>
-        <ClientLayout session={session}>{children}</ClientLayout>
+        <ClientLayout events={events} session={session}>{children}</ClientLayout>
       </body>
     </html>
   )
