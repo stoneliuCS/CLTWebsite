@@ -158,14 +158,14 @@ const tabs: IDashboard[] = [
       {
         title: "Delete Existing Event",
         key: "deleteEvent",
-        form : [
+        form: [
           {
             name: "_id",
             type: "eventAutocomplete",
             label: "Delete an Event",
-            isRequired: true
-          }
-        ]
+            isRequired: true,
+          },
+        ],
       },
     ],
   },
@@ -179,21 +179,71 @@ const tabs: IDashboard[] = [
         form: [
           {
             name: "announcementName",
-            type : "input",
-            label : "Announcement Name",
-            isRequired : true
+            type: "input",
+            label: "Announcement Name",
+            isRequired: true,
           },
           {
-            name : "announcementDate",
-            type : "dateInput",
-            label : "Announcement Date",
-            isRequired : true
+            name: "announcementDate",
+            type: "dateInput",
+            label: "Announcement Date",
+            isRequired: true,
           },
-        ]
+          {
+            name: "announcementDescription",
+            type: "textArea",
+            label: "Announcement Description",
+            isRequired: true,
+          },
+          {
+            name: "announcementPhoto",
+            type: "drag&drop",
+            label: "Announcement Photo",
+            isRequired: false,
+          },
+          {
+            name: "announcementLinks",
+            type: "links",
+            label: "Announcement Links",
+            isRequired: false,
+          },
+        ],
       },
       {
         title: "Update Existing Announcement",
         key: "updateAnnouncement",
+        form: [
+          {
+            name: "announcementName",
+            type: "input",
+            label: "Announcement Name",
+            isRequired: false,
+          },
+          {
+            name: "announcementDate",
+            type: "dateInput",
+            label: "Announcement Date",
+            isRequired: false,
+          },
+          {
+            name: "announcementDescription",
+            type: "textArea",
+            label: "Announcement Description",
+            isRequired: false,
+          },
+          {
+            name: "announcementPhoto",
+            type: "drag&drop",
+            label: "Announcement Photo",
+            isRequired: false,
+          },
+          {
+            name: "announcementLinks",
+            type: "links",
+            label: "Announcement Links",
+            isRequired: false,
+          },
+        ],
       },
       {
         title: "Delete Exisiting Announcement ",
