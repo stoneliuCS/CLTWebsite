@@ -14,6 +14,7 @@ import {
 import { useFilter } from "@react-aria/i18n"
 import { Key } from "@react-types/shared"
 import { useEvents } from "../layout/EventsProvider"
+import { IEvent } from "@/types/IEvent"
 
 interface EventAutocompleteProps {
   field: ControllerRenderProps<FieldValues, string>
@@ -38,13 +39,13 @@ export function EventAutocomplete({
 }: EventAutocompleteProps) {
   const eventContext = useEvents()
   const events = eventContext.events
-  const { formState } = useFormContext()
+  const { formState, setValue, getValues } = useFormContext()
   const { isSubmitted, isDirty } = formState
 
   const items = events.map((event) => {
     return {
       label: event.eventName,
-      value: event._id!,
+      value: event._id,
       description: event.eventDescription,
     }
   })
@@ -69,6 +70,16 @@ export function EventAutocomplete({
 
   const onSelectionChange = (key: React.Key | null) => {
     field.onChange(key)
+    const selectedEvent = events.find((event) => { return key?.toString() === event._id })
+    if (selectedEvent) {
+      const vals = getValues()
+      for (const k of Object.keys(vals)) {
+        const key = k as keyof IEvent
+        const eventVal = selectedEvent[key]
+        setValue(key, eventVal)
+      }
+    }
+    console.log(getValues())
     setState((prevState) => {
       let selectedItem = prevState.items.find((option) => option.value === key)
       return {

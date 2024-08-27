@@ -9,10 +9,10 @@ export async function PATCH(req: Request) {
   try {
     const event = await req.json()
 
-    if (!event.eventId)
+    if (!event._id)
       return Response.json({ message: "No Event Id Found" }, { status: 400 })
 
-    const id = event.eventId
+    const id = event._id
 
     for (const val of Object.keys(event)) {
       if (!event[val]) {
@@ -22,7 +22,7 @@ export async function PATCH(req: Request) {
       }
     }
 
-    delete event["eventId"]
+    delete event["_id"]
 
     if (!(Object.keys(event).length > 0)) {
       return Response.json({ message: "No change detected." }, { status: 400 })
@@ -46,10 +46,10 @@ export async function DELETE(req: Request) {
   try {
     const event = await req.json()
 
-    if (!event.eventId)
+    if (!event._id)
       return Response.json({ message: "No Event Id Found" }, { status: 400 })
 
-    const id = event.eventId
+    const id = event._id
     await connectDB()
     await EventModel.findByIdAndDelete(id)
     await closeDB()

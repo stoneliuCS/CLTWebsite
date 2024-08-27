@@ -82,7 +82,7 @@ const tabs: IDashboard[] = [
         key: "updateEvent",
         form: [
           {
-            name: "eventId",
+            name: "_id",
             type: "eventAutocomplete",
             label: "Select an Event",
             isRequired: true,
@@ -160,7 +160,7 @@ const tabs: IDashboard[] = [
         key: "deleteEvent",
         form : [
           {
-            name: "eventId",
+            name: "_id",
             type: "eventAutocomplete",
             label: "Delete an Event",
             isRequired: true

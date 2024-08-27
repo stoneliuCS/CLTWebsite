@@ -49,7 +49,7 @@ export default function Dashboard() {
           }
           break
         case "deleteEvent":
-          res = await fetch(`/api/events/${data.eventId}`, {
+          res = await fetch(`/api/events/${data._id}`, {
             method: "DELETE",
             body: JSON.stringify(data),
           })
@@ -60,7 +60,7 @@ export default function Dashboard() {
           }
           break
         case "updateEvent":
-          res = await fetch(`/api/events/${data.eventId}`, {
+          res = await fetch(`/api/events/${data._id}`, {
             method: "PATCH",
             body: JSON.stringify(data),
           })

@@ -8,6 +8,7 @@ import {
   Divider,
   Input,
 } from "@nextui-org/react"
+import { useEffect } from "react"
 import { Controller, useFieldArray, useFormContext } from "react-hook-form"
 import { FaRegTrashAlt } from "react-icons/fa"
 
@@ -16,11 +17,19 @@ interface LinkInputProps {
 }
 
 export default function LinksInput({ tabForm }: LinkInputProps) {
-  const { control } = useFormContext()
+  const { control, formState, setValue } = useFormContext()
   const { fields, append, remove } = useFieldArray({
     control,
     name: tabForm.name,
   })
+  const { isSubmitted, isDirty } = formState;
+
+  useEffect(() => {
+    if (!isSubmitted && !isDirty) {
+      setValue(tabForm.name, [])
+    }
+  }, [isDirty])
+  
   return (
     <Card className="w-full bg-gray-100">
       <CardHeader className="flex justify-center items-center">
@@ -37,7 +46,7 @@ export default function LinksInput({ tabForm }: LinkInputProps) {
               <Controller
                 name={`${tabForm.name}[${index}]`}
                 control={control}
-                defaultValue=""
+                defaultValue={[]}
                 rules={{
                   required: "This field is required",
                 }}
