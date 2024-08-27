@@ -1,3 +1,5 @@
+import { z } from "zod"
+
 export interface IAnnouncement {
   _id : string
   announcementName: string
@@ -9,3 +11,20 @@ export interface IAnnouncement {
   }
   announcementLinks? : string[]
 }
+
+export const AnnouncementSchema = z.object({
+  announcementName : z.string(),
+  announcementDate : z.date(),
+  announcementDescription : z.date(),
+  announcementPhoto: z.union([
+    z
+      .object({
+        fileType: z.string(),
+        fileName: z.string(),
+        base64: z.string(),
+      })
+      .optional(),
+    z.null().optional()
+  ]),
+  announcementLinks : z.array(z.string()).optional()
+})

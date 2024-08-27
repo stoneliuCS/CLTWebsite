@@ -82,8 +82,8 @@ export default function Dashboard() {
         default:
           throw new Error("Key does not match any API endpoints")
       }
-      methods.reset()
       toast.success("Successfully Submitted!")
+      window.location.reload()
     }
   }
 
@@ -100,7 +100,7 @@ export default function Dashboard() {
         pauseOnHover
         theme="light"
       />
-      <Tabs aria-label="Options" variant="underlined">
+      <Tabs aria-label="Options" variant="underlined" onSelectionChange={() => methods.reset()}>
         {tabs.map((tab) => (
           <Tab key={tab.key} title={tab.title} className="w-10/12 h-full">
             <Card className="bg-blue-200 w-full">

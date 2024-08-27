@@ -79,7 +79,6 @@ export function EventAutocomplete({
         setValue(key, eventVal)
       }
     }
-    console.log(getValues())
     setState((prevState) => {
       let selectedItem = prevState.items.find((option) => option.value === key)
       return {

@@ -14,20 +14,6 @@ export async function PATCH(req: Request) {
 
     const id = event._id
 
-    for (const val of Object.keys(event)) {
-      if (!event[val]) {
-        delete event[val]
-      } else if (Array.isArray(event[val]) && event[val].length === 0) {
-        delete event[val]
-      }
-    }
-
-    delete event["_id"]
-
-    if (!(Object.keys(event).length > 0)) {
-      return Response.json({ message: "No change detected." }, { status: 400 })
-    }
-
     //initialize a connection to the database
     await connectDB()
     await EventModel.findByIdAndUpdate(id, event)
