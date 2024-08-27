@@ -176,6 +176,20 @@ const tabs: IDashboard[] = [
       {
         title: "Create Announcement",
         key: "createAnnouncement",
+        form: [
+          {
+            name: "announcementName",
+            type : "input",
+            label : "Announcement Name",
+            isRequired : true
+          },
+          {
+            name : "announcementDate",
+            type : "dateInput",
+            label : "Announcement Date",
+            isRequired : true
+          },
+        ]
       },
       {
         title: "Update Existing Announcement",

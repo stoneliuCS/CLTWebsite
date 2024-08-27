@@ -91,7 +91,7 @@ export default function PictureCard(props: IPictureCardProps) {
             </ModalBody>
             <Divider />
             <ModalFooter className="flex justify-start">
-              <p> {props.event.eventDate.toDateString()} </p>
+              <p> {props.event.eventDate} </p>
             </ModalFooter>
           </>
         </ModalContent>
