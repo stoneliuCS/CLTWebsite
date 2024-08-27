@@ -1,6 +1,9 @@
 import { ITabForm } from "@/types/IDashboard"
-import { IEvent } from "@/types/IEvent"
-import { Autocomplete, AutocompleteItem, MenuTriggerAction, Spinner } from "@nextui-org/react"
+import {
+  Autocomplete,
+  AutocompleteItem,
+  MenuTriggerAction,
+} from "@nextui-org/react"
 import { useState, useEffect } from "react"
 import {
   ControllerFieldState,
@@ -8,8 +11,9 @@ import {
   FieldValues,
   useFormContext,
 } from "react-hook-form"
-import {useFilter} from "@react-aria/i18n";
-import { Key } from "@react-types/shared"; 
+import { useFilter } from "@react-aria/i18n"
+import { Key } from "@react-types/shared"
+import { useEvents } from "../layout/EventsProvider"
 
 interface EventAutocompleteProps {
   field: ControllerRenderProps<FieldValues, string>
@@ -18,7 +22,7 @@ interface EventAutocompleteProps {
 }
 
 type FieldState = {
-  selectedKey: React.Key | null | undefined 
+  selectedKey: React.Key | null | undefined
   inputValue: string
   items: {
     label: string
@@ -32,40 +36,18 @@ export function EventAutocomplete({
   fieldState,
   tabForm,
 }: EventAutocompleteProps) {
-  const [events, setEvents] = useState<IEvent[] | null>(null)
-  const [isLoading, setLoading] = useState(true)
-  const [error, setError] = useState(false)
+  const eventContext = useEvents()
+  const events = eventContext.events
   const { formState } = useFormContext()
   const { isSubmitted, isDirty } = formState
 
-  useEffect(() => {
-    const fetchEvents = async () => {
-      try {
-        const res = await fetch("/api/events", {
-          method: "GET",
-        })
-        if (!res.ok) throw new Error("Error fetching all events")
-        const events = await res.json()
-        setEvents(events.data)
-      } catch (e) {
-        console.log(e)
-        setError(true)
-      } finally {
-        setLoading(false)
-      }
+  const items = events.map((event) => {
+    return {
+      label: event.eventName,
+      value: event._id!,
+      description: event.eventDescription,
     }
-    fetchEvents()
-  }, [])
-
-  const items = events
-    ? events.map((event) => {
-        return {
-          label: event.eventName,
-          value: event._id!,
-          description: event.eventDescription,
-        }
-      })
-    : []
+  })
 
   const [state, setState] = useState<FieldState>({
     selectedKey: "",
@@ -83,27 +65,29 @@ export function EventAutocomplete({
     }
   }, [isDirty])
 
-  const {startsWith} = useFilter({sensitivity: "base"});
+  const { startsWith } = useFilter({ sensitivity: "base" })
 
   const onSelectionChange = (key: React.Key | null) => {
     field.onChange(key)
     setState((prevState) => {
-      let selectedItem = prevState.items.find((option) => option.value === key);
+      let selectedItem = prevState.items.find((option) => option.value === key)
       return {
         inputValue: selectedItem?.label || "",
         selectedKey: key,
-        items: items.filter((item) => startsWith(item.label, selectedItem?.label || "")),
-      };
-    });
-  };
+        items: items.filter((item) =>
+          startsWith(item.label, selectedItem?.label || "")
+        ),
+      }
+    })
+  }
 
   const onInputChange = (value: string) => {
     setState((prevState) => ({
       inputValue: value,
       selectedKey: value === "" ? null : prevState.selectedKey,
       items: items.filter((item) => startsWith(item.label, value)),
-    }));
-  };
+    }))
+  }
 
   const onOpenChange = (isOpen: boolean, menuTrigger: MenuTriggerAction) => {
     if (menuTrigger === "focus" && isOpen) {
@@ -111,18 +95,9 @@ export function EventAutocomplete({
         inputValue: prevState.inputValue,
         selectedKey: prevState.selectedKey,
         items: items,
-      }));
+      }))
     }
-  };
-
-  if (isLoading)
-    return (
-      <div className="flex justify-center items-center">
-        <Spinner />
-      </div>
-    )
-
-  if (error) return <div>Error has occurred</div>
+  }
 
   return (
     <Autocomplete

@@ -10,14 +10,12 @@ import "swiper/css/navigation"
 import "./3d-carousel.css"
 import { Card, CardBody, Spinner } from "@nextui-org/react"
 import FlippableCard from "@/components/card/flippable-picture-card"
-import { useEffect, useState } from "react"
-import { IEvent, TimeLineEvent } from "@/types/IEvent"
+import { useState } from "react"
 import { useEvents } from "@/components/layout/EventsProvider"
 
 const Chrono = dynamic(() => import("react-chrono").then((mod) => mod.Chrono), {
   ssr: false,
 })
-
 export default function EventPage() {
   const eventContext = useEvents()
   const events = eventContext.events
