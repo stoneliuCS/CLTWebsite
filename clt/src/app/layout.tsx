@@ -22,7 +22,6 @@ export default async function RootLayout({
       "events-api-key" : process.env.GET_EVENTS_API_KEY!
     }
   })
-  //TODO Include an API Key to handle calling this endpoint, protecting the public from calling this endpoint
   if (!res.ok) throw new Error("Problem with fetching events")
   const eventsData = await res.json()
   const events = eventsData.data

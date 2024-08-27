@@ -22,14 +22,14 @@ export default function LinksInput({ tabForm }: LinkInputProps) {
     control,
     name: tabForm.name,
   })
-  const { isSubmitted, isDirty } = formState;
+  const { isSubmitted, isDirty } = formState
 
   useEffect(() => {
     if (!isSubmitted && !isDirty) {
       setValue(tabForm.name, [])
     }
   }, [isDirty])
-  
+
   return (
     <Card className="w-full bg-gray-100">
       <CardHeader className="flex justify-center items-center">
