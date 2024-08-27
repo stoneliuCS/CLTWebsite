@@ -16,9 +16,13 @@ export default async function RootLayout({
   children: React.ReactNode
 }>) {
   const session = await auth()
-  const res = await fetch(`${process.env.NEXTAUTH_URL}/api/events`, {
+  const res = await fetch(`${process.env.BASE_URL}/api/events`, {
     method: "GET",
+    headers : {
+      "events-api-key" : process.env.GET_EVENTS_API_KEY!
+    }
   })
+  //TODO Include an API Key to handle calling this endpoint, protecting the public from calling this endpoint
   if (!res.ok) throw new Error("Problem with fetching events")
   const eventsData = await res.json()
   const events = eventsData.data

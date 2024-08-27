@@ -9,7 +9,6 @@ export interface IDashboard {
 export interface ITab {
   title: string
   key: string
-  accordionView: boolean
   form?: ITabForm[]
 }
 

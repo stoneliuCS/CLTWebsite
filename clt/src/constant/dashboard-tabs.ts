@@ -8,7 +8,6 @@ const tabs: IDashboard[] = [
       {
         title: "Create New Event",
         key: "createEvent",
-        accordionView: true,
         form: [
           {
             name: "eventName",
@@ -81,7 +80,6 @@ const tabs: IDashboard[] = [
       {
         title: "Update Existing Event",
         key: "updateEvent",
-        accordionView: false,
         form: [
           {
             name: "eventId",
@@ -160,7 +158,6 @@ const tabs: IDashboard[] = [
       {
         title: "Delete Existing Event",
         key: "deleteEvent",
-        accordionView: false,
         form : [
           {
             name: "eventId",
@@ -179,17 +176,14 @@ const tabs: IDashboard[] = [
       {
         title: "Create Announcement",
         key: "createAnnouncement",
-        accordionView: false,
       },
       {
         title: "Update Existing Announcement",
         key: "updateAnnouncement",
-        accordionView: false,
       },
       {
         title: "Delete Exisiting Announcement ",
         key: "deleteAnnouncement",
-        accordionView: false,
       },
     ],
   },

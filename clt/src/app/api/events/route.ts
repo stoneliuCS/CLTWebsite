@@ -7,8 +7,8 @@ import { EventSchema } from "@/types/IEvent"
 
 /**
  * Creates a Single Event
- * @param req 
- * @returns 
+ * @param req
+ * @returns
  */
 export async function POST(req: Request) {
   const session = await auth()
@@ -54,18 +54,22 @@ export async function POST(req: Request) {
 
 /**
  * Gets all events
- * @param req 
+ * @param req
  */
-export async function GET() {
+export async function GET(req: Request) {
+  //Protect this api route
+  const key = req.headers.get("events-api-key")
+  if (key !== process.env.GET_EVENTS_API_KEY!)
+    return Response.json({ message: "Unauthorized" }, { status: 401 })
   try {
     await connectDB()
     const events = await EventModel.find()
     await closeDB()
     return new Response(
-      JSON.stringify({ message: "Sucessfully got all Events", data : events }),
-      { status: 200 },
+      JSON.stringify({ message: "Sucessfully got all Events", data: events }),
+      { status: 200 }
     )
-  } catch (e : any) {
+  } catch (e: any) {
     return new Response(
       JSON.stringify({ message: "Failed to get all events", error: e.message }),
       { status: 500 }
