@@ -14,7 +14,7 @@ const authOptions: AuthOptions = {
           prompt: "consent",
           access_type: "offline",
           response_type: "code",
-          redirect_uri: process.env.NEXT_PUBLIC_NEXTAUTH_URL!,
+          redirect_uri: process.env.NEXTAUTH_URL!,
           scope: "openid profile email https://www.googleapis.com/auth/drive",
         },
       },
