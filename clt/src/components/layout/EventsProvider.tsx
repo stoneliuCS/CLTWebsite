@@ -8,7 +8,7 @@ interface EventsContext {
 
 const defaultContextValue: EventsContext = {
   events: [],
-  setEvents: () => {}  
+  setEvents: () => { }
 };
 
 const EventsContext = createContext<EventsContext>(defaultContextValue)
@@ -26,9 +26,9 @@ export const EventsProvider: React.FC<{
 }
 
 export const useEvents = () => {
-    const context = useContext(EventsContext);
-    if (!context) {
-      throw new Error("useEvents must be used within an EventsProvider");
-    }
-    return context;
-  };
+  const context = useContext(EventsContext);
+  if (!context) {
+    throw new Error("useEvents must be used within an EventsProvider");
+  }
+  return context;
+};

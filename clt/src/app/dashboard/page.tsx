@@ -71,7 +71,15 @@ export default function Dashboard() {
           }
           break
         case "createAnnouncement":
-          console.log(data)
+          res = await fetch(`/api/announcements`, {
+            method: "POST",
+            body: JSON.stringify(data)
+          })
+          msg = await res.json()
+          if (!res.ok) {
+            toast.error(msg.message)
+            return
+          }
           break
         case "deleteAnnouncement":
           console.log(data)

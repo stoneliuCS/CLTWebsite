@@ -14,8 +14,8 @@ export interface IAnnouncement {
 
 export const AnnouncementSchema = z.object({
   announcementName : z.string(),
-  announcementDate : z.date(),
-  announcementDescription : z.date(),
+  announcementDate : z.string(),
+  announcementDescription : z.string(),
   announcementPhoto: z.union([
     z
       .object({

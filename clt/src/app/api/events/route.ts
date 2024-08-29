@@ -34,6 +34,11 @@ export async function POST(req: Request) {
       value: { src: link, alt: f.fileName },
       enumerable: true,
     })
+  } else {
+    Object.defineProperty(event, "eventImage", {
+      value: { src : "/clt_logo.svg", alt: "Default CLT Placeholder Image"},
+      enumerable : true
+    })
   }
   try {
     await connectDB()

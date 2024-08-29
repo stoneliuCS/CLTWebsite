@@ -27,7 +27,10 @@ export async function POST(req: Request) {
       enumerable: true,
     })
   } else {
-    //Include a stock CLT Image as the photo
+    Object.defineProperty(announcement, "eventImage", {
+      value: { src : "/clt_logo.svg", alt: "Default CLT Placeholder Image"},
+      enumerable : true
+    })
   } 
   try {
     await connectDB()

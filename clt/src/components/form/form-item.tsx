@@ -110,7 +110,7 @@ export function FormItem({ tabForm }: IFormItemProps) {
         <Controller
           name={tabForm.name}
           control={control}
-          defaultValue={""}
+          defaultValue={null}
           rules={{
             required: tabForm.isRequired ? "This field is required" : false,
           }}

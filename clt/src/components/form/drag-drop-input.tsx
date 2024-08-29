@@ -1,5 +1,5 @@
 import { base64File } from "@/lib/utils/file"
-import { Card, CardBody } from "@nextui-org/react"
+import { Button, Card, CardBody } from "@nextui-org/react"
 import { useEffect, useState } from "react"
 import { useDropzone } from "react-dropzone"
 import { useFormContext } from "react-hook-form"
@@ -11,7 +11,7 @@ interface FileWithPreview extends File {
 
 interface DragAndDropProps {
   label: string
-  onDrop : (val : any) => void
+  onDrop: (val: any) => void
 }
 
 export default function DragAndDropInput({ label, onDrop }: DragAndDropProps) {
@@ -82,6 +82,7 @@ export default function DragAndDropInput({ label, onDrop }: DragAndDropProps) {
         <em>{label}</em>
         <input {...getInputProps()} style={{ display: "none" }} />
         <aside className="thumbsContainer">{thumb}</aside>
+        <Button onClick={() => { setFile(undefined) }}> Remove Photo </Button>
       </CardBody>
     </Card>
   )
