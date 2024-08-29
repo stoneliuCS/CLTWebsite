@@ -22,12 +22,11 @@ export default async function RootLayout({
       "events-api-key": process.env.GET_EVENTS_API_KEY!
     }
   })
-  if (!res.ok) {
-    //Better error handling
-    throw new Error("Problem with fetching events")
+  let events = []
+  if (res.ok) {
+    const eventsData = await res.json()
+    events = eventsData.data
   }
-  const eventsData = await res.json()
-  const events = eventsData.data
   return (
     <html lang="en">
       <body className={inter.className}>
