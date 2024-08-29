@@ -16,6 +16,7 @@ export async function POST(req: Request) {
     return Response.json({ error: error }, { status: 400 })
   }
   const announcement = zAnnouncement.data
+  //If there is an announcementPhoto attached to this:
   if (announcement.announcementPhoto) {
     const f = announcement.announcementPhoto
     const removePrefix64 = f.base64.split(",")[1]
@@ -25,10 +26,12 @@ export async function POST(req: Request) {
       value: { src: link, alt: f.fileName },
       enumerable: true,
     })
-  }
+  } else {
+    //Include a stock CLT Image as the photo
+  } 
   try {
     await connectDB()
-    await AnnouncementModel.create(event)
+    await AnnouncementModel.create(announcement)
     await closeDB()
     return new Response(
       JSON.stringify({ message: "Announcement created successfully" }),
