@@ -23,6 +23,7 @@ export default async function RootLayout({
     }
   })
   if (!res.ok) {
+    //Better error handling
     throw new Error("Problem with fetching events")
   }
   const eventsData = await res.json()
