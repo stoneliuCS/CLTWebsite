@@ -13,8 +13,7 @@ export async function PATCH(req: Request) {
       return Response.json({ message: "No Event Id Found" }, { status: 400 })
 
     const id = event._id
-
-    //initialize a connection to the database
+    
     await connectDB()
     await EventModel.findByIdAndUpdate(id, event)
     await closeDB()

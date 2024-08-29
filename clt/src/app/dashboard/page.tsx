@@ -82,10 +82,26 @@ export default function Dashboard() {
           }
           break
         case "deleteAnnouncement":
-          console.log(data)
+          res = await fetch(`/api/announcements/${data._id}`, {
+            method : "DELETE",
+            body: JSON.stringify(data)
+          })
+          msg = await res.json()
+          if (!res.ok) {
+            toast.error(msg.message)
+            return
+          }
           break
         case "updateAnnouncement":
-          console.log(data)
+          res = await fetch(`/api/announcements/${data._id}`, {
+            method : "PATCH",
+            body: JSON.stringify(data)
+          })
+          msg = await res.json()
+          if (!res.ok) {
+            toast.error(msg.message)
+            return
+          }
           break
         default:
           throw new Error("Key does not match any API endpoints")

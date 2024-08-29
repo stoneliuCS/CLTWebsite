@@ -102,13 +102,13 @@ export default function Home() {
                 keyBoardControl={true}
                 arrows={false}
               >
-                {announcements.map((announcement, key) => {
+                {announcements.length > 0 ? announcements.map((announcement, key) => {
                   return (
                     <div key={key}>
                       <AnnouncementCard announcement={announcement} shadow="none" />
                     </div>
                   )
-                })}
+                }) : <div> No Announcements Yet... </div>}
               </Carousel>
             </div>
           </div>
