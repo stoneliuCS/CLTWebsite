@@ -40,6 +40,6 @@ export const EventSchema = z.object({
         base64: z.string(),
       })
       .optional(),
-    z.null().optional()
+    z.string().optional()
   ]),
 })

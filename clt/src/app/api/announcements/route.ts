@@ -13,11 +13,12 @@ export async function POST(req: Request) {
   const zAnnouncement = AnnouncementSchema.safeParse(body)
   if (!zAnnouncement.success) {
     const error = zAnnouncement.error.format()
+    console.log(error)
     return Response.json({ error: error }, { status: 400 })
   }
   const announcement = zAnnouncement.data
   //If there is an announcementPhoto attached to this:
-  if (announcement.announcementPhoto) {
+  if (announcement.announcementPhoto && typeof announcement.announcementPhoto !== 'string') {
     const f = announcement.announcementPhoto
     const removePrefix64 = f.base64.split(",")[1]
     const file = base64ToFile(removePrefix64, f.fileName, f.fileType)
@@ -27,7 +28,7 @@ export async function POST(req: Request) {
       enumerable: true,
     })
   } else {
-    Object.defineProperty(announcement, "eventImage", {
+    Object.defineProperty(announcement, "announcementPhoto", {
       value: { src : "/clt_logo.svg", alt: "Default CLT Placeholder Image"},
       enumerable : true
     })

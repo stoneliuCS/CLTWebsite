@@ -1,7 +1,7 @@
 import { z } from "zod"
 
 export interface IAnnouncement {
-  _id : string
+  _id: string
   announcementName: string
   announcementDate: string
   announcementDescription: string
@@ -9,13 +9,13 @@ export interface IAnnouncement {
     src: string
     alt: string
   }
-  announcementLinks? : string[]
+  announcementLinks?: string[]
 }
 
 export const AnnouncementSchema = z.object({
-  announcementName : z.string(),
-  announcementDate : z.string(),
-  announcementDescription : z.string(),
+  announcementName: z.string(),
+  announcementDate: z.string(),
+  announcementDescription: z.string(),
   announcementPhoto: z.union([
     z
       .object({
@@ -24,7 +24,7 @@ export const AnnouncementSchema = z.object({
         base64: z.string(),
       })
       .optional(),
-    z.null().optional()
+    z.string().optional()
   ]),
-  announcementLinks : z.array(z.string()).optional()
+  announcementLinks: z.array(z.string()).optional()
 })

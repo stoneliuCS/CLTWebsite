@@ -82,7 +82,7 @@ export default function DragAndDropInput({ label, onDrop }: DragAndDropProps) {
         <em>{label}</em>
         <input {...getInputProps()} style={{ display: "none" }} />
         <aside className="thumbsContainer">{thumb}</aside>
-        <Button onClick={() => { setFile(undefined) }}> Remove Photo </Button>
+        <Button onClick={() => { setFile(undefined); onDrop("") }}> Remove Photo </Button>
       </CardBody>
     </Card>
   )

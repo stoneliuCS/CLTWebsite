@@ -25,7 +25,7 @@ export async function POST(req: Request) {
   }
   const event = zEvent.data
   //Probably a better way to do this but we can replace our eventImage with a public url
-  if (event.eventImage) {
+  if (event.eventImage && typeof event.eventImage !== "string") {
     const f = event.eventImage
     const removePrefix64 = f.base64.split(",")[1]
     const file = base64ToFile(removePrefix64, f.fileName, f.fileType)
