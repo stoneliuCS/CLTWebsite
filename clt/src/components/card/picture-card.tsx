@@ -1,4 +1,4 @@
-import { IEvent } from "@/types/IEvent"
+import { IAnnouncement } from "@/types/IAnnouncement"
 import {
   Card,
   CardBody,
@@ -16,11 +16,11 @@ import NextImage from "next/image"
 type ShadowType = "none" | "sm" | "md" | "lg" | undefined
 
 interface IPictureCardProps {
-  event: IEvent
+  announcement: IAnnouncement
   shadow: ShadowType
 }
 
-export default function PictureCard(props: IPictureCardProps) {
+export default function AnnouncementCard(props: IPictureCardProps) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
   return (
     <div>
@@ -34,8 +34,8 @@ export default function PictureCard(props: IPictureCardProps) {
             <div className=" h-full w-full">
                 <div className="relative w-full h-full">
                   <NextImage
-                    src={props.event.eventImage!.src}
-                    alt={props.event.eventImage!.src}
+                    src={props.announcement.announcementPhoto!.src}
+                    alt={props.announcement.announcementPhoto!.alt}
                     fill
                     style={{ objectFit: "cover" }}
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
@@ -49,7 +49,7 @@ export default function PictureCard(props: IPictureCardProps) {
           <Card className="w-6/12" shadow="lg">
             <CardBody>
               <p className="text-center truncate">
-                <strong>{props.event.eventName}</strong>
+                <strong>{props.announcement.announcementName}</strong>
               </p>
             </CardBody>
           </Card>
@@ -83,15 +83,15 @@ export default function PictureCard(props: IPictureCardProps) {
         <ModalContent>
           <>
             <ModalHeader className="flex flex-col gap-1">
-              {props.event.eventName}
+              {props.announcement.announcementName}
             </ModalHeader>
             <Divider />
             <ModalBody className="flex flex-col">
-              <p>{props.event.eventDescription}</p>
+              <p>{props.announcement.announcementDescription}</p>
             </ModalBody>
             <Divider />
             <ModalFooter className="flex justify-start">
-              <p> {props.event.eventDate} </p>
+              <p> {props.announcement.announcementDate} </p>
             </ModalFooter>
           </>
         </ModalContent>

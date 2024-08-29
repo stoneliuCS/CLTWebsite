@@ -18,9 +18,12 @@ import {
 import { SocialIcon } from "react-social-icons"
 import Logo from "@/components/assets/logo"
 import socials from "@/constant/social"
-import PictureCard from "@/components/card/picture-card"
+import AnnouncementCard from "@/components/card/picture-card"
+import { useAnnouncements } from "@/components/layout/AnnouncementProvider"
 
 export default function Home() {
+  const announcementContext = useAnnouncements()
+  const announcements = announcementContext.announcements
   return (
     <div className="h-screen w-screen flex flex-col">
       <HeroBanner
@@ -99,9 +102,13 @@ export default function Home() {
                 keyBoardControl={true}
                 arrows={false}
               >
-                <div>
-                  Nothing
-                </div>
+                {announcements.map((announcement, key) => {
+                  return (
+                    <div key={key}>
+                      <AnnouncementCard announcement={announcement} shadow="none" />
+                    </div>
+                  )
+                })}
               </Carousel>
             </div>
           </div>

@@ -13,11 +13,9 @@ export async function POST(req: Request) {
   const zAnnouncement = AnnouncementSchema.safeParse(body)
   if (!zAnnouncement.success) {
     const error = zAnnouncement.error.format()
-    console.log(error)
     return Response.json({ error: error }, { status: 400 })
   }
   const announcement = zAnnouncement.data
-  //If there is an announcementPhoto attached to this:
   if (announcement.announcementPhoto && typeof announcement.announcementPhoto !== 'string') {
     const f = announcement.announcementPhoto
     const removePrefix64 = f.base64.split(",")[1]
@@ -29,10 +27,10 @@ export async function POST(req: Request) {
     })
   } else {
     Object.defineProperty(announcement, "announcementPhoto", {
-      value: { src : "/clt_logo.svg", alt: "Default CLT Placeholder Image"},
-      enumerable : true
+      value: { src: "/clt_logo.svg", alt: "Default CLT Placeholder Image" },
+      enumerable: true
     })
-  } 
+  }
   try {
     await connectDB()
     await AnnouncementModel.create(announcement)
@@ -45,6 +43,28 @@ export async function POST(req: Request) {
     console.error(e)
     return new Response(
       JSON.stringify({ message: "Failed to create event", error: e.message }),
+      { status: 500 }
+    )
+  }
+}
+
+export async function GET(req: Request) {
+  const key = req.headers.get('announcements-api-key')
+  if (key !== process.env.GET_ANNOUNCEMENTS_API_KEY) {
+    return Response.json({ message: "Unauthorized" }, { status: 401 })
+  }
+  try {
+    await connectDB()
+    const announcements = await AnnouncementModel.find()
+    await closeDB()
+    return new Response(
+      JSON.stringify({ message: "Sucessfully got all Events", data: announcements }),
+      { status: 200 }
+    )
+  } catch (e: any) {
+    console.log(e)
+    return new Response(
+      JSON.stringify({ message: "Failed to get all announcements", error: e.message }),
       { status: 500 }
     )
   }
