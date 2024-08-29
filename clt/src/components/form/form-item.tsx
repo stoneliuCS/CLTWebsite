@@ -10,6 +10,7 @@ import DragAndDropInput from "./drag-drop-input"
 import LinksInput from "./links-input"
 import { parseDate, parseTime } from "@internationalized/date"
 import { EventAutocomplete } from "./event-autocomplete"
+import { AnnouncementAutocomplete } from "./announcement-autocomplete"
 
 interface IFormItemProps {
   tabForm: ITabForm
@@ -143,6 +144,24 @@ export function FormItem({ tabForm }: IFormItemProps) {
           }}
         />
       )
+    case "announcementAutocomplete":
+      return (<Controller
+        name={tabForm.name}
+        control={control}
+        defaultValue=""
+        rules={{
+          required: tabForm.isRequired ? "This field is required" : false,
+        }}
+        render={({ field, fieldState }) => {
+          return (
+            <AnnouncementAutocomplete
+              tabForm={tabForm}
+              field={field}
+              fieldState={fieldState}
+            />
+          )
+        }}
+      />)
     default:
       throw new Error("No tab form type matched.")
   }

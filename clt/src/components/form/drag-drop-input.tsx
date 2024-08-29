@@ -70,20 +70,23 @@ export default function DragAndDropInput({ label, onDrop }: DragAndDropProps) {
   }, [])
 
   return (
-    <Card
-      className="border-2 border-slate-400 bg-gray-100 border-dashed w-full"
-      isPressable
-    >
-      <CardBody
-        {...getRootProps({
-          className: "flex flex-col items-center justify-center",
-        })}
+    <div className="flex flex-col justify-center items-center gap-y-2">
+      <Card
+        className="border-2 border-slate-400 bg-gray-100 border-dashed w-full"
+        isPressable
       >
-        <em>{label}</em>
-        <input {...getInputProps()} style={{ display: "none" }} />
-        <aside className="thumbsContainer">{thumb}</aside>
-        <Button onClick={() => { setFile(undefined); onDrop("") }}> Remove Photo </Button>
-      </CardBody>
-    </Card>
+        <CardBody
+          {...getRootProps({
+            className: "flex flex-col items-center justify-center",
+          })}
+        >
+          <em>{label}</em>
+          <input {...getInputProps()} style={{ display: "none" }} />
+          <aside className="thumbsContainer">{thumb}</aside>
+        </CardBody>
+
+      </Card>
+      <Button onClick={() => { setFile(undefined); onDrop("") }}> Clear Photo </Button>
+    </div>
   )
 }

@@ -21,6 +21,7 @@ export interface ITabForm {
     | "drag&drop"
     | "links"
     | "eventAutocomplete"
+    | "announcementAutocomplete"
   name: string
   label: string
   isRequired: boolean

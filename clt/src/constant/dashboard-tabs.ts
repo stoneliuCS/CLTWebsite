@@ -214,6 +214,12 @@ const tabs: IDashboard[] = [
         key: "updateAnnouncement",
         form: [
           {
+            name : "_id",
+            type : "announcementAutocomplete",
+            label : "Select an Announcement",
+            isRequired : true
+          },
+          {
             name: "announcementName",
             type: "input",
             label: "Announcement Name",
@@ -248,6 +254,14 @@ const tabs: IDashboard[] = [
       {
         title: "Delete Exisiting Announcement ",
         key: "deleteAnnouncement",
+        form : [
+          {
+            name : "_id",
+            type : "announcementAutocomplete",
+            label : "Select an Announcement",
+            isRequired : true
+          }
+        ]
       },
     ],
   },
