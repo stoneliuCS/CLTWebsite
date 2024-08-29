@@ -18,11 +18,13 @@ export default async function RootLayout({
   const session = await auth()
   const res = await fetch(`${process.env.BASE_URL}/api/events`, {
     method: "GET",
-    headers : {
-      "events-api-key" : process.env.GET_EVENTS_API_KEY!
+    headers: {
+      "events-api-key": process.env.GET_EVENTS_API_KEY!
     }
   })
-  if (!res.ok) throw new Error("Problem with fetching events")
+  if (!res.ok) {
+    throw new Error("Problem with fetching events")
+  }
   const eventsData = await res.json()
   const events = eventsData.data
   return (
