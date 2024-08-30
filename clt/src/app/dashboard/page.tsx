@@ -106,8 +106,8 @@ export default function Dashboard() {
         default:
           throw new Error("Key does not match any API endpoints")
       }
-      toast.success("Successfully Submitted!")
-      window.location.reload()
+      methods.reset()
+      toast.success("Successfully submitted, you may need to refresh your page to see any updated changes.")
     }
   }
 

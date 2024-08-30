@@ -86,7 +86,7 @@ export default function DragAndDropInput({ label, onDrop }: DragAndDropProps) {
         </CardBody>
 
       </Card>
-      <Button onClick={() => { setFile(undefined); onDrop("") }}> Clear Photo </Button>
+      <Button color="primary" onClick={() => { setFile(undefined); onDrop("") }}> Clear Photo </Button>
     </div>
   )
 }
