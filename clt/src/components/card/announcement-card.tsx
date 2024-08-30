@@ -29,12 +29,12 @@ export default function AnnouncementCard(props: IAnnouncementCardProps) {
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
       >
-        <Card className="h-full w-full" shadow={props.shadow} isPressable onClick={onOpen}>
+        <Card className="w-full h-full" shadow={props.shadow} isPressable onClick={onOpen}>
           <NextImage
             src={props.announcement.announcementPhoto!.src}
             alt={props.announcement.announcementPhoto!.alt}
-            fill 
-            className="object-fit" 
+            fill
+            objectFit="cover"
             priority
           />
         </Card>
