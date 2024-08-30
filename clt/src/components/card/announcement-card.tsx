@@ -15,12 +15,12 @@ import NextImage from "next/image"
 
 type ShadowType = "none" | "sm" | "md" | "lg" | undefined
 
-interface IPictureCardProps {
+interface IAnnouncementCardProps {
   announcement: IAnnouncement
   shadow: ShadowType
 }
 
-export default function AnnouncementCard(props: IPictureCardProps) {
+export default function AnnouncementCard(props: IAnnouncementCardProps) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
   return (
     <div className="relative h-full w-full">
@@ -33,8 +33,8 @@ export default function AnnouncementCard(props: IPictureCardProps) {
           <NextImage
             src={props.announcement.announcementPhoto!.src}
             alt={props.announcement.announcementPhoto!.alt}
-            fill // This prop makes the image fill the container
-            className="object-cover" // Ensures the image covers the container while maintaining aspect ratio
+            fill 
+            className="object-cover" 
             priority
           />
         </Card>
@@ -84,7 +84,7 @@ export default function AnnouncementCard(props: IPictureCardProps) {
             </ModalBody>
             <Divider />
             <ModalFooter className="flex justify-start">
-              <p> {props.announcement.announcementDate} </p>
+              <p> {new Date(props.announcement.announcementDate).toDateString()} </p>
             </ModalFooter>
           </>
         </ModalContent>

@@ -1,5 +1,5 @@
 import { IEvent } from "@/types/IEvent"
-import { Card, CardBody, CardHeader, Link } from "@nextui-org/react"
+import { Card, CardBody, CardFooter, CardHeader, Divider, Link } from "@nextui-org/react"
 import { motion } from "framer-motion"
 import { withClick } from "./flip-card"
 import NextImage from "next/image"
@@ -17,6 +17,7 @@ function OverridePictureCard({
   variant,
   event,
 }: OverridePictureCardProp) {
+  const date = new Date(event.eventDate)
   return (
     <div className="h-[80vh]">
       {variant === "Front" && (
@@ -57,19 +58,20 @@ function OverridePictureCard({
           className="h-full w-full"
         >
           <Card className="h-full w-full">
-            <CardHeader>
+            <CardHeader className="font-bold flex justify-center">
               <h1>{event.eventName}</h1>
             </CardHeader>
+            <Divider />
             <CardBody className="h-full w-full ">
               <p>
                 <strong> Event Start Time: </strong>
-                {event.startTime as unknown as string}
+                {event.startTime}
               </p>
               <p>
                 <strong>Event End Time: </strong> {event.endTime}
               </p>
               <p>
-                <strong>Event Date: </strong> {event.eventDate}
+                <strong>Event Date: </strong> {new Date(event.eventDate).toDateString()}
               </p>
               <p>
                 <strong>Event Location: </strong> {event.eventLocation}
@@ -96,21 +98,22 @@ function OverridePictureCard({
                   : "No Event Phone Number Provided"}
               </p>
 
-              <p>
-                <strong>Event Links: </strong>
-                {event.eventLinks ? (
-                  event.eventLinks.map((eventLink, key) => {
-                    return (
-                      <Link href={eventLink} key={key}>
-                        {eventLink}
-                      </Link>
-                    )
-                  })
-                ) : (
-                  <div> No Event Links </div>
-                )}
-              </p>
             </CardBody>
+            <Divider />
+            <CardFooter className="flex flex-col p-5 overflow-y-scroll">
+              <strong>Event Links: </strong>
+              {event.eventLinks ? (
+                event.eventLinks.map((eventLink, key) => {
+                  return (
+                    <Link href={eventLink} key={key}>
+                      {eventLink}
+                    </Link>
+                  )
+                })
+              ) : (
+                <div> No Event Links </div>
+              )}
+            </CardFooter>
           </Card>
         </motion.div>
       )}
