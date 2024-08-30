@@ -18,7 +18,7 @@ import {
 import { SocialIcon } from "react-social-icons"
 import Logo from "@/components/assets/logo"
 import socials from "@/constant/social"
-import AnnouncementCard from "@/components/card/picture-card"
+import AnnouncementCard from "@/components/card/announcement-card"
 import { useAnnouncements } from "@/components/layout/AnnouncementProvider"
 
 export default function Home() {

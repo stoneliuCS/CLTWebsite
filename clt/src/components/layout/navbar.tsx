@@ -5,7 +5,6 @@ import {
   DropdownItem,
   DropdownMenu,
   DropdownTrigger,
-  Link,
   Navbar,
   NavbarBrand,
   NavbarContent,
@@ -14,6 +13,7 @@ import {
   NavbarMenuItem,
   NavbarMenuToggle,
 } from "@nextui-org/react"
+import Link from "next/link"
 import Logo from "../assets/logo"
 import { ReactNode } from "react"
 import { MdEvent } from "react-icons/md"
@@ -27,7 +27,7 @@ import { MdAdminPanelSettings } from "react-icons/md"
 interface ITabItem {
   tabName: string
   tabIcon?: ReactNode
-  link?: string
+  link: string
 }
 const eventTab: ITabItem = {
   tabName: "Events",
@@ -37,10 +37,12 @@ const eventTab: ITabItem = {
 const eboardTab: ITabItem = {
   tabName: "Meet the Eboard",
   tabIcon: <FaPeopleLine />,
+  link : "/"
 }
 const aboutTab: ITabItem = {
   tabName: "About Chinese Language Table",
   tabIcon: <FaInfoCircle />,
+  link : "/"
 }
 const eboardSignInTab: ITabItem = {
   tabName: "Eboard Login",
