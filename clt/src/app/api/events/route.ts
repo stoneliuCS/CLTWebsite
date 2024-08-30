@@ -1,4 +1,4 @@
-import { connectDB, closeDB } from "@/lib/db/db"
+import { connectDB } from "@/lib/db/db"
 import EventModel from "@/lib/db/models/event"
 import { auth } from "@/lib/utils/auth/auth"
 import { base64ToFile } from "@/lib/utils/file"
@@ -43,7 +43,6 @@ export async function POST(req: Request) {
   try {
     await connectDB()
     await EventModel.create(event)
-    await closeDB()
     return new Response(
       JSON.stringify({ message: "Event created successfully" }),
       { status: 201 }
@@ -69,7 +68,6 @@ export async function GET(req: Request) {
   try {
     await connectDB()
     const events = await EventModel.find()
-    await closeDB()
     return new Response(
       JSON.stringify({ message: "Sucessfully got all Events", data: events }),
       { status: 200 }

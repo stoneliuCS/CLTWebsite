@@ -1,4 +1,4 @@
-import { connectDB, closeDB } from "@/lib/db/db"
+import { connectDB } from "@/lib/db/db"
 import { auth } from "@/lib/utils/auth/auth"
 import AnnouncementModel from "@/lib/db/models/Announcement"
 
@@ -16,7 +16,6 @@ export async function PATCH(req: Request) {
 
         await connectDB()
         await AnnouncementModel.findByIdAndUpdate(id, announcement)
-        await closeDB()
         return Response.json({ status: 200 })
     } catch (e) {
         return Response.json({ message: "Server Error" }, { status: 500 })
@@ -37,7 +36,6 @@ export async function DELETE(req: Request) {
 
         await connectDB()
         await AnnouncementModel.findByIdAndDelete(id)
-        await closeDB()
         return Response.json({ status: 200 })
     } catch (e) {
         return Response.json({ message: "Server Error" }, { status: 500 })

@@ -16,7 +16,6 @@ export async function PATCH(req: Request) {
     
     await connectDB()
     await EventModel.findByIdAndUpdate(id, event)
-    await closeDB()
     return Response.json({ status: 200 })
   } catch (e) {
     return Response.json({ message: "Server Error" }, { status: 500 })
@@ -37,7 +36,6 @@ export async function DELETE(req: Request) {
     const id = event._id
     await connectDB()
     await EventModel.findByIdAndDelete(id)
-    await closeDB()
     return Response.json({ status: 200 })
   } catch (e) {
     return Response.json({ message: "Server Error" }, { status: 500 })
