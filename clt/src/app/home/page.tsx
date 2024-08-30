@@ -104,7 +104,7 @@ export default function Home() {
               >
                 {announcements.length > 0 ? announcements.map((announcement, key) => {
                   return (
-                    <div key={key}>
+                    <div key={key} className="h-[80vh] w-full">
                       <AnnouncementCard announcement={announcement} shadow="none" />
                     </div>
                   )

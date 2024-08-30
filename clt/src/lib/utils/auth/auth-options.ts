@@ -14,7 +14,7 @@ const authOptions: AuthOptions = {
           prompt: "consent",
           access_type: "offline",
           response_type: "code",
-          redirect_uri: process.env.NEXTAUTH_URL,
+          redirect_uri: `${process.env.NEXTAUTH_URL}${process.env.NEXT_PUBLIC_GOOGLE_AUTH_REDIRECT_URL}`,
           scope: "openid profile email https://www.googleapis.com/auth/drive",
         },
       },
@@ -27,17 +27,16 @@ const authOptions: AuthOptions = {
       if (session) {
         //TODO INSTEAD OF ROUTING TO FALSE ROUTE TO AN CUSTOMIZED ERROR PAGE
         return false
-      }
-      //On Sign In, verify that the user has access to the CLT Google Drive
-      if (account) {
+      } else if (account) {
         const oauth2Client = await getOAuthClient(account.access_token)
         const drive = await getGoogleDrive(oauth2Client)
         const permission = await checkDrivePermission(drive)
         if (!permission) return false
         return true
+      } else {
+        //TODO INSTEAD OF ROUTING TO FALSE ROUTE TO AN CUSTOMIZED ERROR PAGE
+        return false
       }
-      //TODO INSTEAD OF ROUTING TO FALSE ROUTE TO AN CUSTOMIZED ERROR PAGE
-      return false
     },
     async redirect({ url, baseUrl }) {
       return baseUrl
