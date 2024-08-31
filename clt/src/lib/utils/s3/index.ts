@@ -2,8 +2,8 @@ import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3"
 
 const s3Client = () => {
   const region = process.env.S3BUCKETREGION
-  const awsPublicKey = process.env.AWS_PUBLIC_KEY
-  const awsSecretKey = process.env.AWS_SECRET_KEY
+  const awsPublicKey = process.env.PUBLIC_KEY_AWS
+  const awsSecretKey = process.env.SECRET_KEY_AWS
   if (!region) throw new Error("aws region undefined")
   if (!awsPublicKey) throw new Error("aws public key undefined")
   if (!awsSecretKey) throw new Error("aws public key undefined")
