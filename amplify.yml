@@ -12,7 +12,7 @@ frontend:
         - cat .env.production
         - npm run build
   artifacts:
-    baseDirectory: .next
+    baseDirectory: clt/.next
     files:
       - '**/*'
   cache:
