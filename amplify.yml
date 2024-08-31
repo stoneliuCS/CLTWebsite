@@ -9,8 +9,8 @@ frontend:
       commands:
         - npm run build
   artifacts:
-    baseDirectory: /clt
+    baseDirectory: clt
     files:
-      - "**/*"
+      - '**/*'
   cache:
     paths: []
