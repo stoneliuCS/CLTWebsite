@@ -1,4 +1,4 @@
-import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3"
+import { PutObjectCommand, S3Client, DeleteObjectCommand } from "@aws-sdk/client-s3"
 
 const s3Client = () => {
   const region = process.env.S3BUCKETREGION
@@ -42,5 +42,51 @@ export async function uploadS3(file: File) {
   } catch (error) {
     console.error("Error uploading file:", error)
     throw new Error("Error uploading file to S3")
+  }
+}
+
+export async function deleteS3File(key : string) {
+  const bucket = process.env.S3BUCKETNAME
+  const region = process.env.S3BUCKETREGION
+  if (!region) throw new Error("aws region undefined")
+  if (!bucket) throw new Error("aws region undefined")
+
+  const command = new DeleteObjectCommand({
+    Bucket : bucket,
+    Key : key
+  })
+
+  try {
+    const client = s3Client()
+    await client.send(command)
+  } catch (error) {
+    console.error("Error uploading file:", error)
+    throw new Error("Error uploading file to S3")
+  }
+}
+
+export function isS3BucketUrl(url: string): boolean {
+  try {
+    const parsedUrl = new URL(url);
+    const s3Pattern = /^(.+)\.s3\.[a-z0-9-]+\.amazonaws\.com$/;
+    
+    if (s3Pattern.test(parsedUrl.hostname)) {
+      return true;
+    }
+    return false;
+  } catch (error) {
+    console.error("Invalid URL:", error);
+    return false;
+  }
+}
+
+export function getS3ObjectKey(url: string): string | null {
+  try {
+    const parsedUrl = new URL(url);
+    const objectKey = parsedUrl.pathname.substring(1);
+    return objectKey;
+  } catch (error) {
+    console.error("Invalid URL:", error);
+    return null;
   }
 }

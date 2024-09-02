@@ -34,7 +34,7 @@ export default function AnnouncementCard(props: IAnnouncementCardProps) {
             src={props.announcement.announcementPhoto!.src}
             alt={props.announcement.announcementPhoto!.alt}
             fill
-            objectFit="cover"
+            objectFit="contain"
             priority
           />
         </Card>

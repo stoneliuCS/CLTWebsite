@@ -8,10 +8,10 @@ export interface IEvent {
   endTime: string //As a string representation of a time
   eventLocation: string
   eventDescription: string
+  eventImage: { src: string; alt: string }
   contactName?: string
   phoneNumber?: string
   emailAddress?: string
-  eventImage?: { src: string; alt: string }
   eventLinks?: string[]
 }
 

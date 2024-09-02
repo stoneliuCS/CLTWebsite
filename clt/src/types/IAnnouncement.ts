@@ -5,7 +5,7 @@ export interface IAnnouncement {
   announcementName: string
   announcementDate: string
   announcementDescription: string
-  announcementPhoto?: {
+  announcementPhoto: {
     src: string
     alt: string
   }
