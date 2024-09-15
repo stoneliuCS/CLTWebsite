@@ -74,6 +74,7 @@ export default function DragAndDropInput({ label, onDrop }: DragAndDropProps) {
       <Card
         className="border-2 border-slate-400 bg-gray-100 border-dashed w-full"
         isPressable
+        isHoverable
       >
         <CardBody
           {...getRootProps({

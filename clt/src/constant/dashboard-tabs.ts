@@ -66,7 +66,7 @@ const tabs: IDashboard[] = [
           {
             name: "eventImage",
             type: "drag&drop",
-            label: "Drag and Drop Your Event Image",
+            label: "Select Your Event Image",
             isRequired: false,
           },
           {
@@ -144,7 +144,7 @@ const tabs: IDashboard[] = [
           {
             name: "eventImage",
             type: "drag&drop",
-            label: "Drag and Drop Your Event Image",
+            label: "Select Your Event Image",
             isRequired: false,
           },
           {
