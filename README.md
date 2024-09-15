@@ -33,4 +33,5 @@
 - Since the main branch is the current production branch, I am the only one allowed to push to production.
 - This application uses Vercel, a streamline way to push Next.js projects to production, read more here: https://vercel.com/
 
-
+TODO:
+- For some reason dragging an image doesn't update the PATCH but manually inserting the file does... not sure why
