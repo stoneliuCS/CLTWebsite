@@ -34,7 +34,7 @@ export default function AnnouncementCard(props: IAnnouncementCardProps) {
           isZoomed
         />
       </Card>
-      <div className="absolute inset-x-0 top-0 flex justify-center mt-4">
+      <div className="absolute inset-x-0 bottom-0 flex justify-center mt-4">
         <Card className="w-6/12" shadow="lg">
           <CardBody>
             <p className="text-center truncate">
