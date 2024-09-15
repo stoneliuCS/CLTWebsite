@@ -12,13 +12,14 @@ import { Card, CardBody, Spinner } from "@nextui-org/react"
 import FlippableCard from "@/components/card/flippable-picture-card"
 import { useState } from "react"
 import { useEvents } from "@/components/layout/EventsProvider"
+import { IEvent } from "@/types/IEvent"
 
 const Chrono = dynamic(() => import("react-chrono").then((mod) => mod.Chrono), {
   ssr: false,
 })
 export default function EventPage() {
   const eventContext = useEvents()
-  const events = eventContext.events
+  const events = sort(eventContext.events)
   const timeline = events.map((event) => {
     return {
       cardTitle: event.eventName,
@@ -27,6 +28,13 @@ export default function EventPage() {
     }
   })
   const [activeIndex, setActiveIndex] = useState(0)  
+  function sort(events: IEvent[]): IEvent[] {
+    return events.sort((a, b) => {
+      const dateA = new Date(a.eventDate).getTime();
+      const dateB = new Date(b.eventDate).getTime();
+      return dateA - dateB;
+    });
+  }
   return (
     <div className="h-screen w-screen p-1">
       <div className="flex flex-col lg:flex-row h-full w-full ">
