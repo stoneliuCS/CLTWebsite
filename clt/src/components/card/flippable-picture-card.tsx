@@ -3,6 +3,8 @@ import { Card, CardBody, CardFooter, CardHeader, Divider, Link } from "@nextui-o
 import { motion } from "framer-motion"
 import { withClick } from "./flip-card"
 import NextImage from "next/image"
+import { addOneDay } from "@/lib/utils"
+
 
 type ShadowType = "none" | "sm" | "md" | "lg" | undefined
 
@@ -71,7 +73,7 @@ function OverridePictureCard({
                 <strong>Event End Time: </strong> {event.endTime}
               </p>
               <p>
-                <strong>Event Date: </strong> {new Date(event.eventDate).toDateString()}
+                <strong>Event Date: </strong> {addOneDay(new Date(event.eventDate)).toDateString()}
               </p>
               <p>
                 <strong>Event Location: </strong> {event.eventLocation}

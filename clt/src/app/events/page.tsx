@@ -13,6 +13,7 @@ import FlippableCard from "@/components/card/flippable-picture-card"
 import { useState } from "react"
 import { useEvents } from "@/components/layout/EventsProvider"
 import { IEvent } from "@/types/IEvent"
+import { addOneDay } from "@/lib/utils"
 
 const Chrono = dynamic(() => import("react-chrono").then((mod) => mod.Chrono), {
   ssr: false,
@@ -23,18 +24,19 @@ export default function EventPage() {
   const timeline = events.map((event) => {
     return {
       cardTitle: event.eventName,
-      date: new Date(event.eventDate),
+      date: addOneDay(new Date(event.eventDate)),
       cardDetailedText: event.eventDescription,
     }
   })
-  const [activeIndex, setActiveIndex] = useState(0)  
+  const [activeIndex, setActiveIndex] = useState(0)
   function sort(events: IEvent[]): IEvent[] {
     return events.sort((a, b) => {
-      const dateA = new Date(a.eventDate).getTime();
-      const dateB = new Date(b.eventDate).getTime();
+      const dateA = addOneDay(new Date(a.eventDate)).getTime()
+      const dateB = addOneDay(new Date(b.eventDate)).getTime()
       return dateA - dateB;
     });
   }
+
   return (
     <div className="h-screen w-screen p-1">
       <div className="flex flex-col lg:flex-row h-full w-full ">
@@ -92,13 +94,13 @@ export default function EventPage() {
           shadow="lg"
         >
           <CardBody className="flex justify-center items-center">
-              <Chrono
-                items={timeline}
-                mode="VERTICAL_ALTERNATING"
-                scrollable={{ scrollbar: true }}
-                disableToolbar
-                activeItemIndex={activeIndex}
-              />
+            <Chrono
+              items={timeline}
+              mode="VERTICAL_ALTERNATING"
+              scrollable={{ scrollbar: true }}
+              disableToolbar
+              activeItemIndex={activeIndex}
+            />
           </CardBody>
         </Card>
       </div>
