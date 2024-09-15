@@ -2,7 +2,8 @@ import { connectDB } from "@/lib/db/db"
 import { auth } from "@/lib/utils/auth/auth"
 import AnnouncementModel from "@/lib/db/models/Announcement"
 import { IAnnouncement } from "@/types/IAnnouncement"
-import { deleteS3File, getS3ObjectKey, isS3BucketUrl } from "@/lib/utils/s3"
+import { deleteS3File, getS3ObjectKey, isS3BucketUrl, uploadS3 } from "@/lib/utils/s3"
+import { base64ToFile } from "@/lib/utils/file"
 
 export async function PATCH(req: Request) {
     const session = await auth()
@@ -10,6 +11,17 @@ export async function PATCH(req: Request) {
         return Response.json({ message: "unauthorized" }, { status: 401 })
     try {
         const announcement = await req.json()
+
+        if (announcement.announcementPhoto.base64) {
+            const f = announcement.announcementPhoto
+            const removePrefix64 = f.base64.split(",")[1]
+            const file = base64ToFile(removePrefix64, f.fileName, f.fileType)
+            const link = await uploadS3(file)
+            Object.defineProperty(announcement, "announcementPhoto", {
+              value: { src: link, alt: f.fileName },
+              enumerable: true,
+            })
+          }
 
         if (!announcement._id)
             return Response.json({ message: "No Announcement Id Found" }, { status: 400 })
@@ -20,6 +32,7 @@ export async function PATCH(req: Request) {
         await AnnouncementModel.findByIdAndUpdate(id, announcement)
         return Response.json({ status: 200 })
     } catch (e) {
+        console.log(e);
         return Response.json({ message: "Server Error" }, { status: 500 })
     }
 }

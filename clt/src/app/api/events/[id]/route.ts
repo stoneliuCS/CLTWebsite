@@ -2,7 +2,8 @@ import { connectDB, closeDB } from "@/lib/db/db"
 import { auth } from "@/lib/utils/auth/auth"
 import EventModel from "@/lib/db/models/event"
 import { IEvent } from "@/types/IEvent"
-import { deleteS3File, getS3ObjectKey, isS3BucketUrl } from "@/lib/utils/s3"
+import { deleteS3File, getS3ObjectKey, isS3BucketUrl, uploadS3 } from "@/lib/utils/s3"
+import { base64ToFile } from "@/lib/utils/file"
 
 export async function PATCH(req: Request) {
   const session = await auth()
@@ -10,6 +11,17 @@ export async function PATCH(req: Request) {
     return Response.json({ message: "unauthorized" }, { status: 401 })
   try {
     const event = await req.json()
+
+    if (event.eventImage.base64) {
+      const f = event.eventImage
+      const removePrefix64 = f.base64.split(",")[1]
+      const file = base64ToFile(removePrefix64, f.fileName, f.fileType)
+      const link = await uploadS3(file)
+      Object.defineProperty(event, "eventImage", {
+        value: { src: link, alt: f.fileName },
+        enumerable: true,
+      })
+    }
 
     if (!event._id)
       return Response.json({ message: "No Event Id Found" }, { status: 400 })

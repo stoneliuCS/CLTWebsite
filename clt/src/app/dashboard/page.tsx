@@ -186,13 +186,11 @@ export default function Dashboard() {
                                 <Button
                                   color="primary"
                                   onPress={async () => {
-                                    //Trigger some loading animation
                                     setLoading(true)
                                     await methods.handleSubmit(
                                       onSubmit(currentTab.key)
                                     )()
                                     setLoading(false)
-                                    //Finish loading animation
                                     onClose()
                                   }}
                                 >

@@ -29,4 +29,8 @@
         - ... (Global Utility Functions)
     - middleware.ts (Executed every /api call)
 
+## Deployment and CI/CD
+- Since the main branch is the current production branch, I am the only one allowed to push to production.
+- This application uses Vercel, a streamline way to push Next.js projects to production, read more here: https://vercel.com/
+
 

@@ -28,9 +28,9 @@ export default function AnnouncementCard(props: IAnnouncementCardProps) {
       <Card className="h-full w-full justify-center items-center flex flex-row gap-x-4" isHoverable isPressable onPress={onOpen}>
         <Image
           removeWrapper
-          alt={"alt"}
+          alt={props.announcement.announcementPhoto.alt}
           src={props.announcement.announcementPhoto.src}
-          className="z-0 w-full h-full"
+          className="z-0 w-full h-full object-cover"
           isZoomed
         />
       </Card>
@@ -38,7 +38,7 @@ export default function AnnouncementCard(props: IAnnouncementCardProps) {
         <Card className="w-6/12" shadow="lg">
           <CardBody>
             <p className="text-center truncate">
-              <strong> {props.announcement.announcementName}, {props.announcement.announcementDate}</strong>
+              <strong> {props.announcement.announcementName}</strong>
             </p>
           </CardBody>
         </Card>
@@ -48,7 +48,9 @@ export default function AnnouncementCard(props: IAnnouncementCardProps) {
               <ModalHeader className="flex flex-col gap-1">{props.announcement.announcementName}</ModalHeader>
               <Divider />
               <ModalBody className="p-5">
-
+                <p>
+                 Date: <strong> {props.announcement.announcementDate} </strong>
+                </p>
                 <p>
                   {props.announcement.announcementDescription}
                 </p>
