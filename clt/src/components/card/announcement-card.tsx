@@ -28,7 +28,7 @@ export default function AnnouncementCard(props: IAnnouncementCardProps) {
       <Card className="h-full w-full justify-center items-center flex flex-row gap-x-4" isHoverable isPressable onPress={onOpen}>
         <Image
           removeWrapper
-          alt={props.announcement.announcementPhoto.alt}
+          alt={"alt"}
           src={props.announcement.announcementPhoto.src}
           className="z-0 w-full h-full"
           isZoomed

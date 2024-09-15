@@ -31,7 +31,7 @@ function OverridePictureCard({
               <div className="relative w-full h-full">
                 <NextImage
                   src={event.eventImage!.src}
-                  alt={event.eventImage!.src}
+                  alt={"alt"}
                   fill
                   style={{ objectFit: "cover" }}
                   sizes="(max-height : 80vh)"
