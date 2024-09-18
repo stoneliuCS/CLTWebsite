@@ -100,7 +100,7 @@ export default function Home() {
                 autoPlay={true}
                 autoPlaySpeed={2500}
                 keyBoardControl={true}
-                arrows={false}
+                arrows={true}
               >
                 {announcements.length > 0 ? announcements.map((announcement, key) => {
                   return (
