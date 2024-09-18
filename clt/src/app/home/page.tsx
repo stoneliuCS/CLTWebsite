@@ -96,7 +96,7 @@ export default function Home() {
                 className="rounded-3xl w-11/12 lg:w-9/12"
                 responsive={responsive}
                 focusOnSelect={true}
-                infinite={false}
+                infinite={true}
                 autoPlay={true}
                 autoPlaySpeed={2500}
                 keyBoardControl={true}

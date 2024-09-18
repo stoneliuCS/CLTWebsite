@@ -11,9 +11,9 @@ const socials : ISocialLink[] = [
         caption : "Our Instagram!"
     },
     {
-        url : "https://web.groupme.com/",
-        href : "https://web.groupme.com/join_group/66713728/cSnDD7zH",
-        caption : "Our GroupMe!"
+        url : "https://slack.com",
+        href : "neuclt.slack.com",
+        caption : "Our Slack!"
     },
     {
         url : "https://www.spotify.com/",

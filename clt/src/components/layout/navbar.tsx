@@ -37,7 +37,7 @@ const eventTab: ITabItem = {
 const eboardTab: ITabItem = {
   tabName: "Meet the Eboard",
   tabIcon: <FaPeopleLine />,
-  link : "/eboard"
+  link : "/eboard'"
 }
 const aboutTab: ITabItem = {
   tabName: "About Chinese Language Table",
@@ -55,7 +55,7 @@ const eboardDashboard: ITabItem = {
   link: "/dashboard",
 }
 
-const menuItems: ITabItem[] = [eventTab, eboardTab, aboutTab]
+const menuItems: ITabItem[] = [eventTab, eboardTab]
 
 export default function NavBar() {
   const { data: session, status } = useSession()
