@@ -30,7 +30,7 @@ export default function AnnouncementCard(props: IAnnouncementCardProps) {
           removeWrapper
           alt={props.announcement.announcementPhoto.alt}
           src={props.announcement.announcementPhoto.src}
-          className="z-0 w-full h-full"
+          className="z-0 w-full h-full object-cover"
           isZoomed
         />
       </Card>

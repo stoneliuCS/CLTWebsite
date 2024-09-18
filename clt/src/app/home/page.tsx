@@ -44,7 +44,7 @@ export default function Home() {
                   sequence={[
                     "Welcome to Chinese Language Table @NEU",
                     5000,
-                    "欢迎,来到中文表.",
+                    "欢迎,来到中文桌子.",
                     5000,
                   ]}
                   speed={50}
@@ -71,10 +71,10 @@ export default function Home() {
                   whileTap={{ scale: 0.9 }}
                 >
                   <a
-                    href="#"
+                    href="/eboard"
                     className="text-sm font-semibold leading-6 text-gray-900"
                   >
-                    Learn About What We Do <span aria-hidden="true">→</span>
+                    Learn About Us <span aria-hidden="true">→</span>
                   </a>
                 </motion.div>
               </div>

@@ -37,7 +37,7 @@ const eventTab: ITabItem = {
 const eboardTab: ITabItem = {
   tabName: "Meet the Eboard",
   tabIcon: <FaPeopleLine />,
-  link : "/"
+  link : "/eboard"
 }
 const aboutTab: ITabItem = {
   tabName: "About Chinese Language Table",
