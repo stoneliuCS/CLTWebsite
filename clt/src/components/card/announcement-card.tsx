@@ -25,13 +25,12 @@ export default function AnnouncementCard(props: IAnnouncementCardProps) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
   return (
     <div className="relative h-full w-full">
-      <Card className="h-full w-full justify-center items-center flex flex-row gap-x-4" isHoverable isPressable onPress={onOpen}>
+      <Card className="h-full w-full justify-center items-center flex flex-row gap-x-4 bg-gradient-to-r from-sky-100 to-blue-100" isHoverable isPressable onPress={onOpen}>
         <Image
           removeWrapper
           alt={props.announcement.announcementPhoto.alt}
           src={props.announcement.announcementPhoto.src}
-          className="z-0 w-full h-full object-cover"
-          isZoomed
+          className="z-0 w-full h-full object-contain"
         />
       </Card>
       <div className="absolute inset-x-0 bottom-0 flex justify-center mb-4">
